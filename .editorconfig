@@ -14,10 +14,6 @@ trim_trailing_whitespace = false
 [*.yml]
 indent_size = 2
 
-[*.vue]
-indent_style = space
-indent_size = 2
-
 [*.js]
 indent_style = space
 indent_size = 2
@@ -25,18 +21,6 @@ indent_size = 2
 [*.css]
 indent_style = tab
 indent_size = 4
-
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace = true
-insert_final_newline = true
-
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace = true
-insert_final_newline = true
 
 [*.{js,jsx,ts,tsx,vue}]
 indent_style = space
