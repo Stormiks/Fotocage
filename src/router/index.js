@@ -21,6 +21,10 @@ const routes = [
         component: () => import('@/views/Home.vue'),
       },
       {
+        path: 'upload',
+        name: 'Upload-Images',
+        component: () => import('@/views/UploadImages/'),
+      },
       {
         path: 'gallery',
         name: 'Gallery-Images',
