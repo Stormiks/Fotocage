@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/'
 
-import DefaultLayout from '@/views/layouts/DefaultLayout'
+import DefaultLayout from '@/views/layouts/DefaultLayout/DefaultLayout'
 import AuthLayout from '@/views/layouts/AuthLayout/AuthLayout'
 import ErrorLayout from '@/views/layouts/ErrorLayout'
 
