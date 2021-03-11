@@ -16,7 +16,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   lintOnSave: process.env.NODE_ENV !== 'production',
-  runtimeCompiler: true,
+  // runtimeCompiler: true,
   productionSourceMap: process.env.NODE_ENV !== 'production',
   css: {
     extract: true,
@@ -31,7 +31,6 @@ module.exports = {
         'router': path.resolve('src/router'),
         'components': path.resolve('src/components'),
       }
-    }
+    },
   }
-  // chainWebpack: config => {}
 }
