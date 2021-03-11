@@ -37,16 +37,8 @@
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
     "lint-staged": "^9.5.0",
+    "miragejs": "^0.1.41",
     "vue-cli-plugin-tailwind": "~2.0.6",
     "vue-template-compiler": "^2.6.12"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
-    ]
   }
 }
