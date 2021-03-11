@@ -20,6 +20,12 @@ const routes = [
         name: 'Home',
         component: () => import('@/views/Home.vue'),
       },
+      {
+      {
+        path: 'gallery',
+        name: 'Gallery-Images',
+        component: () => import('@/views/GalleryImages/'),
+      },
     ],
   },
   {
