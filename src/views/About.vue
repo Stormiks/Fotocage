@@ -1,5 +1,11 @@
 <template>
-  <div class="about">
+  <section class="about">
     <h1>ABOUT PAGE</h1>
-  </div>
+  </section>
 </template>
+
+<script>
+export default {
+  name: 'ViewsAbout'
+}
+</script>

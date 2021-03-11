@@ -9,3 +9,5 @@ export default {
   name: 'AuthLayout'
 }
 </script>
+
+<style lang="less" src="./style.less">
