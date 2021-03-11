@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import DefaultLayout from '@/views/layouts/DefaultLayout'
-import AuthLayout from '@/views/layouts/AuthLayout'
+import AuthLayout from '@/views/layouts/AuthLayout/AuthLayout'
 import ErrorLayout from '@/views/layouts/ErrorLayout'
 
 Vue.use(VueRouter)
@@ -16,6 +16,26 @@ const routes = [
     meta: {
       layout: 'default'
     }
+  {
+    path: '/auth',
+    name: 'Auth',
+    component: AuthLayout,
+    children: [
+      {
+        path: 'registration',
+        name: 'Registation',
+        component: () => import('@/views/Registation/')
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/views/Login/index.vue')
+      },
+      {
+        path: '',
+        redirect: { name: 'Login' }
+      }
+    ]
   },
   {
     path: '/about',
