@@ -1,5 +1,7 @@
 # Fotocage
 
+Старая версия: <https://stormiks.github.io/portfolio/photocage/>
+
 ## Развёртывание проекта
 ```
 yarn install
@@ -50,8 +52,8 @@ yarn build
 ```
 
 ### В проекте используется, следующие готовые компоненты:
-- Tailwindcss (https://tailwindcss.com/)
-- Axios (https://github.com/axios/axios)
-- Vue-axios (https://github.com/imcvampire/vue-axios)
-- Vue-router (https://github.com/vuejs/vue-router)
-- Vuex (https://github.com/vuejs/vuex)
+- Tailwindcss (<https://tailwindcss.com/>)
+- Axios (<https://github.com/axios/axios>)
+- Vue-axios (<https://github.com/imcvampire/vue-axios>)
+- Vue-router (<https://github.com/vuejs/vue-router>)
+- Vuex (<https://github.com/vuejs/vuex>)
