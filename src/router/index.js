@@ -18,9 +18,9 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        component: () => import('@/views/Home.vue')
-      }
-    ]
+        component: () => import('@/views/Home.vue'),
+      },
+    ],
   },
   {
     path: '/auth',
@@ -30,47 +30,51 @@ const routes = [
       {
         path: 'registration',
         name: 'Registation',
-        component: () => import('@/views/Registation/')
+        component: () => import('@/views/Registation/'),
       },
       {
         path: 'login',
         name: 'Login',
-        component: () => import('@/views/Login/index.vue')
+        component: () => import('@/views/Login/'),
       },
       {
         path: '',
-        redirect: { name: 'Login' }
-      }
-    ]
+        redirect: { name: 'Login' },
+      },
+    ],
   },
   {
     path: '/about',
     name: 'About',
     component: () => import('@/views/About.vue'),
-    meta: {
-      layout: 'default'
-    }
   },
   {
     path: '*',
-    name: 'Error-Not-Found',
-    component: () => import('@/views/Errors/ErrorNotFound.vue'),
-    meta: {
-      layout: 'error'
-    }
-  }
+    component: ErrorLayout,
+    children: [
+      {
+        path: 'page-not-found',
+        name: 'Error-Not-Found',
+        component: () => import('@/views/Errors/ErrorNotFound.vue'),
+      },
+      {
+        path: '',
+        redirect: { name: 'Error-Not-Found' },
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 // eslint-disable-next-line no-multiple-empty-lines
 router.beforeEach((to, from, next) => {
   if (store.state.isLogin) {
-    if (to.name === 'Login') {
+    if (to.name === 'Auth') {
       next({ name: 'Home' })
     } else {
       next()

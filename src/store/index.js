@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+const store = {
   state: {
     isLogin: false
   },
@@ -19,4 +17,9 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+}
+
+
+Vue.use(Vuex)
+
+export default new Vuex.Store(store)
