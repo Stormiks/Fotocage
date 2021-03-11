@@ -69,17 +69,17 @@ const router = new VueRouter({
 
 // eslint-disable-next-line no-multiple-empty-lines
 router.beforeEach((to, from, next) => {
-  // if (store.state.isLogin) {
-  //   if (to.name === 'Login') {
-  //     next({ name: 'Home' })
-  //   } else {
+  if (store.state.isLogin) {
+    if (to.name === 'Login') {
+      next({ name: 'Home' })
+    } else {
       next()
-//     }
-//   } else {
-//     if (to.name === 'Login') {
-//       next()
-//     } else next({ name: 'Login' })
-//   }
+    }
+  } else {
+    if (to.name === 'Login' || to.name === 'Registation') {
+      next()
+    } else next({ name: 'Login' })
+  }
 })
 
 // eslint-disable-next-line no-multiple-empty-lines
