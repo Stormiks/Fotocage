@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div class="auth-layout min-h-full">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'AuthLayout'
 }
 </script>

@@ -1,7 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import DefaultLayout from '@/views/layouts/DefaultLayout'
+import AuthLayout from '@/views/layouts/AuthLayout'
+import ErrorLayout from '@/views/layouts/ErrorLayout'
 
 Vue.use(VueRouter)
+
+// component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
 
 const routes = [
   {
