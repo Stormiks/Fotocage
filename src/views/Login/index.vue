@@ -33,7 +33,7 @@
           if (res.status) {
             this.$store.dispatch('updateStatusLogin', true)
 
-            this.$router.push({ name: 'Home' })
+            this.$router.push({ name: 'Gallery-Images' })
           } else
             this.$store.dispatch('updateStatusLogin', false)
         }).catch(e => console.log(e))

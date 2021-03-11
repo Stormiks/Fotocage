@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-layout min-h-full">
+  <div class="layout auth-layout min-h-full">
     <router-view/>
   </div>
 </template>
