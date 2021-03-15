@@ -47,7 +47,7 @@
 
   header {
     height: 92px;
-    background: linear-gradient(to top, #e0e0e0, #fff);
+    background: linear-gradient(to top, #e0e0e0, @color-white);
     border-bottom: 1px solid #b1acac;
     display: flex;
     justify-content: space-around;
@@ -87,7 +87,8 @@
     width: 76px;
 
     &:hover {
-      background: linear-gradient(to top, #bababa, #fff);
+      background: linear-gradient(to top, #bababa, @color-white);
+    }
       border-bottom: 3px solid #ff7900;
       transition-duration: 0.5s;
     }

@@ -11,16 +11,16 @@ body {
 
 .form__auth {
   position: relative;
-  background-color: #fff;
-  background: linear-gradient(to top, #fff, #eee);
+  background-color: @color-white;
+  background: linear-gradient(to top, @color-white, #eee);
   padding: 30px;
   z-index: 0;
   border-radius: 3px;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.2),
               0 1px 1px rgba(0, 0, 0, .2),
-              0 3px 0 #fff,
+              0 3px 0 @color-white,
               0 4px 0 rgba(0, 0, 0, .2),
-              0 6px 0 #fff,
+              0 6px 0 @color-white,
               0 7px 0 rgba(0, 0, 0, .2);
 
   &:before {
@@ -32,7 +32,7 @@ body {
     bottom: 5px;
     left: 5px;
     right: 5px;
-    box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px @color-white;
   }
 
   h1 {
@@ -64,10 +64,10 @@ body {
     margin: 0 0 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+    box-shadow: 0 1px 1px #ccc inset, 0 1px 0 @color-white;
 
     &:focus {
-      background-color: #fff;
+      background-color: @color-white;
       border-color: #e8c291;
       outline: none;
       box-shadow: 0 0 0 1px #e8c291 inset;
