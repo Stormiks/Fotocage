@@ -24,6 +24,21 @@
           Обо мне
         </router-link>
       </div>
+      <div
+        class="list-item link4 p-2"
+        @click="logout"
+      >
+        <a
+          class="px-1"
+          title="Выйти"
+        >
+          <img
+            src="/assets/img/bar-img/logout.png"
+            alt="Logout"
+          />
+          Выйти
+        </a>
+      </div>
     </nav>
   </header>
 </template>
@@ -31,6 +46,11 @@
 <script>
   export default {
     name: 'DefaultLayoutNavbar',
+    methods: {
+      logout() {
+        this.$store.dispatch('logout').then(status => this.$router.push({ name: 'Login' }))
+      }
+    }
   }
 </script>
 

@@ -18,7 +18,10 @@ const routes = [
       {
         path: '',
         name: 'Home',
-        component: () => import('@/views/Home.vue'),
+        redirect: {
+          name: 'Gallery-Images'
+        },
+        component: () => import('@/views/Home.vue')
       },
       {
         path: 'upload',
@@ -84,11 +87,9 @@ const router = new VueRouter({
 // eslint-disable-next-line no-multiple-empty-lines
 router.beforeEach((to, from, next) => {
   if (store.state.isLogin) {
-    if (to.name === 'Auth') {
+    if (to.name === 'Login' || to.name === 'Registation') {
       next({ name: 'Home' })
-    } else {
-      next()
-    }
+    } else next()
   } else {
     if (to.name === 'Login' || to.name === 'Registation') {
       next()
