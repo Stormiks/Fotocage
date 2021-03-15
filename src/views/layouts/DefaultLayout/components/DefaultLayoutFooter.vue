@@ -14,7 +14,7 @@
 
 <style lang="less" scoped>
   footer {
-    border-top: 1px dashed #e6e5e5;
+    // border-top: 1px dashed #e6e5e5;
     height: 86px;
 
     &-info {
