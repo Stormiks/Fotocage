@@ -1,3 +1,13 @@
+@font-face {
+	font-family: 'Lobster';
+	src: local('Lobster'), url('/assets/fonts/Lobster1.4.ttf');
+}
+
+@font-face {
+	font-family: 'Roboto Regular';
+	src: local('Roboto Regular'), url('/assets/fonts/RobotoRegular.ttf');
+}
+
 html, body, #app {
 	min-height: 100vh;
 }
