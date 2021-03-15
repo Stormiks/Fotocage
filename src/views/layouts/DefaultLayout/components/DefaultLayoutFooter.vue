@@ -1,7 +1,7 @@
 <template>
   <footer>
-    <div class="footer-info">
-      <p class="copy">&copy; 2017 Сайт сделан <a href="http://skylinkertu.github.io">Skylinker</a></p>
+    <div class="footer__info">
+      <p class="copy">&copy; 2020 Сайт сделан <a href="http://stormiks.github.io">Skylinker</a></p>
     </div>
   </footer>
 </template>
@@ -15,12 +15,18 @@
 <style lang="less" scoped>
   footer {
     // border-top: 1px dashed #e6e5e5;
-    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
 
-    &-info {
-      margin: 7px;
-      padding: 10px;
-    }
+  .footer__info {
+    margin-left: auto;
+    margin-right: 7px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    padding: 10px;
   }
 
   .copy {
