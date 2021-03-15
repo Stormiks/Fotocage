@@ -35,6 +35,7 @@ module.exports = {
   },
 
   pluginOptions: {
+    // https://github.com/nguyenvanduocit/vue-cli-plugin-style-resources-loader
     'style-resources-loader': {
       preProcessor: 'less',
       patterns: [
