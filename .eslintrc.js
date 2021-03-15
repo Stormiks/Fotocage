@@ -2,11 +2,14 @@ module.exports = {
   root: true,
 
   env: {
-    node: true,
+    node: true
   },
 
   parserOptions: {
     parser: 'babel-eslint',
+    ecmaFeatures: {
+      modules: true
+    }
   },
 
   rules: {
@@ -17,18 +20,18 @@ module.exports = {
       {
         anonymous: 'always',
         named: 'never',
-        asyncArrow: 'always',
-      },
+        asyncArrow: 'always'
+      }
     ],
     // https://eslint.vuejs.org/rules/script-indent.html
     'vue/script-indent': [
       'error',
-      TYPE,
+      2,
       {
         baseIndent: 0,
         switchCase: 0,
-        ignores: [],
-      },
+        ignores: []
+      }
     ],
     'vue/max-attributes-per-line': [
       'error',
@@ -36,9 +39,9 @@ module.exports = {
         singleline: 1,
         multiline: {
           max: 1,
-          allowFirstLine: false,
-        },
-      },
+          allowFirstLine: false
+        }
+      }
     ],
     // https://eslint.vuejs.org/rules/mustache-interpolation-spacing.html
     'vue/mustache-interpolation-spacing': ['error', 'always'],
@@ -46,20 +49,20 @@ module.exports = {
     'vue/no-multi-spaces': [
       'error',
       {
-        ignoreProperties: false,
-      },
+        ignoreProperties: false
+      }
     ],
-    'vue/prop-name-casing': ['error', 'camelCase' | 'snake_case'],
+    'vue/prop-name-casing': ['error', 'camelCase'],
     // https://eslint.vuejs.org/rules/component-tags-order.html
     'vue/component-tags-order': [
       'error',
       {
-        order: ['template', 'script', 'style'],
-      },
+        order: ['template', 'script', 'style']
+      }
     ],
     // https://eslint.vuejs.org/rules/this-in-template.html
-    'vue/this-in-template': ['error', 'never'],
+    'vue/this-in-template': ['error', 'never']
   },
 
-  extends: ['plugin:vue/essential', '@vue/standard'],
+  extends: ['plugin:vue/essential', '@vue/standard']
 }
