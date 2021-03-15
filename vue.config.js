@@ -19,7 +19,7 @@ module.exports = {
   // runtimeCompiler: true,
   productionSourceMap: process.env.NODE_ENV !== 'production',
   css: {
-    extract: true,
+    extract: process.env.NODE_ENV == 'production',
     sourceMap: true
   },
   configureWebpack: {
