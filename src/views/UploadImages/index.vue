@@ -47,6 +47,7 @@
       </div>
       <button
         class="btn primary px-5 py-1 ml-3"
+        :disabled="!files.length"
         @click.stop="uploadHandler"
         type="button"
       >Загрузить</button>
@@ -190,12 +191,19 @@
 
     }
 
-    > button:last-child {
+    > .btn {
       color: @color-white;
       font-size: 22px;
       font-family: "Helvetica Bold", serif;
       border-radius: 5px;
-      background-image: linear-gradient(to top, #ffa400, #ff6600);
+      background-image: linear-gradient(to top, #ff6600, #ffa400);
+      transition: all .33s;
+
+      &:disabled {
+        background-image: linear-gradient(to top, #b9b9b9, #dcdcdc);
+        pointer-events: none;
+        transition: all .33s;
+      }
     }
   }
 
