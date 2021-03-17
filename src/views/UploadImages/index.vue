@@ -2,20 +2,58 @@
   <section class="upload-images">
     <div class="form__upload mx-auto p-2">
       <div
-        @click.stop="uploadInput"
-        class="form__upload__input input_box px-2 py-1"
+        class="form__upload__input"
+        :class="{
+          'form__list_visible': files.length > 1
+        }"
       >
-        <input
-          type="file"
-          id="uploadImage"
-          multiple
-          @change="changeHandler"
-        />
-        <span class="form__upload__image image_title"></span>
-        <button
-          class="btn py-1 px-3"
-          @click.stop="uploadInput"
-        >Открыть</button>
+        <div
+          class="input_box w-full px-2 py-1"
+          :class="{
+            'form__list_show': showListUploadImages
+          }"
+        >
+          <input
+            type="file"
+            id="uploadImage"
+            multiple
+            @change="changeHandler"
+          />
+          <span
+            class="form__upload__image image_title"
+          >
+            <template v-if="files.length === 1">
+              {{ files[0].name }}
+            </template>
+            <template v-else-if="files.length > 1">
+              <span @click.stop="onShowListUploadImages">
+                Количество файлов для загрузки: {{ files.length }}
+              </span>
+            </template>
+          </span>
+          <button
+            class="btn py-1 px-3"
+            @click.stop="uploadInput"
+          >Открыть</button>
+        </div>
+
+        <div
+          v-show="showListUploadImages"
+          class="form__upload__list px-2"
+        >
+          <ul
+            v-if="files.length > 1"
+            class="list__images upload__images"
+          >
+            <li
+              v-for="img in files"
+              :key="`upload-image-title-${img.size}`"
+              class="list__images__item images__title py-0.5"
+            >
+              {{ img.name }}
+            </li>
+          </ul>
+        </div>
       </div>
       <button
         class="btn primary px-5 py-1"
@@ -50,7 +88,8 @@
       }
     },
     data: () => ({
-      files: []
+      files: [],
+      showListUploadImages: false
     }),
     methods: {
       uploadInput() {
@@ -86,6 +125,9 @@
         const { name } = e
         this.files = this.files.filter(file => file.name !== name)
       },
+      onShowListUploadImages() {
+        this.showListUploadImages = !this.showListUploadImages
+      },
 
       // clearPreview(el) {
       //   el.style.bottom = '4px'
@@ -111,18 +153,35 @@
     }
   }
 
+  .form__list_visible {
+    position: relative;
+  }
+
+  .form__upload__list {
+    position: absolute;
+    top: 100%;
+    left: 1px;
+    right: 1px;
+    width: calc(100% - 2px);
+    z-index: 1;
+    background-color: @color-white;
+    box-shadow: 0 1px 2px 0 rgba(#000, 78%);
+    border-radius: 0 0 3px 3px;
+  }
+
   .form__upload {
     display: flex;
     max-width: 75%;
 
-    &__input {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-      justify-content: space-between;
+    .btn:last-child {
+      margin-left: .7em;
+    }
 
-      + .btn {
-        margin-left: .7em;
+    &__input {
+      flex-grow: 1;
+
+      &.form__list_show:hover {
+        border-radius: 5px 5px 0 0;
       }
     }
 
@@ -145,6 +204,9 @@
   }
 
   .input_box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     box-shadow: inset 0 2px 5px 0 #e2dada;
     border-radius: 5px;
     border: 1px solid #cacaca;
