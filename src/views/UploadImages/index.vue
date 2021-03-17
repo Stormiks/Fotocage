@@ -57,7 +57,7 @@
       :list-files="files"
       v-slot="{ title, size, src }"
     >
-      <UploadImagesPreview
+      <PreviewImage
         :name="title"
         :size="size"
         :src="src"
@@ -70,14 +70,14 @@
 
 <script>
   import PreviewListFile from './PreviewListFile'
-  import UploadImagesPreview from './UploadImagesPreview'
+  import PreviewImage from './PreviewImage'
   import UploadListImages from './UploadListImages'
 
   export default {
     name: 'ViewsUploadImages',
     components: {
       PreviewListFile,
-      UploadImagesPreview,
+      PreviewImage,
       UploadListImages
     },
     props: {

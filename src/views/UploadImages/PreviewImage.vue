@@ -2,9 +2,9 @@
   <div class="preview__image">
     <button
       type="button"
-      @click="$emit('preview-remove', file)"
+      @click="$emit('preview-remove', { name })"
       class="preview__image__remove preview_remove"
-      :data-name="file.name"
+      :data-name="name"
     >&times;</button>
 
     <div class="preview__image__size preview_size">
@@ -13,12 +13,12 @@
 
     <figure>
       <img
-        :src="file.src"
-        :alt="file.name"
+        :src="src"
+        :alt="name"
       />
       <figcaption class="preview__image__info preview_info">
         <p>
-          <span :title="file.name">{{ file.name }}</span>
+          <span :title="name">{{ name }}</span>
         </p>
       </figcaption>
     </figure>
@@ -27,29 +27,28 @@
 
 <script>
   export default {
-    name: 'UploadImagesPreview',
+    name: 'PreviewImage',
     props: {
-      file: {
-        type: File,
-        default: () => ({})
-      },
       sizes: {
         type: Array,
         default: () => (['Bytes', 'KB', 'MB', 'GB', 'TB']),
         validate: (val) => {
           return Array.isArray(val)
         }
-      }
+      },
+      name: String,
+      size: Number,
+      src: String
     },
     computed: {
       bytesToSize() {
         const sizes = this.sizes
 
-        if (!this.file.size) return '0 Byte'
+        if (!this.size) return '0 Byte'
 
-        const i = parseInt(Math.floor(Math.log(this.file.size) / Math.log(1024)))
+        const i = parseInt(Math.floor(Math.log(this.size) / Math.log(1024)))
 
-        return Math.round(this.file.size / Math.pow(1024, i)) + ' ' + sizes[i]
+        return Math.round(this.size / Math.pow(1024, i)) + ' ' + sizes[i]
       }
     }
   }
