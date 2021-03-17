@@ -17,7 +17,7 @@
             type="file"
             id="uploadImage"
             multiple
-            @change="changeHandler"
+            @change="onChangeInputUploadFile"
           />
           <span
             class="form__upload__image image_title"
@@ -33,7 +33,7 @@
           </span>
           <button
             class="btn py-1 px-3"
-            @click.stop="uploadInput"
+            @click.stop="onShowWindowUploadFile"
           >Открыть</button>
         </div>
 
@@ -67,7 +67,7 @@
     >
       <UploadImagesPreview
         v-for="(file, ixd) in files"
-        @preview-remove="removeHandler"
+        @preview-remove="onDeleteDownloadFile"
         :file="file"
         :key="`preview-image-${ixd}-${file.size}`"
       />
@@ -92,10 +92,10 @@
       showListUploadImages: false
     }),
     methods: {
-      uploadInput() {
+      onShowWindowUploadFile() {
         return document.getElementById(this.idInputFile).click()
       },
-      changeHandler(e) {
+      onChangeInputUploadFile(e) {
         if (!e.target.files.length) return
 
         const files = Array.from(e.target.files)
@@ -119,7 +119,7 @@
 
         reader.readAsDataURL(img)
       },
-      removeHandler(e) {
+      onDeleteDownloadFile(e) {
         if (!e.name) return
 
         const { name } = e
