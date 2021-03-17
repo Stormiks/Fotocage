@@ -1,20 +1,27 @@
 <template>
-  <div
-    class="preview-image"
-  >
-    <div
+  <div class="preview__image">
+    <button
+      type="button"
       @click="$emit('preview-remove', file)"
-      class="preview-remove"
+      class="preview__image__remove preview_remove"
       :data-name="file.name"
-    >&times;</div>
-    <img
-      :src="file.src"
-      :alt="file.name"
-    />
-    <div class="preview-info">
-      <span>{{ file.name }}</span>
-      {{ bytesToSize }}
+    >&times;</button>
+
+    <div class="preview__image__size preview_size">
+      <span>{{ bytesToSize }}</span>
     </div>
+
+    <figure>
+      <img
+        :src="file.src"
+        :alt="file.name"
+      />
+      <figcaption class="preview__image__info preview_info">
+        <p>
+          <span :title="file.name">{{ file.name }}</span>
+        </p>
+      </figcaption>
+    </figure>
   </div>
 </template>
 
@@ -50,71 +57,110 @@
 
 <style lang="less" scoped>
   .preview {
-    &-image {
+    &_remove {
+      width: 20px;
+      height: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all .22s;
+    }
+
+    &_size {
+      color: #000;
+      font-size: .8rem;
+      line-height: 1.2;
+      font-family: 'Roboto Regular';
+      text-align: center;
+    }
+
+    &_info {
+      font-size: .8rem;
+
+      p {
+        color: #616060;
+        font-family: 'Roboto Regular';
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        &:hover {
+          cursor: help;
+        }
+      }
+    }
+
+    &__image {
       display: flex;
-      align-items: center;
+      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
       position: relative;
       margin-bottom: .5rem;
       margin-right: .5rem;
       overflow: hidden;
-      max-height: 180px;
+      width: 100%;
       max-width: 180px;
+
+      &__size {
+        background: rgba(@color-white, 60%);
+        opacity: 0;
+        position: absolute;
+        padding: .2em;
+        left: 0;
+        top: 0;
+        transition: opacity .22s;
+      }
+
+      figure {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        padding: .3em;
+        width: inherit;
+      }
 
       &:only-of-type {
         margin-right: 0;
         margin-bottom: 0;
       }
 
-      &.removing {
-        transform: scale(0);
-        transition: transform .3s;
-      }
-
       img {
+        border-radius: 5px;
+        height: 180px;
         width: 180px;
         height: auto;
       }
 
       &:hover {
-        .preview-remove {
+        .preview__image__remove,
+        .preview__image__size {
           opacity: 1;
-        }
-
-        .preview-info {
-          bottom: 4px;
         }
       }
     }
 
-    &-remove {
+    &__image__remove {
       opacity: 0;
-      width: 20px;
-      height: 20px;
       position: absolute;
       right: 0;
       top: 0;
-      font-weight: bold;
-      background: rgba(255, 255, 255, .5);
+      background: rgba(@color-white, 54%);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: opacity .22s;
+
+      &:hover {
+        background-color: @color-white;
+      }
     }
 
-    &-info {
-      position: absolute;
-      right: 0;
-      bottom: -30px;
-      left: 0;
-      height: 24px;
-      font-size: .8rem;
-      background: rgba(255, 255, 255, .5);
+    &__image__info {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5px;
-      transition: bottom .22s;
+      padding: 0 .55em .2em;
     }
 
     &-info-progress {

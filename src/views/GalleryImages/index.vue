@@ -3,8 +3,16 @@
     <div class="coll-2__block-gallery gallery">
       <article class="gallery-post">
         <figure class="image">
-          <a rel="_blank" target="_blank" href="">
-            <img src="/assets/img/placeholder-image-190x160.jpg" alt="190x160.jpg" class="img" />
+          <a
+            rel="_blank"
+            target="_blank"
+            href=""
+          >
+            <img
+              src="/assets/img/placeholder-image-190x160.jpg"
+              alt="190x160.jpg"
+              class="img"
+            />
           </a>
           <figcaption class="title-img">
             <p>
@@ -68,7 +76,6 @@
       }
     }
   }
-
 
   .image {
     display: inline-block;
