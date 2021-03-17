@@ -37,26 +37,16 @@
           >Открыть</button>
         </div>
 
-        <div
+        <UploadListImages
           v-show="showListUploadImages"
-          class="form__upload__list px-2"
+          :list-names="listNameFiles"
+          v-slot="{ text }"
         >
-          <ul
-            v-if="files.length > 1"
-            class="list__images upload__images"
-          >
-            <li
-              v-for="img in files"
-              :key="`upload-image-title-${img.size}`"
-              class="list__images__item images__title py-0.5"
-            >
-              {{ img.name }}
-            </li>
-          </ul>
-        </div>
+          {{ text }}
+        </UploadListImages>
       </div>
       <button
-        class="btn primary px-5 py-1"
+        class="btn primary px-5 py-1 ml-3"
         @click.stop="uploadHandler"
         type="button"
       >Загрузить</button>
@@ -77,10 +67,14 @@
 
 <script>
   import UploadImagesPreview from './UploadImagesPreview'
+  import UploadListImages from './UploadListImages'
 
   export default {
     name: 'ViewsUploadImages',
-    components: { UploadImagesPreview },
+    components: {
+      UploadImagesPreview,
+      UploadListImages
+    },
     props: {
       idInputFile: {
         type: String,
@@ -91,6 +85,15 @@
       files: [],
       showListUploadImages: false
     }),
+    computed: {
+      listNameFiles() {
+        const arr = []
+
+        this.files.forEach(f => arr.push(f.name))
+
+        return arr
+      }
+    },
     methods: {
       onShowWindowUploadFile() {
         return document.getElementById(this.idInputFile).click()
@@ -155,27 +158,25 @@
 
   .form__list_visible {
     position: relative;
-  }
 
-  .form__upload__list {
-    position: absolute;
-    top: 100%;
-    left: 1px;
-    right: 1px;
-    width: calc(100% - 2px);
-    z-index: 1;
-    background-color: @color-white;
-    box-shadow: 0 1px 2px 0 rgba(#000, 78%);
-    border-radius: 0 0 3px 3px;
+    &:hover {
+      .input_box {
+        cursor: pointer;
+        border-color: darken(#cacaca, 8%);
+        box-shadow: inset 0 0 5px 1px darken(#e2dada, 4%);
+      }
+    }
+
+    &:focus-within {
+      .input_box {
+        background-color: rgba(#f3cfb7, 41%);
+      }
+    }
   }
 
   .form__upload {
     display: flex;
     max-width: 75%;
-
-    .btn:last-child {
-      margin-left: .7em;
-    }
 
     &__input {
       flex-grow: 1;
@@ -211,16 +212,6 @@
     border-radius: 5px;
     border: 1px solid #cacaca;
     transition: all .33s;
-
-    &:hover {
-      cursor: pointer;
-      border-color: darken(#cacaca, 8%);
-      box-shadow: inset 0 0 5px 1px darken(#e2dada, 4%);
-    }
-
-    &:focus-within {
-      background-color: rgba(#f3cfb7, 41%);
-    }
 
     input[type="file"] {
       display: none;
