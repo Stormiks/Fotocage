@@ -52,27 +52,31 @@
         type="button"
       >Загрузить</button>
     </div>
-    <div
-      class="preview"
-      v-if="files.length"
+    <PreviewListFile
+      v-show="files.length"
+      :list-files="files"
+      v-slot="{ title, size, src }"
     >
       <UploadImagesPreview
-        v-for="(file, ixd) in files"
+        :name="title"
+        :size="size"
+        :src="src"
         @preview-remove="onDeleteDownloadFile"
-        :file="file"
-        :key="`preview-image-${ixd}-${file.size}`"
+        :key="`upload-image-${title.length}-${size}`"
       />
-    </div>
+    </PreviewListFile>
   </section>
 </template>
 
 <script>
+  import PreviewListFile from './PreviewListFile'
   import UploadImagesPreview from './UploadImagesPreview'
   import UploadListImages from './UploadListImages'
 
   export default {
     name: 'ViewsUploadImages',
     components: {
+      PreviewListFile,
       UploadImagesPreview,
       UploadListImages
     },
@@ -149,14 +153,6 @@
 </script>
 
 <style lang="less" scoped>
-  .upload-images {
-    .preview {
-      display: flex;
-      flex-wrap: wrap;
-      padding: .5rem;
-    }
-  }
-
   .form__list_visible {
     position: relative;
 
