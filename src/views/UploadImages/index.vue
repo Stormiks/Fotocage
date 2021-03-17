@@ -48,7 +48,7 @@
       <button
         class="btn primary px-5 py-1 ml-3"
         :disabled="!files.length"
-        @click.stop="uploadHandler"
+        @click.stop="onUpload"
         type="button"
       >Загрузить</button>
     </div>
@@ -141,8 +141,32 @@
       //   el.style.bottom = '4px'
       //   el.innerHTML = '<div class="preview-info-progress"></div>'
       // },
+      onUploadProgress(progressEvent) {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log('onUploadProgress', percentCompleted)
+      },
 
-      uploadHandler() {
+      onUpload() {
+        console.log('[onUpload]:', this.files)
+        this.files.forEach(f => {
+          const data = new FormData()
+          data.append('name', f.name)
+          data.append('file', f)
+
+          console.log(data)
+
+          this.axios.put('/api/upload/image', { data: data }, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            },
+            onUploadProgress: this.onUploadProgress
+          }).then(res => {
+            console.log('progress bar', res)
+          }).catch(err => {
+            console.log('ERROR', err)
+          })
+        })
+
       //   preview.querySelectorAll('.preview-remove').forEach(e => e.remove())
       //   const previewInfo = preview.querySelectorAll('.preview-info')
       //   previewInfo.forEach(clearPreview)

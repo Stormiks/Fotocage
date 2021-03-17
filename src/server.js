@@ -29,10 +29,16 @@ export function makeServer({ environment = "development" } = {}) {
         }
       })
 
+      this.put('/upload/image', (schema, req) => {
+        console.log('[SERVER UPLOAD]: ', JSON.parse(req.requestBody))
+
+        return { status: true }
+      })
+
       this.post('/registration', (schema, req) => {
         const attrs = JSON.parse(req.requestBody)
 
-        console.log('[SERVER]', attrs)
+        console.log('[SERVER]: ', attrs)
 
         const user = schema.users.create({
           login: attrs.login,
