@@ -30,9 +30,20 @@ export function makeServer({ environment = 'development' } = {}) {
           password: attrs.password
         })
 
-        user.update({ auth: true })
+        if (!user) {
+          return new Response(401,
+            { some: 'header' },
+            {
+              status: true,
+              user: {
+                id: null,
+                auth: false
+              }
+            }
+          )
+        }
 
-        console.log(user.attrs)
+        user.update({ auth: true })
 
         return {
           status: true,
@@ -46,7 +57,13 @@ export function makeServer({ environment = 'development' } = {}) {
 
       this.get('/auth/:userId/status', (schema, req) => {
         const user = schema.users.find(req.params.userId)
-        console.log(user)
+
+        if (!user) {
+          return {
+            id: null,
+            auth: false
+          }
+        }
 
         return {
           id: user.id,
