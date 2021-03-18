@@ -23,8 +23,10 @@ const store = {
       commit('setLogin', statusAuth)
     },
     getAuthStatusByServer({ state, commit }) {
-      Vue.axios.get(`/api/auth/${state.userId}/status`).then(res => {
+      return Vue.axios.get(`/api/auth/${state.userId}/status`).then(res => {
         commit('setLogin', res.data)
+
+        return res.data.auth
       })
     },
     logout({ commit }, status = false) {

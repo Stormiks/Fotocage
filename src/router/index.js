@@ -84,19 +84,25 @@ const router = new VueRouter({
   routes
 })
 
-// eslint-disable-next-line no-multiple-empty-lines
-router.beforeEach((to, from, next) => {
-  if (store.state.isLogin) store.dispatch('getAuthStatusByServer')
-
-  if (store.state.isLogin) {
-    if (to.name === 'Login' || to.name === 'Registation') {
+function isAuthUser(route, status, next) {
+  if (status) {
+    if (route === 'Login' || route === 'Registation') {
       next({ name: 'Home' })
     } else next()
   } else {
-    if (to.name === 'Login' || to.name === 'Registation') {
+    if (route === 'Login' || route === 'Registation') {
       next()
     } else next({ name: 'Login' })
   }
+}
+
+// eslint-disable-next-line no-multiple-empty-lines
+router.beforeEach((to, from, next) => {
+  if (store.state.isLogin) {
+    store.dispatch('getAuthStatusByServer').then(status => {
+      isAuthUser(to.name, status, next)
+    })
+  } else isAuthUser(to.name, store.state.isLogin, next)
 })
 
 // eslint-disable-next-line no-multiple-empty-lines
