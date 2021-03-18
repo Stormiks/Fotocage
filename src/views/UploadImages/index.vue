@@ -55,12 +55,13 @@
     <PreviewListFile
       v-show="files.length"
       :list-files="files"
-      v-slot="{ title, size, src }"
+      v-slot="{ index, title, size, src }"
     >
       <PreviewImage
         :name="title"
         :size="size"
         :src="src"
+        :ref="`image-download-${index}`"
         @preview-remove="onDeleteDownloadFile"
         :key="`upload-image-${title.length}-${size}`"
       />
@@ -121,6 +122,7 @@
           const src = e.target.result
 
           img.src = src
+          img.download = false
 
           this.files.push(img)
         }
@@ -136,41 +138,38 @@
       onShowListUploadImages() {
         this.showListUploadImages = !this.showListUploadImages
       },
-
-      // clearPreview(el) {
-      //   el.style.bottom = '4px'
-      //   el.innerHTML = '<div class="preview-info-progress"></div>'
-      // },
-      onUploadProgress(progressEvent) {
-        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        console.log('onUploadProgress', percentCompleted)
+      changeDownloadStatus(indexFile, status) {
+        this.$set(this.files[indexFile], 'download', status)
+        this.$refs[`image-download-${indexFile}`].download = status
       },
-
+      changeProgressDownloadFile(indexFile, percentProgress) {
+        this.$refs[`image-download-${indexFile}`].progressDownload = percentProgress
+      },
       onUpload() {
-        console.log('[onUpload]:', this.files)
-        this.files.forEach(f => {
-          const data = new FormData()
-          data.append('name', f.name)
-          data.append('file', f)
+        this.files.some((f, index) => {
+          if (!f.download) {
+            const data = {
+              src: f.src,
+              title: f.name
+            }
 
-          console.log(data)
+            this.axios.put('/api/upload/image', data, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              },
+              onUploadProgress: (progressEvent) => {
+                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
 
-          this.axios.put('/api/upload/image', { data: data }, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            },
-            onUploadProgress: this.onUploadProgress
-          }).then(res => {
-            console.log('progress bar', res)
-          }).catch(err => {
-            console.log('ERROR', err)
-          })
+                this.changeProgressDownloadFile(index, percentCompleted)
+              }
+            }).then(res => {
+              this.changeProgressDownloadFile(index, 100)
+              this.changeDownloadStatus(index, res.data.status)
+            }).catch(err => {
+              console.log('ERROR', err)
+            })
+          }
         })
-
-      //   preview.querySelectorAll('.preview-remove').forEach(e => e.remove())
-      //   const previewInfo = preview.querySelectorAll('.preview-info')
-      //   previewInfo.forEach(clearPreview)
-      //   onUpload(files, previewInfo)
       }
     }
   }

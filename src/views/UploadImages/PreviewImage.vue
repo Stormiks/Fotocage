@@ -1,9 +1,11 @@
 <template>
   <div class="preview__image">
     <button
+      v-if="!download"
       type="button"
       @click="$emit('preview-remove', { name })"
       class="preview__image__remove preview_remove"
+      :disabled="download"
       :data-name="name"
     >&times;</button>
 
@@ -16,10 +18,21 @@
         :src="src"
         :alt="name"
       />
-      <figcaption class="preview__image__info preview_info">
+      <figcaption class="preview__image__info preview_info mt-0.5">
         <p>
           <span :title="name">{{ name }}</span>
         </p>
+
+        <div
+          v-show="progressDownload > 0"
+          class="preview__progress_box progress_download"
+        >
+          <div
+            class="progress_bar"
+            :style="{ 'width': `${progressDownload}%` }"
+          ></div>
+          <span>{{ progressDownload }}%</span>
+        </div>
       </figcaption>
     </figure>
   </div>
@@ -40,6 +53,10 @@
       size: Number,
       src: String
     },
+    data: () => ({
+      progressDownload: 0,
+      download: false
+    }),
     computed: {
       bytesToSize() {
         const sizes = this.sizes
@@ -55,6 +72,26 @@
 </script>
 
 <style lang="less" scoped>
+  .progress {
+    &_bar {
+      background: #42b983;
+      transition: width .22s;
+    }
+
+    &_download {
+      color: #000;
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span:not(class) {
+        letter-spacing: 1px;
+      }
+    }
+  }
+
   .preview {
     &_remove {
       width: 20px;
@@ -72,8 +109,32 @@
       text-align: center;
     }
 
+    &__progress_box {
+      background-color: @color-white;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      span:not(class) {
+        z-index: 2;
+      }
+    }
+
+    .progress_bar {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
     &_info {
       font-size: .8rem;
+      position: relative;
 
       p {
         color: #616060;
@@ -93,7 +154,7 @@
 
     &__image {
       display: flex;
-      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 0 5px 1px rgba(#000, 40%);
       position: relative;
       margin-bottom: .5rem;
       margin-right: .5rem;
@@ -126,7 +187,7 @@
       }
 
       img {
-        border-radius: 5px;
+        border-radius: 3px;
         height: 180px;
         width: 180px;
         height: auto;
@@ -160,18 +221,6 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 .55em .2em;
-    }
-
-    &-info-progress {
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      background: #42b983;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: width .22s;
     }
   }
 </style>
