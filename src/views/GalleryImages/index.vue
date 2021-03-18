@@ -37,6 +37,11 @@
 <script>
   export default {
     name: 'ViewsGalleryImages',
+    created() {
+      this.axios.get('/api/images').then(res => {
+        console.log(res.data)
+      })
+    }
   }
 </script>
 

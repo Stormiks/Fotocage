@@ -5,15 +5,16 @@ import {
   Factory,
   JSONAPISerializer,
   Model
-} from "miragejs"
+} from 'miragejs'
 
 const ApplicationSerializer = Serializer.extend()
 
-export function makeServer({ environment = "development" } = {}) {
+export function makeServer({ environment = 'development' } = {}) {
   const server = new Server({
     serializers: JSONAPISerializer,
     models: {
-      user: Model
+      user: Model,
+      image: Model
     },
     environment,
     routes() {
@@ -30,9 +31,20 @@ export function makeServer({ environment = "development" } = {}) {
       })
 
       this.put('/upload/image', (schema, req) => {
-        console.log('[SERVER UPLOAD]: ', JSON.parse(req.requestBody))
+        const attrs = JSON.parse(req.requestBody)
+        console.log('[SERVER UPLOAD]: ', attrs)
+
+        schema.images.create({
+          src: attrs.src
+        })
 
         return { status: true }
+      })
+
+      this.get('/images', (schema, req) => {
+        const images = schema.images.all()
+
+        return images
       })
 
       this.post('/registration', (schema, req) => {
