@@ -1,6 +1,7 @@
 import {
   Server,
   Serializer,
+  Response,
   RestSerializer,
   Factory,
   JSONAPISerializer,
@@ -73,18 +74,33 @@ export function makeServer({ environment = 'development' } = {}) {
       this.post('/registration', (schema, req) => {
         const attrs = JSON.parse(req.requestBody)
 
-        console.log('[SERVER]: ', attrs)
-
         const user = schema.users.create({
           login: attrs.login,
-          password: attrs.password
+          password: attrs.password,
+          auth: false
         })
 
-        if (!user) return { status: false }
+        if (!user) {
+          return new Response(401,
+            { some: 'header' },
+            {
+              status: true,
+              user: {
+                id: null,
+                auth: false
+              }
+            }
+          )
+        }
+
+        user.update({ auth: true })
 
         return {
           status: true,
-          user
+          user: {
+            id: user.id,
+            auth: user.auth
+          }
         }
       })
 
