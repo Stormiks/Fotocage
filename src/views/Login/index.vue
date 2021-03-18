@@ -7,12 +7,14 @@
       <h1>Приветствую тебя пользователь!</h1>
       <div class="form__group flex flex-col">
         <input
+          v-model="user.login"
           id="username"
           name="name"
           type="text"
           placeholder="Логин"
           autofocus />
         <input
+          v-model="user.password"
           id="password"
           name="pass"
           type="password"
@@ -20,6 +22,7 @@
       </div>
       <div class="form__footer">
         <input
+          :disabled="!validForm"
           type="submit"
           name="val"
           value="ВОЙТИ" />
@@ -36,18 +39,48 @@
 <script>
   export default {
     name: 'ViewsLogin',
+    data: () => ({
+      user: {
+        login: 'Test',
+        password: 'test'
+      },
+      validLogin: false,
+      validPassword: false
+    }),
+    watch: {
+      'user.login': {
+        immediate: true,
+        handler: function (newVal) {
+          if (newVal !== '' && newVal !== null) {
+            this.validLogin = true
+          } else this.validLogin = false
+        }
+      },
+      'user.password': {
+        immediate: true,
+        handler: function (newVal) {
+          if (newVal !== '' && newVal !== null && newVal.length >= 4) {
+            this.validPassword = true
+          } else this.validPassword = false
+        }
+      }
+    },
+    computed: {
+      validForm() {
+        return this.validLogin === true && this.validPassword === true
+      }
+    },
     methods: {
       login() {
-        this.axios.post('/api/login', {
-          login: 'Test',
-          password: 'test'
-        }).then(res => {
-          if (res.data.status) {
-            this.$store.dispatch('updateStatusLogin', res.data.user)
+        if (this.validForm) {
+          this.axios.post('/api/login', this.user).then(res => {
+            if (res.data.status) {
+              this.$store.dispatch('updateStatusLogin', res.data.user)
 
-            this.$router.push({ name: 'Gallery-Images' })
-          } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
-        }).catch(e => console.log(e))
+              this.$router.push({ name: 'Gallery-Images' })
+            } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
+          }).catch(e => console.log(e))
+        }
       }
     }
   }
