@@ -1,12 +1,12 @@
 import {
   Server,
   Serializer,
-  Response,
-  RestSerializer,
   Factory,
-  JSONAPISerializer,
   Model
 } from 'miragejs'
+
+
+import faker from 'faker'
 
 const ApplicationSerializer = Serializer.extend()
 
@@ -109,15 +109,16 @@ export function makeServer({ environment = 'development' } = {}) {
             }
           )
         }
-
-        user.update({ auth: true })
-
-        return {
-          status: true,
-          user: {
-            id: user.id,
-            auth: user.auth
-          }
+      }),
+      image: Factory.extend({
+        src() {
+          return faker.image.image()
+        },
+        title() {
+          return faker.name.title()
+        },
+        description() {
+          return faker.lorem.words()
         }
       })
 
@@ -133,8 +134,10 @@ export function makeServer({ environment = 'development' } = {}) {
         login: 'Test',
         password: 'test',
         auth: false
-      }
-    ]
+      })
+      server.createList('user', 5)
+      server.createList('image', 5)
+    }
   })
 
   return server

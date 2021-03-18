@@ -1,28 +1,41 @@
 <template>
-  <section class="main__col-2 block-gallery">
-    <div class="coll-2__block-gallery gallery">
-      <article class="gallery-post">
+  <section class="main__col-2 block-gallery py-4">
+    <div
+      v-if="files.length"
+      class="grid grid-cols-4 gap-x-1 gap-y-2 coll-2__block-gallery gallery px-3"
+    >
+      <article
+        v-for="img in files"
+        :key="`gallery-image-${img.id}`"
+        class="gallery-post justify-self-center align-self-center overflow-hidden"
+      >
         <figure class="image">
           <a
-            rel="_blank"
-            target="_blank"
             href=""
+            :title="img.title"
           >
             <img
+              v-if="!img.src"
               src="/assets/img/placeholder-image-190x160.jpg"
               alt="190x160.jpg"
               class="img"
             />
+            <img
+              v-else
+              :src="img.src"
+              :alt="img.title"
+              class="img"
+            />
           </a>
           <figcaption class="title-img">
-            <p>
-              Image Placeholder
+            <p class="truncate">
+              {{ img.title }}
             </p>
           </figcaption>
         </figure>
         <div class="text-post">
           <p class="text-img">
-            Example Detailed description
+            {{ img.description }}
           </p>
         </div>
         <hr />
@@ -31,21 +44,41 @@
         </div>
       </article>
     </div>
+    <div
+      v-else
+      class="coll-2__block-gallery gallery__message text-center m-0 py-5 px-1"
+    >
+      <p>Ваша галлерея пуста. Вы можете загрузить вашу фото-галлерею на главной странице.</p>
+    </div>
   </section>
 </template>
 
 <script>
   export default {
     name: 'ViewsGalleryImages',
+    data: () => ({
+      files: []
+    }),
     created() {
       this.axios.get('/api/images').then(res => {
         console.log(res.data)
+        const images = res.data.images
+
+        if (!images.length) this.files = []
+
+        return images
+      }).then(images => {
+        this.files = images
       })
     }
   }
 </script>
 
 <style lang="less" scoped>
+  .gallery__message {
+    text-align: center;
+  }
+
   .main__col-1,
   .main__col-2 {
     display: block;
@@ -57,23 +90,16 @@
     overflow-x: hidden;
   }
 
-  .block-gallery {
-    align-items: normal;
-    margin: 0;
-    padding: 0;
-    height: inherit;
-  }
-
   .gallery {
-    margin: 0px;
-    padding: 0;
     min-height: 100%;
 
     &-post {
-      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
-      height: 280px;
-      margin: 15px;
+      box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4);
       width: 200px;
+
+      &:nth-of-type(4n) {
+        margin-right: 0;
+      }
 
       hr {
         width: 190px;
