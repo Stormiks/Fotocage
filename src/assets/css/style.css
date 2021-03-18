@@ -8,6 +8,13 @@
 	src: local('Roboto Regular'), url('/assets/fonts/RobotoRegular.ttf');
 }
 
+@font-face {
+	font-family: 'Helvetica Bold';
+	src:
+		local('Helvetica Bold'),
+		url('/assets/fonts/HelveticaNeueCyr-Bold/HelveticaNeueCyr-Bold.ttf');
+}
+
 html, body, #app {
 	min-height: 100vh;
 }
