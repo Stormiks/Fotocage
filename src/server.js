@@ -24,9 +24,20 @@ export function makeServer({ environment = 'development' } = {}) {
 
         console.log('[SERVER]', attrs)
 
+        const user = schema.users.findBy({
+          login: attrs.login,
+          password: attrs.password
+        })
+
+        console.log(user.attrs)
+
         return {
           status: true,
-          user: attrs
+          user: {
+            id: Number(user.id),
+            login: String(user.login),
+            auth: Boolean(user.auth)
+          }
         }
       })
 
@@ -64,7 +75,21 @@ export function makeServer({ environment = 'development' } = {}) {
           user
         }
       })
+
+      this.get('/list/users', (schema) => {
+        return schema.users.all()
+      })
     }
+  })
+
+  server.db.loadData({
+    users: [
+      {
+        login: 'Test',
+        password: 'test',
+        auth: false
+      }
+    ]
   })
 
   return server
