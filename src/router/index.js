@@ -26,14 +26,14 @@ const routes = [
       {
         path: 'upload',
         name: 'Upload-Images',
-        component: () => import('@/views/UploadImages/'),
+        component: () => import('@/views/UploadImages/')
       },
       {
         path: 'gallery',
         name: 'Gallery-Images',
-        component: () => import('@/views/GalleryImages/'),
-      },
-    ],
+        component: () => import('@/views/GalleryImages/')
+      }
+    ]
   },
   {
     path: '/auth',
@@ -43,23 +43,23 @@ const routes = [
       {
         path: 'registration',
         name: 'Registation',
-        component: () => import('@/views/Registation/'),
+        component: () => import('@/views/Registation/')
       },
       {
         path: 'login',
         name: 'Login',
-        component: () => import('@/views/Login/'),
+        component: () => import('@/views/Login/')
       },
       {
         path: '',
-        redirect: { name: 'Login' },
-      },
-    ],
+        redirect: { name: 'Login' }
+      }
+    ]
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/views/About.vue'),
+    component: () => import('@/views/About.vue')
   },
   {
     path: '*',
@@ -68,24 +68,26 @@ const routes = [
       {
         path: 'page-not-found',
         name: 'Error-Not-Found',
-        component: () => import('@/views/Errors/ErrorNotFound.vue'),
+        component: () => import('@/views/Errors/ErrorNotFound.vue')
       },
       {
         path: '',
-        redirect: { name: 'Error-Not-Found' },
-      },
-    ],
-  },
+        redirect: { name: 'Error-Not-Found' }
+      }
+    ]
+  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  routes
 })
 
 // eslint-disable-next-line no-multiple-empty-lines
 router.beforeEach((to, from, next) => {
+  if (store.state.isLogin) store.dispatch('getAuthStatusByServer')
+
   if (store.state.isLogin) {
     if (to.name === 'Login' || to.name === 'Registation') {
       next({ name: 'Home' })

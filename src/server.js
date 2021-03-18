@@ -29,6 +29,8 @@ export function makeServer({ environment = 'development' } = {}) {
           password: attrs.password
         })
 
+        user.update({ auth: true })
+
         console.log(user.attrs)
 
         return {
@@ -36,8 +38,18 @@ export function makeServer({ environment = 'development' } = {}) {
           user: {
             id: Number(user.id),
             login: String(user.login),
-            auth: Boolean(user.auth)
+            auth: user.id > 0
           }
+        }
+      })
+
+      this.get('/auth/:userId/status', (schema, req) => {
+        const user = schema.users.find(req.params.userId)
+        console.log(user)
+
+        return {
+          id: user.id,
+          auth: user.auth
         }
       })
 
