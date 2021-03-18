@@ -1,113 +1,38 @@
 import {
-  Server,
+  createServer,
   Serializer,
   Factory,
   Model
 } from 'miragejs'
 
+import routes from './fake-server/'
 
 import faker from 'faker'
 
 const ApplicationSerializer = Serializer.extend()
 
-export function makeServer({ environment = 'development' } = {}) {
-  const server = new Server({
-    serializers: JSONAPISerializer,
+export function makeServer(environment = 'development') {
+  const server = createServer({
     models: {
       user: Model,
       image: Model
     },
-    environment,
-    routes() {
-      this.namespace = 'api'
-      this.post('/login', (schema, req) => {
-        const attrs = JSON.parse(req.requestBody)
-
-        console.log('[SERVER]', attrs)
-
-        const user = schema.users.findBy({
-          login: attrs.login,
-          password: attrs.password
-        })
-
-        if (!user) {
-          return new Response(401,
-            { some: 'header' },
-            {
-              status: true,
-              user: {
-                id: null,
-                auth: false
-              }
-            }
-          )
-        }
-
-        user.update({ auth: true })
-
-        return {
-          status: true,
-          user: {
-            id: Number(user.id),
-            login: String(user.login),
-            auth: user.id > 0
-          }
-        }
-      })
-
-      this.get('/auth/:userId/status', (schema, req) => {
-        const user = schema.users.find(req.params.userId)
-
-        if (!user) {
-          return {
-            id: null,
-            auth: false
-          }
-        }
-
-        return {
-          id: user.id,
-          auth: user.auth
-        }
-      })
-
-      this.put('/upload/image', (schema, req) => {
-        const attrs = JSON.parse(req.requestBody)
-        console.log('[SERVER UPLOAD]: ', attrs)
-
-        schema.images.create({
-          src: attrs.src
-        })
-
-        return { status: true }
-      })
-
-      this.get('/images', (schema, req) => {
-        const images = schema.images.all()
-
-        return images
-      })
-
-      this.post('/registration', (schema, req) => {
-        const attrs = JSON.parse(req.requestBody)
-
-        const user = schema.users.create({
-          login: attrs.login,
-          password: attrs.password,
-          auth: false
-        })
-
-        if (!user) {
-          return new Response(401,
-            { some: 'header' },
-            {
-              status: true,
-              user: {
-                id: null,
-                auth: false
-              }
-            }
-          )
+    factories: {
+      user: Factory.extend({
+        name() {
+          return faker.name.middleName()
+        },
+        email() {
+          return faker.internet.email()
+        },
+        login() {
+          return faker.name.firstName()
+        },
+        password() {
+          return 'test'
+        },
+        auth() {
+          return false
         }
       }),
       image: Factory.extend({
@@ -121,16 +46,13 @@ export function makeServer({ environment = 'development' } = {}) {
           return faker.lorem.words()
         }
       })
-
-      this.get('/list/users', (schema) => {
-        return schema.users.all()
-      })
-    }
-  })
-
-  server.db.loadData({
-    users: [
-      {
+    },
+    environment,
+    routes,
+    seeds(server) {
+      server.create('user', {
+        name: faker.name.middleName(),
+        email: faker.internet.email(),
         login: 'Test',
         password: 'test',
         auth: false
