@@ -23,6 +23,7 @@ module.exports = {
     sourceMap: true
   },
   configureWebpack: {
+    devtool: 'source-map',
     resolve: {
       alias: {
         '@': path.resolve('src'),

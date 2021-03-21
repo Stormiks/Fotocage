@@ -1,0 +1,30 @@
+{
+  "eslint.validate": [
+    {
+      "language": "vue",
+      "autoFix": true
+    },
+    {
+      "language": "javascript",
+      "autoFix": true
+    }
+  ],
+  "html-css-class-completion.includeGlobPattern": "**/*.{css,less,scss,html,vue}",
+  "editor.formatOnSave": false,
+  "vetur.validation.template": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "typescript.suggest.paths": false,
+  "path-intellisense.autoSlashAfterDirectory": true,
+  "path-intellisense.extensionOnImport": false,
+  "path-intellisense.absolutePathToWorkspace": true,
+  "path-intellisense.mappings": {
+    "~": "${workspaceRoot}",
+    "@": "${workspaceRoot}/src",
+    "views": "${workspaceRoot}/src/views",
+    "assets": "${workspaceRoot}/src/assets",
+    "router": "${workspaceRoot}/src/router",
+    "components": "${workspaceRoot}/src/components"
+  }
+}
