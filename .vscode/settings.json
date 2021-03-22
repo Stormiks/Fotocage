@@ -25,6 +25,7 @@
     "views": "${workspaceRoot}/src/views",
     "assets": "${workspaceRoot}/src/assets",
     "router": "${workspaceRoot}/src/router",
-    "components": "${workspaceRoot}/src/components"
+    "components": "${workspaceRoot}/src/components",
+    "plugins": "${workspaceRoot}/src/components/plugins"
   }
 }
