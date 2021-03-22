@@ -1,59 +1,37 @@
 # Fotocage
 
-Старая версия: <https://stormiks.github.io/portfolio/photocage/>
+Старая версия: <a href="https://stormiks.github.io/portfolio/photocage" title="Fotocage v1">Stormiks Portfolio - "Photocage"</a>
+
+Текущая версия: <a href="https://peaceful-headland-16081.herokuapp.com" title="Fotocage v2">Heroku - "Fotocage SPA"</a>
 
 ## Развёртывание проекта
 ```
 yarn install
 ```
 
-### Компилирование и живая перезагрузка страниц, при изменениях
+### Компилирование и старт приложения - Только для "<b>Heroku</b>"
 ```
-yarn serve
+npm run start
 ```
 
+### Компилирование и живая перезагрузка страниц, при изменениях
+```
+yarn dev:serve
+```
 ### Компилирование и минификация кода проекта
 ```
 yarn build
 ```
 
-### При разработке из под "Vusial Studio Code"
+<hr/>
 
-- Необходимо в корне проекта создать папку ".vscode" -> файл "settings.json"
-- Внести следующую конфигурацию, для комфортной корректной работы с проектом:
-```JSON
-{
-    // https://eslint.vuejs.org/user-guide/#editor-integrations (Visual Studio Code)
-    "eslint.validate": [
-        "vue",
-        "javascript"
-    ],
+### Deployment service to Heroku
 
-    "editor.formatOnSave": false,
-    "vetur.validation.template": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    // Для отлкючения парсера от "Type Sscript"
-    "typescript.suggest.paths": false,
-    "path-intellisense.autoSlashAfterDirectory": true,
-    "path-intellisense.extensionOnImport": false,
-    "path-intellisense.absolutePathToWorkspace": true,
-    // Чтобы редактор подхватывал нужные алиасы и предлагах в подсказках
-    "path-intellisense.mappings": {
-        "~": "${workspaceRoot}",
-        "@": "${workspaceRoot}/src",
-        "@views": "${workspaceRoot}/src/views",
-        "@assets": "${workspaceRoot}/src/assets",
-        "@router": "${workspaceRoot}/src/router",
-        "@components": "${workspaceRoot}/src/components"
-      }
-}
-```
+<https://github.com/heroku/heroku-buildpack-static> - Вспомогательный инструмент для развертывания SPA-приложения на хостинг сервисе "<b>Heroku</b>", если проект был изначально развернут с помощью Vue CLI.
 
-### В проекте используется, следующие готовые компоненты:
-- Tailwindcss (<https://tailwindcss.com/>)
-- Axios (<https://github.com/axios/axios>)
-- Vue-axios (<https://github.com/imcvampire/vue-axios>)
-- Vue-router (<https://github.com/vuejs/vue-router>)
-- Vuex (<https://github.com/vuejs/vuex>)
+### В проекте используется стек технологий:
+- <a href="https://tailwindcss.com">Tailwindcss</a>
+- <a href="https://github.com/axios/axios">Axios</a>
+- <a href="https://github.com/imcvampire/vue-axios">Vue-axios</a>
+- <a href="https://github.com/vuejs/vue-router">Vue-router</a>
+- <a href="https://github.com/vuejs/vuex">Vuex</a>
