@@ -41,8 +41,8 @@
     name: 'ViewsLogin',
     data: () => ({
       user: {
-        login: 'Test',
-        password: 'test'
+        login: '',
+        password: ''
       },
       validLogin: false,
       validPassword: false
@@ -51,17 +51,17 @@
       'user.login': {
         immediate: true,
         handler: function (newVal) {
-          if (newVal !== '' && newVal !== null) {
+          if (newVal !== '' && newVal !== null)
             this.validLogin = true
-          } else this.validLogin = false
+          else this.validLogin = false
         }
       },
       'user.password': {
         immediate: true,
         handler: function (newVal) {
-          if (newVal !== '' && newVal !== null && newVal.length >= 4) {
+          if (newVal !== '' && newVal !== null && newVal.length >= 4)
             this.validPassword = true
-          } else this.validPassword = false
+          else this.validPassword = false
         }
       }
     },
@@ -72,15 +72,14 @@
     },
     methods: {
       login() {
-        if (this.validForm) {
-          this.axios.post('/api/login', this.user).then(res => {
+        if (this.validForm)
+          this.axios.post('/api/login', { ...this.user }).then(res => {
             if (res.data.status) {
               this.$store.dispatch('updateStatusLogin', res.data.user)
 
               this.$router.push({ name: 'Gallery-Images' })
             } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
           }).catch(e => console.log(e))
-        }
       }
     }
   }

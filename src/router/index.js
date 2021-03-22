@@ -100,24 +100,23 @@ const router = new VueRouter({
 })
 
 function isAuthUser(route, status, next) {
-  if (status) {
-    if (route === 'Login' || route === 'Registation') {
+  if (status)
+    if (route === 'Login' || route === 'Registation')
       next({ name: 'Home' })
-    } else next()
-  } else {
-    if (route === 'Login' || route === 'Registation') {
-      next()
-    } else next({ name: 'Login' })
-  }
+    else next()
+  else
+  if (route === 'Login' || route === 'Registation')
+    next()
+  else next({ name: 'Login' })
 }
 
 // eslint-disable-next-line no-multiple-empty-lines
 router.beforeEach((to, from, next) => {
-  if (store.state.isLogin) {
+  if (store.state.isLogin)
     store.dispatch('getAuthStatusByServer').then(status => {
       isAuthUser(to.name, status, next)
     })
-  } else isAuthUser(to.name, store.state.isLogin, next)
+  else isAuthUser(to.name, store.state.isLogin, next)
 })
 
 router.afterEach((to, from) => {

@@ -64,25 +64,25 @@
       'user.login': {
         immediate: true,
         handler: function (newVal) {
-          if (newVal !== '' && newVal !== null) {
+          if (newVal !== '' && newVal !== null)
             this.validLogin = true
-          } else this.validLogin = false
+          else this.validLogin = false
         }
       },
       'user.password': {
         immediate: true,
         handler: function (newVal) {
-          if (newVal !== '' && newVal !== null && newVal.length >= 4) {
+          if (newVal !== '' && newVal !== null && newVal.length >= 4)
             this.validPassword = true
-          } else this.validPassword = false
+          else this.validPassword = false
         }
       },
       'user.passwordConfirm': {
         immediate: true,
         handler: function (newVal) {
-          if (newVal !== '' && newVal !== null && newVal.length >= 4) {
+          if (newVal !== '' && newVal !== null && newVal.length >= 4)
             this.validPasswordConfirm = true
-          } else this.validPasswordConfirm = false
+          else this.validPasswordConfirm = false
         }
       }
     },
@@ -93,12 +93,8 @@
     },
     methods: {
       register() {
-        if (this.validForm) {
-          this.axios.post('/api/registration', {
-            login: 'Test',
-            password: 'test',
-            passwordRepeat: 'test'
-          }).then(res => {
+        if (this.validForm)
+          this.axios.post('/api/registration', { ...this.user }).then(res => {
             if (res.status) {
               this.$store.dispatch('updateStatusLogin', {
                 auth: true,
@@ -108,7 +104,6 @@
               this.$router.push({ name: 'Gallery-Images' })
             } else { this.$store.dispatch('updateStatusLogin', false) }
           }).catch(e => console.log(e))
-        }
       }
     }
   }
