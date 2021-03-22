@@ -1,18 +1,25 @@
 <template>
   <section class="gallery w-full py-4">
+    <CoolLightBox
+      :items="files"
+      :index="index"
+      @close="index = null"
+    >
+    </CoolLightBox>
     <div
       v-if="files.length"
       class="gallery__grid grid grid-cols-auto-200 gap-2 px-3"
     >
       <article
-        v-for="img in files"
+        v-for="(img, indexImg) in files"
         :key="`gallery-image-${img.id}`"
         class="gallery__card justify-self-center align-self-center overflow-hidden"
       >
         <figure class="gallery__card__figure card-figure m-1.5">
           <a
-            href=""
-            title="190x160.jpg"
+            :title="img.title"
+            :data-fancybox-href="img.src"
+            @click.stop.prevent="setIndex(indexImg)"
           >
             <img
               v-if="!img.src"
@@ -56,11 +63,17 @@
 </template>
 
 <script>
+  import CoolLightBox from 'plugins/CoolLightBox/'
+
   export default {
     name: 'ViewsGalleryImages',
     data: () => ({
-      files: []
+      files: [],
+      index: null
     }),
+    components: {
+      CoolLightBox
+    },
     created() {
       this.axios.get('/api/images').then(res => {
         console.log(res.data)
@@ -72,6 +85,11 @@
       }).then(images => {
         this.files = images
       })
+    },
+    methods: {
+      setIndex(index) {
+        this.index = index
+      }
     }
   }
 </script>
