@@ -1,13 +1,16 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  purge: { content: ['./public/**/*.html', './src/**/*.vue'] },
+  purge: {
+    content: ['./public/**/*.html', './src/**/*.vue']
+  },
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
       sm: '640px',
       md: '768px',
+      lgs: '876px',
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px'
@@ -714,6 +717,11 @@ module.exports = {
       30: '30',
       40: '40',
       50: '50'
+    },
+    extend: {
+      gridTemplateColumns: {
+        'auto-200': 'repeat(auto-fill, minmax(200px, 1fr))'
+      }
     }
   },
   variantOrder: [

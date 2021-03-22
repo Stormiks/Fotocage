@@ -26,12 +26,18 @@ const routes = [
       {
         path: 'upload',
         name: 'Upload-Images',
-        component: () => import('@/views/UploadImages/')
+        component: () => import('@/views/UploadImages/'),
+        meta: {
+          title: 'Upload'
+        }
       },
       {
         path: 'gallery',
         name: 'Gallery-Images',
-        component: () => import('@/views/GalleryImages/')
+        component: () => import('@/views/GalleryImages/'),
+        meta: {
+          title: 'Gallery'
+        }
       }
     ]
   },
@@ -43,12 +49,18 @@ const routes = [
       {
         path: 'registration',
         name: 'Registation',
-        component: () => import('@/views/Registation/')
+        component: () => import('@/views/Registation/'),
+        meta: {
+          title: 'Registration'
+        }
       },
       {
         path: 'login',
         name: 'Login',
-        component: () => import('@/views/Login/')
+        component: () => import('@/views/Login/'),
+        meta: {
+          title: 'Login'
+        }
       },
       {
         path: '',
@@ -59,7 +71,10 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    component: () => import('@/views/About.vue')
+    component: () => import('@/views/About.vue'),
+    meta: {
+      title: 'About'
+    }
   },
   {
     path: '*',
@@ -103,6 +118,13 @@ router.beforeEach((to, from, next) => {
       isAuthUser(to.name, status, next)
     })
   } else isAuthUser(to.name, store.state.isLogin, next)
+})
+
+router.afterEach((to, from) => {
+  // see: https://github.com/vuejs/vue-router/issues/914#issuecomment-384477609
+  Vue.nextTick(() => {
+    document.title = to.meta.title || ''
+  })
 })
 
 // eslint-disable-next-line no-multiple-empty-lines

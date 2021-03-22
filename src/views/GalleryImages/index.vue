@@ -1,135 +1,167 @@
 <template>
-  <section class="main__col-2 block-gallery">
-    <div class="coll-2__block-gallery gallery">
-      <article class="gallery-post">
-        <figure class="image">
+  <section class="gallery w-full py-4">
+    <CoolLightBox
+      :items="files"
+      :index="index"
+      @close="index = null"
+    >
+    </CoolLightBox>
+    <div
+      v-if="files.length"
+      class="gallery__grid grid grid-cols-auto-200 gap-2 px-3"
+    >
+      <article
+        v-for="(img, indexImg) in files"
+        :key="`gallery-image-${img.id}`"
+        class="gallery__card justify-self-center align-self-center overflow-hidden"
+      >
+        <figure class="gallery__card__figure card-figure m-1.5">
           <a
-            rel="_blank"
-            target="_blank"
-            href=""
+            :title="img.title"
+            :data-fancybox-href="img.src"
+            @click.stop.prevent="setIndex(indexImg)"
           >
             <img
+              v-if="!img.src"
               src="/assets/img/placeholder-image-190x160.jpg"
               alt="190x160.jpg"
-              class="img"
+              class="card-figure__image"
+            />
+            <img
+              v-else
+              :src="img.src"
+              :alt="img.title"
+              class="card-figure__image"
             />
           </a>
-          <figcaption class="title-img">
-            <p>
-              Image Placeholder
+          <figcaption class="card-figure__caption mt-1">
+            <p class="truncate">
+              {{ img.title }}
             </p>
           </figcaption>
         </figure>
-        <div class="text-post">
-          <p class="text-img">
-            Example Detailed description
+        <div class="card-figure__desc my-2">
+          <p class="text-center">
+            {{ img.description }}
           </p>
         </div>
-        <hr />
-        <div class="share-icon">
-          Will be added later: Icons share social
+        <hr class="m-1.5" />
+        <div class="card-figure__socials share-icon text-center p-1">
+          <span>
+            Will be added later: Icons share social
+          </span>
         </div>
       </article>
+    </div>
+    <div
+      v-else
+      class="gallery__message text-center m-0 py-5 px-1"
+    >
+      <p>Ваша галлерея пуста. Вы можете загрузить вашу фото-галлерею на главной странице.</p>
     </div>
   </section>
 </template>
 
 <script>
+  import CoolLightBox from 'plugins/CoolLightBox/'
+
   export default {
     name: 'ViewsGalleryImages',
+    data: () => ({
+      files: [],
+      index: null
+    }),
+    components: {
+      CoolLightBox
+    },
     created() {
       this.axios.get('/api/images').then(res => {
         console.log(res.data)
+        const images = res.data.images
+
+        if (!images.length) this.files = []
+
+        return images
+      }).then(images => {
+        this.files = images
       })
+    },
+    methods: {
+      setIndex(index) {
+        this.index = index
+      }
     }
   }
 </script>
 
 <style lang="less" scoped>
-  .main__col-1,
-  .main__col-2 {
-    display: block;
-  }
-
-  .main__col-2 {
-    width: 100%;
-    overflow: auto;
-    overflow-x: hidden;
-  }
-
-  .block-gallery {
-    align-items: normal;
-    margin: 0;
-    padding: 0;
-    height: inherit;
-  }
-
   .gallery {
-    margin: 0px;
-    padding: 0;
-    min-height: 100%;
+    &__message {
+      text-align: center;
+    }
 
-    &-post {
-      box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.4);
-      height: 280px;
-      margin: 15px;
+    &__card {
+      box-shadow: 0 0 5px 1px rgba(#000, 40%);
       width: 200px;
 
+      p {
+        color: #616060;
+        font-family: 'Roboto Regular';
+        text-align: center;
+      }
+
       hr {
-        width: 190px;
-        margin: 6px;
+        width: calc(100% - (2 * @tailwind-margin1-5));
+      }
+
+      &__figure {
+        display: inline-block;
+        height: 160px;
+        width: calc(100% - (2 * @tailwind-margin1-5));
+      }
+
+      &:nth-of-type(4n) {
+        margin-right: 0;
       }
     }
   }
 
-  .image {
-    display: inline-block;
-    height: 160px;
-    margin: 5px;
-    width: 190px;
+  .card-figure {
+    img {
+      height: inherit;
+    }
 
     a {
-      width: 190px;
-      height: 160px;
+      max-height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0;
       padding: 0;
 
-      > .img {
+      > &__image {
         border-radius: 5px;
-        height: inherit;
       }
     }
-  }
 
-  .title-img,
-  .text-img {
-    color: #616060;
-    font-family: 'Roboto Regular';
-    text-align: center;
-  }
+    &__caption {
+      p {
+        font-size: 12pt;
+      }
+    }
 
-  .title-img {
-    font-size: 12pt;
-  }
+    &__desc {
+      p {
+        font-size: 10pt;
+      }
+    }
 
-  .text-post {
-    display: flex;
-  }
-
-  .text-img {
-    font-size: 10pt;
-    margin: 8px 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  .share-icon {
-    color: #a3a2a2;
-    font-size: 9pt;
-    padding: 2px;
-    text-align: center;
+    /* TODO: Когда будут кнопки социальных сетей */
+    &__socials {
+      // span:not(class) {
+        color: #a3a2a2;
+        font-size: 9pt;
+      // }
+    }
   }
 </style>
