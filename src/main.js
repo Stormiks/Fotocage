@@ -19,7 +19,9 @@ Vue.config.productionTip = true
  */
 Vue.use(VueAxios, axios)
 
-if (process.env.NODE_ENV === 'development') makeServer()
+// if (process.env.NODE_ENV === 'development') makeServer('development')
+// else if (process.env.NODE_ENV === 'test') makeServer('test')
+makeServer()
 
 new Vue({
   router,
