@@ -19,8 +19,13 @@
           <a
             :title="img.title"
             :data-fancybox-href="img.src"
-            @click.stop.prevent="setIndex(indexImg)"
+            class="gallery__card__control card-control"
           >
+            <CardControlGroup
+              :show="index === indexImg"
+              @open-modal-file="setIndex(indexImg)"
+            />
+
             <img
               v-if="!img.src"
               src="/assets/img/placeholder-image-190x160.jpg"
@@ -63,6 +68,7 @@
 </template>
 
 <script>
+  import CardControlGroup from './CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'
 
   export default {
@@ -72,6 +78,7 @@
       index: null
     }),
     components: {
+      CardControlGroup,
       CoolLightBox
     },
     created() {
@@ -118,6 +125,18 @@
         display: inline-block;
         height: 160px;
         width: calc(100% - (2 * @tailwind-margin1-5));
+      }
+
+      &__control {
+        position: relative;
+
+        > div {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
       }
 
       &:nth-of-type(4n) {
