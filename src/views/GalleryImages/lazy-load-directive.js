@@ -34,9 +34,11 @@ export default {
         // the element specified by the root option, the callback is invoked
       }
 
-      // Whether you're using the viewport or some other element as the root,the API works the same way,
-      // executing a callback function you provide whenever the visibility of the target element changes
-      // so that it crosses desired amounts of intersection with the root
+      /*
+        Whether you're using the viewport or some other element as the root,the API works the same way,
+        executing a callback function you provide whenever the visibility of the target element changes
+        so that it crosses desired amounts of intersection with the root
+      */
 
       const observer = new IntersectionObserver(handleIntersect, options)
 

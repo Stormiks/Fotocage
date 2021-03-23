@@ -111,6 +111,11 @@
       width: calc(100% - (2 * @tailwind-margin1-5));
     }
 
+    &__image {
+      opacity: 0;
+      visibility: hidden;
+    }
+
     &__caption {
       p {
         font-size: 12pt;
