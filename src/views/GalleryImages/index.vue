@@ -1,14 +1,20 @@
 <template>
   <section class="gallery w-full py-4">
     <CoolLightBox
+      v-if="files.length && loadedFiles"
       :items="files"
       :index="index"
       @close="index = null"
     >
     </CoolLightBox>
 
+    <VueLoadingIndicator
+      v-if="loading"
+      class="big primary"
+    />
+
     <div
-      v-if="files.length"
+      v-if="files.length && loadedFiles"
       class="gallery__grid grid grid-cols-auto-200 gap-2 px-3"
     >
       <GalleryImagesCard
@@ -28,7 +34,7 @@
       </GalleryImagesCard>
     </div>
     <div
-      v-else
+      v-if="!files.length && loadedFiles"
       class="gallery__message text-center m-0 py-5 px-1"
     >
       <p>Ваша галлерея пуста. Вы можете загрузить вашу фото-галлерею на главной странице.</p>
@@ -37,6 +43,7 @@
 </template>
 
 <script>
+  import VueLoadingIndicator from './vue-loading-indocator'
   import GalleryImagesCard from './GalleryImagesCard'
   import CardControlGroup from './CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'
@@ -45,23 +52,34 @@
     name: 'ViewsGalleryImages',
     data: () => ({
       files: [],
+      loading: false,
+      loadedFiles: true,
       index: null
     }),
     components: {
+      VueLoadingIndicator,
       GalleryImagesCard,
       CardControlGroup,
       CoolLightBox
     },
     created() {
-      this.axios.get('/api/images').then(res => {
-        console.log(res.data)
-        const images = res.data.images
+      this.loading = true
+      this.loadedFiles = false
 
-        if (!images.length) this.files = []
+      this.axios.get('/api/images').then(res => {
+        let images = res.data.images
+
+        if (!images.length) images = []
 
         return images
       }).then(images => {
         this.files = images
+        this.loading = false
+        this.loadedFiles = true
+      }).catch(err => {
+        this.loading = false
+        this.loadedFiles = false
+        console.log(err)
       })
     },
     methods: {

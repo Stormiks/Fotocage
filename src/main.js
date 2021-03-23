@@ -1,5 +1,9 @@
 import Vue from 'vue'
 
+import 'assets/css/vendor/tailwind.css'
+import 'assets/css/style.css'
+import 'assets/styl/style.styl'
+
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { makeServer } from './server'
@@ -8,9 +12,6 @@ import App from '@/App.vue'
 
 import router from '@/router'
 import store from '@/store'
-
-import '@/assets/css/vendor/tailwind.css'
-import '@/assets/css/style.css'
 
 Vue.config.productionTip = true
 
