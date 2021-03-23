@@ -26,13 +26,19 @@
           class="card-file__image"
         />
       </a>
-      <figcaption class="card-file__caption mt-1">
+      <figcaption
+        v-if="title"
+        class="card-file__caption mt-1"
+      >
         <p class="truncate">
           {{ title }}
         </p>
       </figcaption>
     </figure>
-    <div class="card-file__desc my-2">
+    <div
+      v-if="description"
+      class="card-file__desc my-2"
+    >
       <p class="text-center">
         {{ description }}
       </p>
