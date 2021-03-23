@@ -8,7 +8,7 @@
       <button
         class="m-0.5"
         type="button"
-        @click.stop="$emit('open-modal-file')"
+        @click.stop="$emit('open-modal-file', $event)"
         title="Просмотр"
       >
         <svg
