@@ -11,9 +11,9 @@
   ],
   "html-css-class-completion.includeGlobPattern": "**/*.{css,less,scss,html,vue}",
   "editor.formatOnSave": false,
-  "vetur.validation.template": false,
+  "vetur.validation.template": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": false
   },
   "typescript.suggest.paths": false,
   "path-intellisense.autoSlashAfterDirectory": true,

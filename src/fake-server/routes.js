@@ -12,7 +12,7 @@ export default function () {
       password: attrs.password
     })
 
-    if (!user) {
+    if (!user)
       return new Response(401,
         { some: 'header' },
         {
@@ -23,7 +23,6 @@ export default function () {
           }
         }
       )
-    }
 
     user.update({ auth: true })
 
@@ -40,12 +39,11 @@ export default function () {
   this.get('/auth/:userId/status', (schema, req) => {
     const user = schema.users.find(req.params.userId)
 
-    if (!user) {
+    if (!user)
       return {
         id: null,
         auth: false
       }
-    }
 
     return {
       id: user.id,
@@ -81,7 +79,7 @@ export default function () {
       auth: false
     })
 
-    if (!user) {
+    if (!user)
       return new Response(401,
         { some: 'header' },
         {
@@ -92,7 +90,6 @@ export default function () {
           }
         }
       )
-    }
 
     user.update({ auth: true })
 
