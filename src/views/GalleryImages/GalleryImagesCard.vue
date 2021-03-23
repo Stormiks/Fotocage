@@ -2,6 +2,7 @@
   <article class="gallery__card justify-self-center align-self-center overflow-hidden">
     <figure class="gallery__card__file card-file m-1.5">
       <a
+        v-lazyload
         :title="title"
         :data-fancybox-href="src"
         class="gallery__card__control card-control"
@@ -14,9 +15,13 @@
           alt="190x160.jpg"
           class="card-file__image"
         />
+        <div class="card-file__spinner">
+          <GalleryImagesSpinner v-if="src" />
+        </div>
+
         <img
-          v-else
-          :src="src"
+          v-if="src"
+          :data-url="src"
           :alt="title"
           class="card-file__image"
         />
@@ -42,6 +47,9 @@
 </template>
 
 <script>
+  import GalleryImagesSpinner from './GalleryImagesSpinner'
+  import LazyLoadDirective from './lazy-load-directive.js'
+
   export default {
     name: 'GalleryImagesCard',
     props: {
@@ -61,6 +69,10 @@
         type: String,
         default: ''
       }
+    },
+    components: { GalleryImagesSpinner },
+    directives: {
+      lazyload: LazyLoadDirective
     }
   }
 </script>
@@ -84,6 +96,15 @@
       }
     }
 
+    &__spinner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-height: 160px;
+      height: 160px;
+      width: calc(100% - (2 * @tailwind-margin1-5));
+    }
+
     &__caption {
       p {
         font-size: 12pt;
@@ -102,6 +123,21 @@
         color: #a3a2a2;
         font-size: 9pt;
       // }
+    }
+  }
+
+  .loaded {
+    .card-file {
+      &__image {
+        visibility: visible;
+        opacity: 1;
+        border: 0;
+      }
+
+      &__spinner {
+        display: none;
+        width: 100%;
+      }
     }
   }
 

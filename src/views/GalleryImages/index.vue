@@ -14,7 +14,6 @@
       <GalleryImagesCard
         v-for="(img, indexImg) in files"
         :key="`gallery-image-${img.id}`"
-        :file="img"
         :title="img.title"
         :src="img.src"
         :description="img.description"
