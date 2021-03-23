@@ -5,7 +5,7 @@ import {
   Model
 } from 'miragejs'
 
-import routes from './fake-server/'
+import routes from './fake-server/routes'
 
 import faker from 'faker'
 

@@ -21,7 +21,7 @@ const routes = [
         redirect: {
           name: 'Gallery-Images'
         },
-        component: () => import('@/views/Home.vue')
+        component: () => import('@/views/Home')
       },
       {
         path: 'upload',
@@ -37,6 +37,14 @@ const routes = [
         component: () => import('@/views/GalleryImages/'),
         meta: {
           title: 'Gallery'
+        }
+      },
+      {
+        path: 'about',
+        name: 'About',
+        component: () => import('@/views/About'),
+        meta: {
+          title: 'About'
         }
       }
     ]
@@ -67,14 +75,6 @@ const routes = [
         redirect: { name: 'Login' }
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('@/views/About.vue'),
-    meta: {
-      title: 'About'
-    }
   },
   {
     path: '*',
