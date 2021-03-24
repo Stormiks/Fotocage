@@ -2,9 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store/'
 
-import DefaultLayout from '@/views/layouts/DefaultLayout/DefaultLayout'
-import AuthLayout from '@/views/layouts/AuthLayout/AuthLayout'
-import ErrorLayout from '@/views/layouts/ErrorLayout'
+const DefaultLayout = () => import('@/views/layouts/DefaultLayout/DefaultLayout')
+const AuthLayout = () => import('@/views/layouts/AuthLayout/AuthLayout')
+const ErrorLayout = () => import('@/views/layouts/ErrorLayout')
 
 Vue.use(VueRouter)
 
