@@ -7,7 +7,7 @@ import { routes } from './routes'
 Vue.use(VueRouter)
 
 const options = {
-  mode: 'history',
+  mode: process.env.NODE_ENV === 'development' ? 'hash' : 'history',
   base: process.env.BASE_URL,
   routes
 }
