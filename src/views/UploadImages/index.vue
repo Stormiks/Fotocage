@@ -153,44 +153,41 @@
 </script>
 
 <style lang="less" scoped>
-  .form__list_visible {
-    position: relative;
-  }
+  .form {
+    &__list_visible {
+      position: relative;
+    }
 
-  .form__upload {
-    display: flex;
-    max-width: 75%;
+    &__upload {
+      display: flex;
+      max-width: 75%;
 
-    &__input {
-      flex-grow: 1;
+      &__input {
+        flex-grow: 1;
 
-      &.form__list_show:hover {
-        border-radius: 5px 5px 0 0;
+        &.form__list_show:hover {
+          border-radius: 5px 5px 0 0;
+        }
       }
-    }
 
-    &__image {
+      &__image {
 
-    }
+      }
 
-    > .btn {
-      color: @color-white;
-      font-size: 22px;
-      font-family: "Helvetica Bold", serif;
-      border-radius: 5px;
-      background-image: linear-gradient(to top, #ff6600, #ffa400);
-      transition: all .33s;
-
-      &:disabled {
-        background-image: linear-gradient(to top, #b9b9b9, #dcdcdc);
-        pointer-events: none;
+      > .btn {
+        color: @color-white;
+        font-size: 22px;
+        font-family: "Helvetica Bold", serif;
+        border-radius: 5px;
+        background-image: linear-gradient(to top, #ff6600, #ffa400);
         transition: all .33s;
+
+        &:disabled {
+          background-image: linear-gradient(to top, #b9b9b9, #dcdcdc);
+          pointer-events: none;
+          transition: all .33s;
+        }
       }
     }
-  }
-
-  .image_title {
-    font-size: 20px;
-    font-family: serif;
   }
 </style>

@@ -94,4 +94,9 @@
       }
     }
   }
+
+  .image_title {
+    font-size: 20px;
+    font-family: serif;
+  }
 </style>
