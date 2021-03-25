@@ -1,19 +1,17 @@
-import Vue from 'vue'
-
 import 'assets/css/vendor/tailwind.css'
 import 'assets/css/style.css'
 import 'assets/styl/style.styl'
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import { makeServer } from './server'
-
+import Vue from 'vue'
 import App from '@/App.vue'
+
+import VueAxios from 'vue-axios'
+import axios from 'axios'
 
 import router from '@/router'
 import store from '@/store'
 
-Vue.config.productionTip = true
+import { makeServer } from './server'
 
 /**
  * Use plugins in VueJS

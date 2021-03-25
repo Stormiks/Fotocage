@@ -9,7 +9,12 @@
       "autoFix": true
     }
   ],
+  "files.watcherExclude": {
+      "**/.git/objects/**": true
+  },
+  "editor.minimap.enabled": false,
   "html-css-class-completion.includeGlobPattern": "**/*.{css,less,scss,html,vue}",
+  "html-css-class-completion.excludeGlobPattern": "node_modules,dist",
   "editor.formatOnSave": false,
   "vetur.validation.template": true,
   "editor.codeActionsOnSave": {

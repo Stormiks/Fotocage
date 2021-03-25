@@ -1,55 +1,31 @@
 import {
   createServer,
-  Serializer,
-  Factory,
-  Model
+  Serializer
 } from 'miragejs'
 
 import routes from './fake-server/routes'
 
 import faker from 'faker'
 
+import { userModel, userFactory } from './fake-server/models/user'
+import { imageModel, imageFactory } from './fake-server/models/image'
+
 const ApplicationSerializer = Serializer.extend()
 
 export function makeServer(environment = 'development') {
   const server = createServer({
     models: {
-      user: Model,
-      image: Model
+      user: userModel.user,
+      image: imageModel.image
     },
     factories: {
-      user: Factory.extend({
-        name() {
-          return faker.name.middleName()
-        },
-        email() {
-          return faker.internet.email()
-        },
-        login() {
-          return faker.name.firstName()
-        },
-        password() {
-          return 'test'
-        },
-        auth() {
-          return false
-        }
-      }),
-      image: Factory.extend({
-        src() {
-          return faker.image.image()
-        },
-        title() {
-          return faker.name.title()
-        },
-        description() {
-          return faker.lorem.words()
-        }
-      })
+      user: userFactory.user,
+      image: imageFactory.image
     },
     environment,
     routes,
     seeds(server) {
+      server.createList('user', 5)
       server.create('user', {
         name: faker.name.middleName(),
         email: faker.internet.email(),
@@ -57,7 +33,6 @@ export function makeServer(environment = 'development') {
         password: 'test',
         auth: false
       })
-      server.createList('user', 5)
       server.createList('image', 5)
     }
   })
