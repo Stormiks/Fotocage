@@ -50,6 +50,7 @@ export function makeServer(environment = 'development') {
     environment,
     routes,
     seeds(server) {
+      server.createList('user', 5)
       server.create('user', {
         name: faker.name.middleName(),
         email: faker.internet.email(),
@@ -57,7 +58,6 @@ export function makeServer(environment = 'development') {
         password: 'test',
         auth: false
       })
-      server.createList('user', 5)
       server.createList('image', 5)
     }
   })

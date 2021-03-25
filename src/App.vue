@@ -8,11 +8,12 @@
   export default {
     name: 'App',
     created() {
-      this.axios.get('/api/list/users').then(res => {
-        console.log(res.data)
-      })
-      this.axios.get('/api/images').then(res => {
-        console.log(res.data)
+      this.axios.get('/api/list/users', {
+        params: {
+          count: 5
+        }
+      }).then(res => {
+        console.info(res.data.users)
       })
     }
   }

@@ -102,7 +102,15 @@ export default function () {
     }
   })
 
-  this.get('/list/users', (schema) => {
-    return schema.users.all()
+  this.get('/list/users', (schema, req) => {
+    const arr = schema.users.all()
+
+    if (req.queryParams.count) {
+      const endCountUsers = req.queryParams.count
+
+      return arr.slice(0, endCountUsers)
+    }
+
+    return arr
   })
 }
