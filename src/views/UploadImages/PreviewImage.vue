@@ -1,40 +1,74 @@
 <template>
-  <div class="preview__image">
-    <button
-      v-if="!download"
-      type="button"
-      @click="$emit('preview-remove', { name })"
-      class="preview__image__remove preview_remove"
-      :disabled="download"
-      :data-name="name"
-    >&times;</button>
+  <div class="preview_box flex">
+    <div class="preview__image">
+      <button
+        v-if="!download"
+        type="button"
+        @click="$emit('preview-remove', { name })"
+        class="preview__image__remove preview_remove"
+        :disabled="download"
+        :data-name="name"
+      >&times;</button>
 
-    <div class="preview__image__size preview_size">
-      <span>{{ bytesToSize }}</span>
+      <div class="preview__image__size preview_size">
+        <span>{{ bytesToSize }}</span>
+      </div>
+
+      <figure>
+        <img
+          :src="src"
+          :alt="name"
+        />
+        <figcaption class="preview__image__info preview_info mt-0.5">
+          <p>
+            <span :title="name">{{ name }}</span>
+          </p>
+
+          <div
+            v-show="progressDownload > 0"
+            class="preview__progress_box progress_download"
+          >
+            <div
+              class="progress_bar"
+              :style="{ 'width': `${progressDownload}%` }"
+            ></div>
+            <span>{{ progressDownload }}%</span>
+          </div>
+        </figcaption>
+      </figure>
     </div>
 
-    <figure>
-      <img
-        :src="src"
-        :alt="name"
-      />
-      <figcaption class="preview__image__info preview_info mt-0.5">
-        <p>
-          <span :title="name">{{ name }}</span>
-        </p>
+    <div class="preview__image__data image__data flex-grow ml-2 py-1">
+      <div class="flex">
+        <strong class="mr-1">Полное имя:</strong>
+        <span>{{ name }}</span>
+      </div>
+
+      <div class="flex">
+        <strong class="mr-1">Описание:</strong>
+        <span v-if="description === ''">Описание отсутствует</span>
+
+        <button
+          class="py-2 px-4 bg-gray-400 rounded-lg ring-white"
+          v-if="!enableEditor"
+          type="button"
+        >Редактировать</button>
 
         <div
-          v-show="progressDownload > 0"
-          class="preview__progress_box progress_download"
+          v-if="enableEditor"
+          class="image__data__editor w-full"
         >
-          <div
-            class="progress_bar"
-            :style="{ 'width': `${progressDownload}%` }"
-          ></div>
-          <span>{{ progressDownload }}%</span>
+          <input
+            class="w-full"
+            type="text"
+            v-model="decriptionEditable"
+            :name="`imageDataText-${size}`"
+            :id="`imageDataText-${size}`"
+            placeholder="Добавить описание к файлу"
+          >
         </div>
-      </figcaption>
-    </figure>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,7 +89,10 @@
     },
     data: () => ({
       progressDownload: 0,
-      download: false
+      download: false,
+      description: '',
+      enableEditor: false,
+      decriptionEditable: ''
     }),
     computed: {
       bytesToSize() {
@@ -93,6 +130,10 @@
   }
 
   .preview {
+    &_box {
+      box-shadow: 0 0 5px 1px rgba(#000, 40%);
+    }
+
     &_remove {
       width: 20px;
       height: 20px;
@@ -153,11 +194,7 @@
     }
 
     &__image {
-      display: flex;
-      box-shadow: 0 0 5px 1px rgba(#000, 40%);
       position: relative;
-      margin-bottom: .5rem;
-      margin-right: .5rem;
       overflow: hidden;
       width: 100%;
       max-width: 180px;
@@ -222,5 +259,9 @@
       justify-content: space-between;
       padding: 0 .55em .2em;
     }
+  }
+
+  .image__data {
+    padding: .3em;
   }
 </style>
