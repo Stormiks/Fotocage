@@ -7,35 +7,15 @@
           'form__list_visible': files.length > 1
         }"
       >
-        <div
-          class="input_box w-full px-2 py-1"
+        <UploadImagesInput
           :class="{
             'form__list_show': showListUploadImages
           }"
-        >
-          <input
-            type="file"
-            id="uploadImage"
-            multiple
-            @change="onChangeInputUploadFile"
-          />
-          <span
-            class="form__upload__image image_title"
-          >
-            <template v-if="files.length === 1">
-              {{ files[0].name }}
-            </template>
-            <template v-else-if="files.length > 1">
-              <span @click.stop="onShowListUploadImages">
-                Количество файлов для загрузки: {{ files.length }}
-              </span>
-            </template>
-          </span>
-          <button
-            class="btn py-1 px-3"
-            @click.stop="onShowWindowUploadFile"
-          >Открыть</button>
-        </div>
+          :files-count="files.length"
+          :first-file-name="files[0] ? files[0].name : ''"
+          @change-input="onChangeInputUploadFile"
+          @visible-list-files="onShowListUploadImages"
+        />
 
         <UploadListImages
           v-show="showListUploadImages"
@@ -58,11 +38,13 @@
       v-slot="{ index, title, size, src }"
     >
       <PreviewImage
-        :name="title"
+        :name="filesInfo[index].title"
         :size="size"
         :src="src"
+        :description="filesInfo[index].description"
         :ref="`image-download-${index}`"
         @preview-remove="onDeleteDownloadFile"
+        @update-preview-info="onUpdatePreviewInfo($event, index)"
         :key="`upload-image-${title.length}-${size}`"
       />
     </PreviewListFile>
@@ -70,6 +52,7 @@
 </template>
 
 <script>
+  import UploadImagesInput from './UploadImagesInput'
   import PreviewListFile from './PreviewListFile'
   import PreviewImage from './PreviewImage'
   import UploadListImages from './UploadListImages'
@@ -77,19 +60,16 @@
   export default {
     name: 'ViewsUploadImages',
     components: {
+      UploadImagesInput,
       PreviewListFile,
       PreviewImage,
       UploadListImages
     },
-    props: {
-      idInputFile: {
-        type: String,
-        default: 'uploadImage'
-      }
-    },
     data: () => ({
       files: [],
-      showListUploadImages: false
+      filesInfo: [],
+      showListUploadImages: false,
+      openModalEditor: false
     }),
     computed: {
       listNameFiles() {
@@ -100,7 +80,19 @@
         return arr
       }
     },
+    // watch: {
+    //   openModalEditor(newBool) {
+    //   }
+    // },
     methods: {
+      onChangeStateModal(e) {
+        this.openModalEditor = e
+      },
+      onUpdatePreviewInfo(e, ixd) {
+        Object.keys(e).some(k => {
+          this.$set(this.filesInfo[ixd], String(k), e[k])
+        })
+      },
       onShowWindowUploadFile() {
         return document.getElementById(this.idInputFile).click()
       },
@@ -123,6 +115,11 @@
 
           img.src = src
           img.download = false
+
+          this.filesInfo.push({
+            title: img.name,
+            description: ''
+          })
 
           this.files.push(img)
         }
@@ -150,7 +147,8 @@
           if (!f.download) {
             const data = {
               src: f.src,
-              title: f.name
+              title: this.filesInfo[index].title,
+              description: this.filesInfo[index].description
             }
 
             this.axios.put('/api/upload/image', data, {
@@ -176,83 +174,40 @@
 </script>
 
 <style lang="less" scoped>
-  .form__list_visible {
-    position: relative;
+  .form {
+    &__list_visible {
+      position: relative;
+    }
 
-    &:hover {
-      .input_box {
-        cursor: pointer;
-        border-color: darken(#cacaca, 8%);
-        box-shadow: inset 0 0 5px 1px darken(#e2dada, 4%);
+    &__upload {
+      display: flex;
+      max-width: 75%;
+
+      &__input {
+        flex-grow: 1;
+
+        &.form__list_show:hover {
+          border-radius: 5px 5px 0 0;
+        }
       }
-    }
 
-    &:focus-within {
-      .input_box {
-        background-color: rgba(#f3cfb7, 41%);
+      &__image {
+
       }
-    }
-  }
 
-  .form__upload {
-    display: flex;
-    max-width: 75%;
-
-    &__input {
-      flex-grow: 1;
-
-      &.form__list_show:hover {
-        border-radius: 5px 5px 0 0;
-      }
-    }
-
-    &__image {
-
-    }
-
-    > .btn {
-      color: @color-white;
-      font-size: 22px;
-      font-family: "Helvetica Bold", serif;
-      border-radius: 5px;
-      background-image: linear-gradient(to top, #ff6600, #ffa400);
-      transition: all .33s;
-
-      &:disabled {
-        background-image: linear-gradient(to top, #b9b9b9, #dcdcdc);
-        pointer-events: none;
+      > .btn {
+        color: @color-white;
+        font-size: 22px;
+        font-family: "Helvetica Bold", serif;
+        border-radius: 5px;
+        background-image: linear-gradient(to top, #ff6600, #ffa400);
         transition: all .33s;
-      }
-    }
-  }
 
-  .image_title {
-    font-size: 20px;
-    font-family: serif;
-  }
-
-  .input_box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: inset 0 2px 5px 0 #e2dada;
-    border-radius: 5px;
-    border: 1px solid #cacaca;
-    transition: all .33s;
-
-    input[type="file"] {
-      display: none;
-    }
-
-    button {
-      background-color: #969292;
-      border-radius: 5px;
-      color: @color-white;
-      transition: all .33s;
-
-      &:hover,
-      &:focus {
-        background-color: rgba(#969292, 74%);
+        &:disabled {
+          background-image: linear-gradient(to top, #b9b9b9, #dcdcdc);
+          pointer-events: none;
+          transition: all .33s;
+        }
       }
     }
   }

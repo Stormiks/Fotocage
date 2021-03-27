@@ -5,6 +5,7 @@ import 'assets/styl/style.styl'
 import Vue from 'vue'
 import App from '@/App.vue'
 
+import VueJSModal from 'plugins/VueJSModal/'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
@@ -16,6 +17,7 @@ import { makeServer } from './server'
 /**
  * Use plugins in VueJS
  */
+Vue.use(VueJSModal)
 Vue.use(VueAxios, axios)
 
 // if (process.env.NODE_ENV === 'development') makeServer('development')
