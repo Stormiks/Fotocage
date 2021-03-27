@@ -12,9 +12,9 @@
       class="form__upload__image image_title"
     >
       <template v-if="filesCount === 1">
-        {{ firstFileName[0].name }}
+        {{ firstFileName }}
       </template>
-      <template v-else-if="filesCount > 1">
+      <template v-if="filesCount > 1">
         <span @click.stop="$emit('visible-list-files')">
           Количество файлов для загрузки: {{ filesCount }}
         </span>
