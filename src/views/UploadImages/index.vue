@@ -50,6 +50,7 @@
     </PreviewListFile>
 
     <ModalPreviewImageEditorContainer
+      v-if="files.length"
       @on-open-editor="openModalEditor = !openModalEditor"
       @change-preview-info="onUpdatePreviewInfo"
       ref="modalEditor"
@@ -58,9 +59,10 @@
 </template>
 
 <script>
-  import UploadImagesInput from './UploadImagesInput.vue'
+  import UploadImagesInput from './UploadImagesInput'
   import PreviewListFile from './PreviewListFile'
   import PreviewImage from './PreviewImage'
+  import ModalPreviewImageEditorContainer from './ModalPreviewImageEditorContainer'
   import UploadListImages from './UploadListImages'
 
   export default {
@@ -69,6 +71,7 @@
       UploadImagesInput,
       PreviewListFile,
       PreviewImage,
+      ModalPreviewImageEditorContainer,
       UploadListImages
     },
     data: () => ({
@@ -97,14 +100,12 @@
     },
     methods: {
       onUpdatePreviewInfo(e) {
-        console.log(e)
         this.$set(this.filesInfo[e.index], 'title', e.title)
         this.$set(this.filesInfo[e.index], 'description', e.description)
       },
       onModalEditorEnabled(e) {
         this.filesInfo.some((f, index) => {
           if (f.title === e.nameFile) {
-            console.log(e)
             const info = {
               ixd: index,
               title: e.nameFile,
@@ -114,6 +115,7 @@
             this.$refs.modalEditor.load(info)
 
             this.openModalEditor = !this.openModalEditor
+            // eslint-disable-next-line no-useless-return
             return
           }
         })
@@ -158,7 +160,6 @@
         this.files = this.files.filter(file => file.name !== name)
       },
       onShowListUploadImages() {
-        console.log('egre')
         this.showListUploadImages = !this.showListUploadImages
       },
       changeDownloadStatus(indexFile, status) {
