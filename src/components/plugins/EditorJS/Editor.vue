@@ -43,30 +43,12 @@
         })
 
         this.editor = editor
-
-        // await this.$nextTick()
-        // await this.$nextTick()
-        // await this.initialized(this.editor)
       },
       async save() {
-        return this.editor.save ? this.editor.save().then(data => {
-          const blocks = data.blocks
+        return this.editor.save ? this.editor.save().then(outputData => {
+          const blocks = outputData.blocks
 
-          const description = () => {
-            let textTempl = ''
-
-            for (let i = 1; i < blocks.length; i++)
-              if (blocks[i].type === 'paragraph') textTempl += `<p>${blocks[i].data.text}</p>`
-
-            return textTempl
-          }
-
-          const info = {
-            title: blocks[0].data.text,
-            description: description()
-          }
-
-          return info
+          return blocks
         }) : {}
       },
       async destroyEditor() {

@@ -52,6 +52,8 @@
     <ModalPreviewImageEditorContainer
       v-show="files.length"
       @on-open-editor="openModalEditor = !openModalEditor"
+      @modal-open="onChangeStateModal"
+      @modal-close="onChangeStateModal"
       @change-preview-info="onUpdatePreviewInfo"
       ref="modalEditor"
     />
@@ -99,6 +101,9 @@
       }
     },
     methods: {
+      onChangeStateModal(e) {
+        this.openModalEditor = e
+      },
       onUpdatePreviewInfo(e) {
         Object.keys(e.info).some(k => {
           this.$set(this.filesInfo[e.index], String(k), e.info[k])
