@@ -93,16 +93,13 @@
 
 <style lang="less" scoped>
   .card-file {
-    img {
-      height: inherit;
-    }
-
     a {
-      max-height: 160px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0;
+      overflow: hidden;
       padding: 0;
 
       > &__image {
@@ -121,6 +118,8 @@
 
     &__image {
       opacity: 0;
+      object-fit: cover;
+      object-position: center;
       visibility: hidden;
     }
 
