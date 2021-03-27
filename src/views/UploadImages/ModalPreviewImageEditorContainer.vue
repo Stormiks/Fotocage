@@ -88,25 +88,22 @@
       },
       load(data) {
         this.indexFile = data.ixd
+        this.config.data.time = new Date()
+        this.config.data.blocks = []
 
-        this.config.data = {
-          time: new Date(),
-          blocks: [
-            {
-              type: 'header',
-              data: {
-                text: data.title,
-                level: 5
-              }
-            },
-            {
-              type: 'paragraph',
-              data: {
-                text: data.description
-              }
-            }
-          ]
-        }
+        this.config.data.blocks.push({
+          type: 'header',
+          data: {
+            text: data.title,
+            level: 5
+          }
+        })
+        this.config.data.blocks.push({
+          type: 'paragraph',
+          data: {
+            text: data.description
+          }
+        })
       },
       save() {
         this.$refs.editor.save().then(data => {
