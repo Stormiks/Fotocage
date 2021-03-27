@@ -11,6 +11,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@clampy-js/vue-clampy": "^1.0.6",
     "@editorjs/editorjs": "^2.19.3",
     "@editorjs/header": "^2.6.1",
     "@editorjs/paragraph": "^2.8.0",
