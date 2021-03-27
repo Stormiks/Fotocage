@@ -44,29 +44,19 @@
         <span>{{ name }}</span>
       </div>
 
-      <div class="flex">
+      <div class="flex align-center">
         <strong class="mr-1">Описание:</strong>
         <span v-if="description === ''">Описание отсутствует</span>
+        <span
+          v-else
+          v-html="description"
+        ></span>
 
         <button
-          class="py-2 px-4 bg-gray-400 rounded-lg ring-white"
-          v-if="!enableEditor"
+          class="px-1.5 mx-2 bg-gray-400 rounded-lg ring-white"
+          @click.stop="handlerOpenModalEditor"
           type="button"
         >Редактировать</button>
-
-        <div
-          v-if="enableEditor"
-          class="image__data__editor w-full"
-        >
-          <input
-            class="w-full"
-            type="text"
-            v-model="decriptionEditable"
-            :name="`imageDataText-${size}`"
-            :id="`imageDataText-${size}`"
-            placeholder="Добавить описание к файлу"
-          >
-        </div>
       </div>
     </div>
   </div>
@@ -83,6 +73,10 @@
           return Array.isArray(val)
         }
       },
+      description: {
+        type: String,
+        default: ''
+      },
       name: String,
       size: Number,
       src: String
@@ -90,7 +84,7 @@
     data: () => ({
       progressDownload: 0,
       download: false,
-      description: '',
+      // description: '',
       enableEditor: false,
       decriptionEditable: ''
     }),
@@ -103,6 +97,15 @@
         const i = parseInt(Math.floor(Math.log(this.size) / Math.log(1024)))
 
         return Math.round(this.size / Math.pow(1024, i)) + ' ' + sizes[i]
+      }
+    },
+    methods: {
+      handlerOpenModalEditor() {
+        this.enableEditor = true
+        this.$emit('open-modal-editor', {
+          nameFile: this.name,
+          description: this.description
+        })
       }
     }
   }
@@ -132,6 +135,8 @@
   .preview {
     &_box {
       box-shadow: 0 0 5px 1px rgba(#000, 40%);
+      max-height: 216px;
+      overflow: hidden;
     }
 
     &_remove {

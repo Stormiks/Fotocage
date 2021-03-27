@@ -35,17 +35,25 @@
     <PreviewListFile
       v-show="files.length"
       :list-files="files"
-      v-slot="{ index, title, size, src }"
+      v-slot="{ index, title, size, src, description }"
     >
       <PreviewImage
-        :name="title"
+        :name="filesInfo[index].title"
         :size="size"
         :src="src"
+        :description="filesInfo[index].description"
         :ref="`image-download-${index}`"
         @preview-remove="onDeleteDownloadFile"
+        @open-modal-editor="onModalEditorEnabled"
         :key="`upload-image-${title.length}-${size}`"
       />
     </PreviewListFile>
+
+    <ModalPreviewImageEditorContainer
+      @on-open-editor="openModalEditor = !openModalEditor"
+      @change-preview-info="onUpdatePreviewInfo"
+      ref="modalEditor"
+    />
   </section>
 </template>
 
@@ -65,7 +73,10 @@
     },
     data: () => ({
       files: [],
-      showListUploadImages: false
+      filesInfo: [],
+      showListUploadImages: false,
+      openModalEditor: false,
+      fileIndex: -1
     }),
     computed: {
       listNameFiles() {
@@ -76,7 +87,37 @@
         return arr
       }
     },
+    watch: {
+      openModalEditor(newBool) {
+        if (newBool)
+          this.$refs.modalEditor.show()
+        else
+          this.$refs.modalEditor.hide()
+      }
+    },
     methods: {
+      onUpdatePreviewInfo(e) {
+        console.log(e)
+        this.$set(this.filesInfo[e.index], 'title', e.title)
+        this.$set(this.filesInfo[e.index], 'description', e.description)
+      },
+      onModalEditorEnabled(e) {
+        this.filesInfo.some((f, index) => {
+          if (f.title === e.nameFile) {
+            console.log(e)
+            const info = {
+              ixd: index,
+              title: e.nameFile,
+              description: e.description
+            }
+
+            this.$refs.modalEditor.load(info)
+
+            this.openModalEditor = !this.openModalEditor
+            return
+          }
+        })
+      },
       onShowWindowUploadFile() {
         return document.getElementById(this.idInputFile).click()
       },
@@ -99,6 +140,11 @@
 
           img.src = src
           img.download = false
+
+          this.filesInfo.push({
+            title: img.name,
+            description: ''
+          })
 
           this.files.push(img)
         }
@@ -127,7 +173,8 @@
           if (!f.download) {
             const data = {
               src: f.src,
-              title: f.name
+              title: this.filesInfo[index].title,
+              description: this.filesInfo[index].description
             }
 
             this.axios.put('/api/upload/image', data, {

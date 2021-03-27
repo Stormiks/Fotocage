@@ -21,6 +21,7 @@
           :title="file.name"
           :size="file.size"
           :src="file.src"
+          :description="file.description"
         ></slot>
       </li>
     </ul>
