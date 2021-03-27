@@ -31,7 +31,7 @@ module.exports = {
         'assets': path.resolve('src/assets'),
         'router': path.resolve('src/router'),
         'components': path.resolve('src/components'),
-        'plugins': path.resolve('/src/components/plugins')
+        'plugins': path.resolve('src/components/plugins')
       }
     },
   },

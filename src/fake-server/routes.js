@@ -58,7 +58,8 @@ export default function () {
 
     schema.images.create({
       src: attrs.src,
-      title: attrs.title
+      title: attrs.title,
+      description: attrs.description
     })
 
     return { status: true }

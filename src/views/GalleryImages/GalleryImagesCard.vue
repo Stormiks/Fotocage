@@ -39,7 +39,10 @@
       v-if="description"
       class="card-file__desc my-2"
     >
-      <p class="text-center">
+      <p
+        v-clampy="1"
+        class="text-center mx-1.5"
+      >
         {{ description }}
       </p>
     </div>
@@ -53,8 +56,12 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+  import clampy from '@clampy-js/vue-clampy'
   import GalleryImagesSpinner from './GalleryImagesSpinner'
   import LazyLoadDirective from './lazy-load-directive.js'
+
+  Vue.use(clampy)
 
   export default {
     name: 'GalleryImagesCard',
@@ -78,7 +85,8 @@
     },
     components: { GalleryImagesSpinner },
     directives: {
-      lazyload: LazyLoadDirective
+      lazyload: LazyLoadDirective,
+      clampy
     }
   }
 </script>
