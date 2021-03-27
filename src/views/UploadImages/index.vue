@@ -35,7 +35,7 @@
     <PreviewListFile
       v-show="files.length"
       :list-files="files"
-      v-slot="{ index, title, size, src, description }"
+      v-slot="{ index, title, size, src }"
     >
       <PreviewImage
         :name="filesInfo[index].title"
@@ -44,19 +44,10 @@
         :description="filesInfo[index].description"
         :ref="`image-download-${index}`"
         @preview-remove="onDeleteDownloadFile"
-        @open-modal-editor="onModalEditorEnabled"
+        @update-preview-info="onUpdatePreviewInfo($event, index)"
         :key="`upload-image-${title.length}-${size}`"
       />
     </PreviewListFile>
-
-    <ModalPreviewImageEditorContainer
-      v-show="files.length"
-      @on-open-editor="openModalEditor = !openModalEditor"
-      @modal-open="onChangeStateModal"
-      @modal-close="onChangeStateModal"
-      @change-preview-info="onUpdatePreviewInfo"
-      ref="modalEditor"
-    />
   </section>
 </template>
 
@@ -64,7 +55,6 @@
   import UploadImagesInput from './UploadImagesInput'
   import PreviewListFile from './PreviewListFile'
   import PreviewImage from './PreviewImage'
-  import ModalPreviewImageEditorContainer from './ModalPreviewImageEditorContainer'
   import UploadListImages from './UploadListImages'
 
   export default {
@@ -73,15 +63,13 @@
       UploadImagesInput,
       PreviewListFile,
       PreviewImage,
-      ModalPreviewImageEditorContainer,
       UploadListImages
     },
     data: () => ({
       files: [],
       filesInfo: [],
       showListUploadImages: false,
-      openModalEditor: false,
-      fileIndex: -1
+      openModalEditor: false
     }),
     computed: {
       listNameFiles() {
@@ -92,38 +80,17 @@
         return arr
       }
     },
-    watch: {
-      openModalEditor(newBool) {
-        if (newBool)
-          this.$refs.modalEditor.show()
-        else
-          this.$refs.modalEditor.hide()
-      }
-    },
+    // watch: {
+    //   openModalEditor(newBool) {
+    //   }
+    // },
     methods: {
       onChangeStateModal(e) {
         this.openModalEditor = e
       },
-      onUpdatePreviewInfo(e) {
-        Object.keys(e.info).some(k => {
-          this.$set(this.filesInfo[e.index], String(k), e.info[k])
-        })
-      },
-      onModalEditorEnabled(e) {
-        this.openModalEditor = !this.openModalEditor
-
-        this.filesInfo.some((f, index) => {
-          if (f.title === e.nameFile) {
-            const info = {
-              ixd: index,
-              title: e.nameFile,
-              description: e.description
-            }
-
-            this.$refs.modalEditor.load(info)
-            // eslint-disable-next-line no-useless-return
-            return
-          }
+      onUpdatePreviewInfo(e, ixd) {
+        Object.keys(e).some(k => {
+          this.$set(this.filesInfo[ixd], String(k), e[k])
         })
       },
       onShowWindowUploadFile() {

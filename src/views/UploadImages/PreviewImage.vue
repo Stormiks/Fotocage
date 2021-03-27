@@ -7,7 +7,6 @@
         @click="$emit('preview-remove', { name })"
         class="preview__image__remove preview_remove"
         :disabled="download"
-        :data-name="name"
       >&times;</button>
 
       <div class="preview__image__size preview_size">
@@ -41,22 +40,27 @@
     <div class="preview__image__data image__data flex-grow ml-2 py-1">
       <div class="flex">
         <strong class="mr-1">Полное имя:</strong>
-        <span>{{ name }}</span>
+        <span
+          contenteditable="false"
+          data-editable-field="title"
+          @click.stop="changeStateContenteditable($event, 'true')"
+          @blur="updateContent"
+        >
+          {{ titleEdit }}
+        </span>
       </div>
 
       <div class="flex align-center">
         <strong class="mr-1">Описание:</strong>
-        <span v-if="description === ''">Описание отсутствует</span>
         <span
-          v-else
-          v-html="description"
-        ></span>
-
-        <button
-          class="px-1.5 mx-2 bg-gray-400 rounded-lg ring-white"
-          @click.stop="handlerOpenModalEditor"
-          type="button"
-        >Редактировать</button>
+          contenteditable="false"
+          data-editable-field="description"
+          data-placeholder="Описание отсутствует, вы можете его добавить прямо сейчас"
+          @click.stop="changeStateContenteditable($event, 'true')"
+          @blur="updateContent"
+        >
+          {{ descriptionEdit }}
+        </span>
       </div>
     </div>
   </div>
@@ -77,17 +81,36 @@
         type: String,
         default: ''
       },
-      name: String,
+      name: {
+        type: String,
+        default: ''
+      },
       size: Number,
       src: String
     },
     data: () => ({
       progressDownload: 0,
       download: false,
-      // description: '',
-      enableEditor: false,
-      decriptionEditable: ''
+      titleEdit: '',
+      descriptionEdit: ''
+      // enableEditor: false
     }),
+    watch: {
+      description: {
+        handler: function (newText) {
+          // eslint-disable-next-line no-unused-expressions
+          this.description !== '' ? this.descriptionEdit = newText : ''
+        },
+        immediate: true
+      },
+      name: {
+        handler: function (newText) {
+          // eslint-disable-next-line no-unused-expressions
+          this.name !== '' ? this.titleEdit = newText : ''
+        },
+        immediate: true
+      }
+    },
     computed: {
       bytesToSize() {
         const sizes = this.sizes
@@ -100,11 +123,26 @@
       }
     },
     methods: {
-      handlerOpenModalEditor() {
-        this.enableEditor = true
-        this.$emit('open-modal-editor', {
-          nameFile: this.name,
-          description: this.description
+      updateContent(e) {
+        const dataVariable = `${e.target.dataset.editableField}Edit`
+        const text = e.target.textContent
+        this[dataVariable] = String(text).trim()
+
+        this.$el.querySelectorAll('span[contenteditable="true"').forEach(n => {
+          n.contentEditable = 'false'
+        })
+
+        this.saveInfo()
+      },
+      changeStateContenteditable(e, bool) {
+        e.target.contentEditable = bool
+        e.target.focus()
+      },
+      saveInfo() {
+        // this.enableEditor = true
+        this.$emit('update-preview-info', {
+          title: this.titleEdit,
+          description: this.descriptionEdit
         })
       }
     }
@@ -112,6 +150,24 @@
 </script>
 
 <style lang="less" scoped>
+  span {
+    &[contentEditable=false] {
+      &[data-placeholder]:empty::before {
+        content: attr(data-placeholder);
+        color: rgba(#616060, 80%)
+      }
+    }
+    &[contentEditable=true] {
+      padding: .15rem;
+
+      &[data-placeholder]:empty::before {
+        content: attr(data-placeholder);
+        color: rgba(#616060, 0%);
+        opacity: 0;
+      }
+    }
+  }
+
   .progress {
     &_bar {
       background: #42b983;
@@ -208,7 +264,7 @@
         background: rgba(@color-white, 60%);
         opacity: 0;
         position: absolute;
-        padding: .2em;
+        padding: .2rem;
         left: 0;
         top: 0;
         transition: opacity .22s;
@@ -219,7 +275,7 @@
         flex-direction: column;
         justify-content: space-between;
         margin: 0;
-        padding: .3em;
+        padding: .3rem;
         width: inherit;
       }
 
@@ -262,11 +318,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 .55em .2em;
+      padding: 0 .55rem .2rem;
     }
   }
 
   .image__data {
-    padding: .3em;
+    padding: .3rem;
   }
 </style>
