@@ -100,8 +100,9 @@
     },
     methods: {
       onUpdatePreviewInfo(e) {
-        this.$set(this.filesInfo[e.index], 'title', e.title)
-        this.$set(this.filesInfo[e.index], 'description', e.description)
+        Object.keys(e.info).some(k => {
+          this.$set(this.filesInfo[e.index], String(k), e.info[k])
+        })
       },
       onModalEditorEnabled(e) {
         this.filesInfo.some((f, index) => {

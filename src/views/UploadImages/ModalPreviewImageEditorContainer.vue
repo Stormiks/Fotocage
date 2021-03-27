@@ -104,10 +104,10 @@
         this.$refs.editor.save().then(data => {
           this.$emit('change-preview-info', {
             index: this.indexFile,
-            ...data
+            info: { ...data }
           })
 
-          this.indexFile = -1
+          this.hide()
         })
       },
       onInitializedEditor() {
