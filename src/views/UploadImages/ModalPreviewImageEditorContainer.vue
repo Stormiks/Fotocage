@@ -5,6 +5,7 @@
     :height="`auto`"
     :scrollable="true"
     @opened="onOpenedModal"
+    @closed="onClosedModal"
   >
     <div
       v-if="loadingModal"
@@ -69,13 +70,18 @@
     },
     methods: {
       onOpenedModal(e) {
-        this.loadingModal = !this.loadingModal
-        console.log(e)
+        this.loadingModal = true
+        this.loading = false
+      },
+      onClosedModal() {
+        this.loadingModal = false
+        this.loading = true
       },
       show() {
         this.$modal.show('ModalPreviewImageEditorContainer')
       },
       hide() {
+        this.indexFile = -1
         this.$modal.hide('ModalPreviewImageEditorContainer')
       },
       load(data) {

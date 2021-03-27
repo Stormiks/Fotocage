@@ -50,7 +50,7 @@
     </PreviewListFile>
 
     <ModalPreviewImageEditorContainer
-      v-if="files.length"
+      v-show="files.length"
       @on-open-editor="openModalEditor = !openModalEditor"
       @change-preview-info="onUpdatePreviewInfo"
       ref="modalEditor"
@@ -105,6 +105,8 @@
         })
       },
       onModalEditorEnabled(e) {
+        this.openModalEditor = !this.openModalEditor
+
         this.filesInfo.some((f, index) => {
           if (f.title === e.nameFile) {
             const info = {
@@ -114,8 +116,6 @@
             }
 
             this.$refs.modalEditor.load(info)
-
-            this.openModalEditor = !this.openModalEditor
             // eslint-disable-next-line no-useless-return
             return
           }
