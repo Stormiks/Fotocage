@@ -1,18 +1,65 @@
 @font-face {
 	font-family: 'Lobster';
-	src: local('Lobster'), url('/assets/fonts/Lobster1.4.ttf');
+	src: local('Lobster');
+	src: url('../fonts/Lobster1.4/Lobster1.4.woff2') format('woff2'),
+		 url('../fonts/Lobster1.4/Lobster1.4.woff') format('woff'),
+		 url('../fonts/Lobster1.4/Lobster1.4.ttf')  format('truetype');
 }
 
 @font-face {
 	font-family: 'Roboto Regular';
-	src: local('Roboto Regular'), url('/assets/fonts/RobotoRegular.ttf');
+	src: local('Roboto Regular');
+	src: url('../fonts/Roboto/Roboto-Regular/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Roboto/Roboto-Regular/Roboto-Regular.woff') format('woff'),
+		 url('../fonts/Roboto/Roboto-Regular/Roboto-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family: 'Exo 2 Semi Bold';
+	src: local('Exo 2 Semi Bold');
+	src: url('../fonts/Exo2/Exo2-SemiBold/Exo2-SemiBold.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Exo2/Exo2-SemiBold/Exo2-SemiBold.woff') format('woff'),
+		 url('../fonts/Exo2/Exo2-SemiBold/Exo2-SemiBold.ttf')  format('truetype');
 }
 
 @font-face {
 	font-family: 'Helvetica Bold';
-	src:
-		local('Helvetica Bold'),
-		url('/assets/fonts/HelveticaNeueCyr-Bold/HelveticaNeueCyr-Bold.ttf');
+	src: local('Helvetica Bold');
+	src: url('../fonts/Helvetica/HelveticaNeueCyr-Bold/HelveticaNeueCyr-Bold.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Bold/HelveticaNeueCyr-Bold.woff') format('woff'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Bold/HelveticaNeueCyr-Bold.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family: 'Helvetica Medium';
+	src: local('Helvetica Medium');
+	src: url('../fonts/Helvetica/HelveticaNeueCyr-Medium/HelveticaNeueCyr-Medium.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Medium/HelveticaNeueCyr-Medium.woff') format('woff'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Medium/HelveticaNeueCyr-Medium.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family: 'Helvetica Roman';
+	src: local('Helvetica Roman');
+	src: url('../fonts/Helvetica/HelveticaNeueCyr-Roman/HelveticaNeueCyr-Roman.eot?#iefix') format('embedded-opentype'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Roman/HelveticaNeueCyr-Roman.woff') format('woff'),
+		 url('../fonts/Helvetica/HelveticaNeueCyr-Roman/HelveticaNeueCyr-Roman.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family: 'Helvetica Light Italic';
+	src: local('Helvetica Light Italic');
+	src: url('./../fonts/Helvetica/HelveticaNeueCyr-LightItalic/HelveticaNeueCyr-LightItalic.woff2') format('woff2'),
+		 url('./../fonts/Helvetica/HelveticaNeueCyr-LightItalic/HelveticaNeueCyr-LightItalic.woff') format('woff'),
+		 url('./../fonts/Helvetica/HelveticaNeueCyr-LightItalic/HelveticaNeueCyr-LightItalic.ttf')  format('truetype');
+}
+
+@font-face {
+	font-family: 'Helvetica Light';
+	src: local('Helvetica Light');
+	src: url('./../fonts/Helvetica/HelveticaNeueCyr-Light/HelveticaNeueCyr-Light.eot?#iefix') format('embedded-opentype'),
+		 url('./../fonts/Helvetica/HelveticaNeueCyr-Light/HelveticaNeueCyr-Light.woff') format('woff'),
+		 url('./../fonts/Helvetica/HelveticaNeueCyr-Light/HelveticaNeueCyr-Light.ttf')  format('truetype');
 }
 
 html, body, #app {

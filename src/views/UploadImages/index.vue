@@ -116,12 +116,14 @@
           img.src = src
           img.download = false
 
-          this.filesInfo.push({
+          const currentFileInfo = {
             title: img.name,
             description: ''
-          })
+          }
 
-          this.files.push(img)
+          this.filesInfo = [...this.filesInfo, currentFileInfo]
+
+          this.files = [...this.files, img]
         }
 
         reader.readAsDataURL(img)
@@ -198,7 +200,7 @@
       > .btn {
         color: @color-white;
         font-size: 22px;
-        font-family: "Helvetica Bold", serif;
+        font-family: 'Helvetica Bold';
         border-radius: 5px;
         background-image: linear-gradient(to top, #ff6600, #ffa400);
         transition: all .33s;
