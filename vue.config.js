@@ -34,6 +34,9 @@ module.exports = {
       alias: {
         '@': path.resolve('src'),
         'views': path.resolve('src/views'),
+        'layoutAuth': path.resolve('src/views/layouts/AuthLayout'),
+        'layoutDefault': path.resolve('src/views/layouts/DefaultLayout'),
+        'layoutError': path.resolve('src/views/layouts/ErrorLayout'),
         'assets': path.resolve('src/assets'),
         'router': path.resolve('src/router'),
         'components': path.resolve('src/components'),
