@@ -1,6 +1,6 @@
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
-const ErrorLayout = () => import('views/layouts/ErrorLayout')
+const ErrorLayout = () => import('views/layouts/ErrorLayout/ErrorLayout')
 
 // component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
 
