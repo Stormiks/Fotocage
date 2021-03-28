@@ -38,7 +38,7 @@
       &,
       &:visited {
         text-decoration: none;
-        font-family: 'Exo 2 Semi Bold', 'Times New Roman', Times, serif;
+        font-family: 'Exo 2 Semi Bold';
         font-size: 14pt;
         color: #adadad;
         padding: 7px;

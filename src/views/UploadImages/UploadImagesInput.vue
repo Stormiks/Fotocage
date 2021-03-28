@@ -86,6 +86,8 @@
       background-color: #969292;
       border-radius: 5px;
       color: @color-white;
+      font-family: "Helvetica Medium";
+      letter-spacing: 1px;
       transition: all .33s;
 
       &:hover,
