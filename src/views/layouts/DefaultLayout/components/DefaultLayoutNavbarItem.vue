@@ -1,10 +1,10 @@
 <template>
   <div
-    class="nav__list__item nav__link p-2"
+    class="nav__list__item nav__link flex p-2"
   >
     <router-link
       v-if="urlName !== ''"
-      class="px-1"
+      class="flex items-center justify-center flex-grow flex-col px-1"
       :to="{ name: urlName }"
     >
       <SvgIcon :name="iconName" />
@@ -13,7 +13,7 @@
     <a
       v-else
       @click="logout"
-      class="px-1"
+      class="flex items-center justify-center flex-grow flex-col px-1"
     >
       <SvgIcon :name="`logout`" />
       {{ title }}
@@ -63,18 +63,13 @@
     }
 
     a {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: flex-end;
-      text-shadow: 1px 1px 0px #ececec;
+      text-shadow: 1px 1px 0 #ececec;
       color: #787878;
-      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+      font-family: 'Helvetica Roman';
       font-size: 13px;
-      height: 36px;
 
-      img {
-        margin: 3px;
+      svg {
+        margin-bottom: .2rem;
       }
 
       &:hover {

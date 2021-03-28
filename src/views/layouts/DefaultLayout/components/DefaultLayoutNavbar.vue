@@ -5,7 +5,7 @@
         <span>Фотогаллерея</span>
       </h1>
     </div>
-    <nav class="nav__list">
+    <nav class="nav__list flex flex-row">
       <DefaultLayoutNavbarItem
         v-for="(link, ixd) in links"
         :key="`nav-link-${ixd}`"
@@ -75,7 +75,7 @@
       color: #676666;
       font-family: 'Lobster';
       font-size: 26pt;
-      text-shadow: 1px 1px 0px #848383;
+      text-shadow: 1px 1px 0 #848383;
       letter-spacing: 1px;
     }
 
@@ -85,17 +85,11 @@
   }
 
   .nav__list {
-    display: flex;
-    flex-direction: row;
     padding-left: 4px;
     padding-right: 4px;
     height: inherit;
 
     &__item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
       + .nav__list__item {
         border-left: 1px solid #ddd;
       }

@@ -32,7 +32,7 @@
       padding: 0;
       width: 120px;
       cursor: pointer;
-      font: bold 15px Arial, Helvetica;
+      font: bold 15px 'Helvetica';
       color: #8f5a0a;
       transition: all .23s ease-in-out 0s;
 

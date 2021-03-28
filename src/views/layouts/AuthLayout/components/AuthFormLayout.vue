@@ -53,7 +53,7 @@
       color: #666;
       margin: 0 0 30px 0;
       letter-spacing: 4px;
-      font: normal 26px/1.2 Verdana, Helvetica;
+      font: normal 26px/1.2 'Helvetica';
       position: relative;
     }
   }
