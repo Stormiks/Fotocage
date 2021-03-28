@@ -7,10 +7,7 @@
       class="px-1"
       :to="{ name: urlName }"
     >
-      <img
-        :src="iconUrl"
-        :alt="title"
-      />
+      <SvgIcon :name="iconName" />
       {{ title }}
     </router-link>
     <a
@@ -18,22 +15,22 @@
       @click="logout"
       class="px-1"
     >
-      <img
-        :src="iconUrl"
-        :alt="title"
-      />
+      <SvgIcon :name="`logout`" />
       {{ title }}
     </a>
   </div>
 </template>
 
 <script>
+  import SvgIcon from 'components/SvgIcon'
+
   export default {
+    components: { SvgIcon },
     name: 'DefaultLayoutNavbarItem',
     props: {
       title: String,
-      iconUrl: String,
-      urlName: String,
+      iconName: String,
+      urlName: String
     },
     methods: {
       logout() {

@@ -10,7 +10,7 @@
         v-for="(link, ixd) in links"
         :key="`nav-link-${ixd}`"
         :title="link.title"
-        :icon-url="link.icon"
+        :icon-name="link.icon"
         :url-name="link.urlName"
         :class="{
           'active': link.urlName === activeRouterName
@@ -31,22 +31,22 @@
         {
           title: 'Главная',
           urlName: 'Upload-Images',
-          icon: '/assets/img/bar-img/home.png'
+          icon: 'home-page'
         },
         {
           title: 'Галлерея',
           urlName: 'Gallery-Images',
-          icon: '/assets/img/bar-img/gallery.png'
+          icon: 'gallery'
         },
         {
           title: 'Обо мне',
           urlName: 'About',
-          icon: '/assets/img/bar-img/my-info.png'
+          icon: 'members'
         },
         {
           title: 'Выйти',
           urlName: '',
-          icon: '/assets/img/bar-img/logout.png'
+          icon: 'logout'
         }
       ]
     }),
