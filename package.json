@@ -53,6 +53,9 @@
     "style-resources-loader": "^1.4.1",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
+    "svgo": "^1.1.0",
+    "svgo-loader": "^2.1.0",
+    "vue-cli-plugin-svg-sprite": "~1.0.0",
     "vue-cli-plugin-style-resources-loader": "~0.1.5",
     "vue-cli-plugin-tailwind": "~2.0.6",
     "vue-template-compiler": "^2.6.12"
