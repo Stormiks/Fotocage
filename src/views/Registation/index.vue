@@ -1,11 +1,11 @@
 <template>
   <section class="auth-registation">
-    <form
-      @submit.prevent="register"
-      class="form form__auth form__auth_registation"
+    <AuthFormLayout
+      :authSubmit="register"
+      class="form__auth_registation"
     >
       <h1>Регистрация</h1>
-      <div class="form__group form-line">
+      <AuthFormGroup class="mb-2.5">
         <label for="login">Введите логин: </label>
         <input
           v-model="user.login"
@@ -13,8 +13,8 @@
           id="login"
           name="login"
           placeholder="Логин" />
-      </div>
-      <div class="form__group form-line">
+      </AuthFormGroup>
+      <AuthFormGroup class="mb-2.5">
         <label for="pass1">Введите пароль: </label>
         <input
           v-model="user.password"
@@ -22,8 +22,8 @@
           id="pass1"
           name="password1"
           placeholder="Пароль" />
-      </div>
-      <div class="form__group form-line">
+      </AuthFormGroup>
+      <AuthFormGroup class="mb-2.5">
         <label for="pass2">Подтвердите пароль: </label>
         <input
           v-model="user.passwordConfirm"
@@ -31,9 +31,10 @@
           id="pass2"
           name="password2"
           placeholder="Повторите пароль" />
-      </div>
-      <div class="form__footer">
+      </AuthFormGroup>
+      <AuthFormFooter>
         <input
+          :disabled="!validForm"
           type="submit"
           name="reg"
           value="РЕГИСТРАЦИЯ" />
@@ -42,13 +43,22 @@
           title="Войти">
           Войти
         </router-link>
-      </div>
-    </form>
+      </AuthFormFooter>
+    </AuthFormLayout>
   </section>
 </template>
 
 <script>
+  import AuthFormLayout from 'layoutAuth/components/AuthFormLayout'
+  import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
+  import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
+
   export default {
+    components: {
+      AuthFormLayout,
+      AuthFormGroup,
+      AuthFormFooter
+    },
     name: 'ViewsRegistation',
     data: () => ({
       user: {
@@ -109,4 +119,43 @@
   }
 </script>
 
-<style lang="less" src="./style.less" scoped />
+<style lang="less" scoped>
+  .auth-registation {
+    .form__auth_registation {
+      overflow: auto;
+
+      .form__group {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        border: 0;
+        padding: 0;
+        margin: 0;
+
+        + .form__group {
+          margin-top: .7rem;
+        }
+
+        label {
+          display: flex;
+          align-items: center;
+          text-align: left;
+          position: relative;
+          margin-right: 5px;
+
+          + input {
+            margin-left: .4rem;
+          }
+        }
+
+        input {
+          padding: 5px 5px 5px 15px;
+          margin: 0;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: 0 1px 1px #ccc inset, 0 1px 0 @color-white;
+        }
+      }
+    }
+  }
+</style>
