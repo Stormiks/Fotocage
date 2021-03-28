@@ -116,12 +116,14 @@
           img.src = src
           img.download = false
 
-          this.filesInfo.push({
+          const currentFileInfo = {
             title: img.name,
             description: ''
-          })
+          }
 
-          this.files.push(img)
+          this.filesInfo = [...this.filesInfo, currentFileInfo]
+
+          this.files = [...this.files, img]
         }
 
         reader.readAsDataURL(img)
