@@ -21,7 +21,8 @@ export const defaultRoute = {
       name: 'Upload-Images',
       component: () => import('views/UploadImages/'),
       meta: {
-        title: 'Upload'
+        title: 'Upload',
+        role: ['auth']
       }
     },
     {
@@ -29,7 +30,8 @@ export const defaultRoute = {
       name: 'Gallery-Images',
       component: () => import('views/GalleryImages/'),
       meta: {
-        title: 'Gallery'
+        title: 'Gallery',
+        role: ['guest']
       }
     },
     {
@@ -37,7 +39,8 @@ export const defaultRoute = {
       name: 'About',
       component: () => import('@/views/About'),
       meta: {
-        title: 'About'
+        title: 'About',
+        role: ['auth']
       }
     }
   ]
