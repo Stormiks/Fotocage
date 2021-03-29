@@ -1,30 +1,21 @@
 import Vue from 'vue'
 import store from '@/store/'
+import checkStateAuth from './middleware/auth'
 import 'assets/css/vendor/nprogress.less'
 import NProgress from 'assets/js/nprogress.js'
-
-function isAuthUser(route, status, next) {
-  if (status) {
-    if (route === 'Login' || route === 'Registation')
-      next({ name: 'Home' })
-    else next()
-    NProgress.inc(0.5)
-  } else {
-    if (route === 'Login' || route === 'Registation')
-      next()
-    else next({ name: 'Login' })
-    NProgress.inc(0.5)
-  }
-}
 
 // eslint-disable-next-line no-multiple-empty-lines
 export const before = function (to, from, next) {
   NProgress.set(0.0)
-  if (store.state.isLogin)
+  if (store.state.isLogin) {
     store.dispatch('getAuthStatusByServer').then(status => {
-      isAuthUser(to.name, status, next)
+      checkStateAuth(to.name, status, next)
+      NProgress.inc(0.4)
     })
-  else isAuthUser(to.name, store.state.isLogin, next)
+  } else {
+    checkStateAuth(to.name, store.state.isLogin, next)
+    NProgress.inc(0.4)
+  }
 }
 
 export const after = (to, from) => {
