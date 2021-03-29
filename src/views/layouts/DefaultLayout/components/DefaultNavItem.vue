@@ -26,7 +26,7 @@
 
   export default {
     components: { SvgIcon },
-    name: 'DefaultLayoutNavbarItem',
+    name: 'DefaultNavItem',
     props: {
       title: String,
       iconName: String,
