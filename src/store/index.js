@@ -6,13 +6,13 @@ const storageUserId = JSON.parse(localStorage.getItem('id')) || null
 
 const store = {
   state: {
-    isLogin: storageLogin,
+    isLoggedIn: storageLogin,
     images: [],
     userId: storageUserId
   },
   mutations: {
     setLogin(state, { id, auth }) {
-      state.isLogin = auth
+      state.isLoggedIn = auth
       state.userId = id
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)

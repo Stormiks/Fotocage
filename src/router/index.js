@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { before, after } from './hooks'
+import { before, resolve, after } from './hooks'
 import { routes } from './routes'
 
 Vue.use(VueRouter)
@@ -15,6 +15,7 @@ const options = {
 const router = new VueRouter(options)
 
 router.beforeEach(before)
+// router.beforeResolve(resolve)
 router.afterEach(after)
 
 export default router

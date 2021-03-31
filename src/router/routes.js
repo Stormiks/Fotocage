@@ -1,3 +1,4 @@
+import AuthMiddleware from './middleware/auth'
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
 const ErrorLayout = () => import('views/layouts/ErrorLayout/ErrorLayout')
@@ -22,7 +23,7 @@ export const defaultRoute = {
       component: () => import('views/UploadImages/'),
       meta: {
         title: 'Upload',
-        role: ['auth']
+        // role: ['auth']
       }
     },
     {
@@ -31,7 +32,7 @@ export const defaultRoute = {
       component: () => import('views/GalleryImages/'),
       meta: {
         title: 'Gallery',
-        role: ['guest']
+        // role: ['guest']
       }
     },
     {
@@ -40,7 +41,7 @@ export const defaultRoute = {
       component: () => import('@/views/About'),
       meta: {
         title: 'About',
-        role: ['auth']
+        // role: ['auth']
       }
     }
   ]
@@ -50,6 +51,7 @@ export const authRoute = {
   path: '/auth',
   name: 'Auth',
   component: AuthLayout,
+  redirect: { name: 'Login' },
   children: [
     {
       path: 'registration',
@@ -66,26 +68,19 @@ export const authRoute = {
       meta: {
         title: 'Login'
       }
-    },
-    {
-      path: '',
-      redirect: { name: 'Login' }
     }
   ]
 }
 
 export const errorRoute = {
-  path: '*',
+  path: '/*',
   component: ErrorLayout,
+  redirect: { name: 'Error-Not-Found' },
   children: [
     {
       path: 'page-not-found',
       name: 'Error-Not-Found',
       component: () => import('views/Errors/ErrorNotFound.vue')
-    },
-    {
-      path: '',
-      redirect: { name: 'Error-Not-Found' }
     }
   ]
 }
