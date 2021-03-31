@@ -1,7 +1,7 @@
 
 import LazyLoadDirective from '../directives/LazyLoad'
 import AutoplayObserver from '../directives/AutoplayObserver'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll, enableBodyScroll } from './body-scroll-lock'
 
 export default {
   directives: {

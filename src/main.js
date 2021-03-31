@@ -5,18 +5,21 @@ import 'assets/styl/style.styl'
 import Vue from 'vue'
 import App from '@/App.vue'
 
-import VueJSModal from 'plugins/VueJSModal/'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
+import RouterMiddleware from 'vue-router-middleware-plugin'
 import router from '@/router'
 import store from '@/store'
 
 import { makeServer } from './server'
 
+import VueJSModal from 'plugins/VueJSModal/'
+
 /**
  * Use plugins in VueJS
  */
+Vue.use(RouterMiddleware, router)
 Vue.use(VueJSModal)
 Vue.use(VueAxios, axios)
 

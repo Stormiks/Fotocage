@@ -1,3 +1,6 @@
+import AuthMiddleware from './middleware/auth'
+import GuesMiddleware from './middleware/guest'
+
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
 const ErrorLayout = () => import('views/layouts/ErrorLayout/ErrorLayout')
@@ -21,7 +24,11 @@ export const defaultRoute = {
       name: 'Upload-Images',
       component: () => import('views/UploadImages/'),
       meta: {
-        title: 'Upload'
+        title: 'Upload',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        // role: ['auth']
       }
     },
     {
@@ -29,7 +36,11 @@ export const defaultRoute = {
       name: 'Gallery-Images',
       component: () => import('views/GalleryImages/'),
       meta: {
-        title: 'Gallery'
+        title: 'Gallery',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        // role: ['guest']
       }
     },
     {
@@ -37,7 +48,11 @@ export const defaultRoute = {
       name: 'About',
       component: () => import('@/views/About'),
       meta: {
-        title: 'About'
+        title: 'About',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        // role: ['auth']
       }
     }
   ]
@@ -47,13 +62,18 @@ export const authRoute = {
   path: '/auth',
   name: 'Auth',
   component: AuthLayout,
+  redirect: { name: 'Login' },
   children: [
     {
       path: 'registration',
       name: 'Registation',
       component: () => import('views/Registation/'),
       meta: {
-        title: 'Registration'
+        title: 'Registration',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
     },
     {
@@ -61,28 +81,28 @@ export const authRoute = {
       name: 'Login',
       component: () => import('views/Login/'),
       meta: {
-        title: 'Login'
+        title: 'Login',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
-    },
-    {
-      path: '',
-      redirect: { name: 'Login' }
     }
   ]
 }
 
 export const errorRoute = {
-  path: '*',
+  path: '/*',
   component: ErrorLayout,
+  redirect: { name: 'Error-Not-Found' },
+  middleware: {
+    ignore: [AuthMiddleware],
+  },
   children: [
     {
       path: 'page-not-found',
       name: 'Error-Not-Found',
       component: () => import('views/Errors/ErrorNotFound.vue')
-    },
-    {
-      path: '',
-      redirect: { name: 'Error-Not-Found' }
     }
   ]
 }
