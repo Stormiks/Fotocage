@@ -1,22 +1,9 @@
-import NProgress from 'assets/js/nprogress.js'
+import store from '@/store'
 
-export default function isAuthUser(route, status, next) {
-  if (status) {
-    if (route === 'Login' || route === 'Registation') {
-      NProgress.set(1.0)
-      next({ name: 'Home' })
-    } else {
-      NProgress.set(1.0)
-      next()
-    }
-  } else {
-    console.dir('auth', route, status, next);
-    if (route === 'Login' || route === 'Registation') {
-      NProgress.set(1.0)
-      next()
-    } else {
-      NProgress.set(1.0)
-      next({ name: 'Login' })
-    }
-  }
+const isLoggedIn = () => !!store.state.isLoggedIn
+
+const authMiddleware = ({ redirect }) => {
+  if (!isLoggedIn()) redirect({ name: 'Login' })
 }
+
+export default authMiddleware

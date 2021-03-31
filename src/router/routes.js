@@ -1,4 +1,6 @@
 import AuthMiddleware from './middleware/auth'
+import GuesMiddleware from './middleware/guest'
+
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
 const ErrorLayout = () => import('views/layouts/ErrorLayout/ErrorLayout')
@@ -23,6 +25,9 @@ export const defaultRoute = {
       component: () => import('views/UploadImages/'),
       meta: {
         title: 'Upload',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
         // role: ['auth']
       }
     },
@@ -32,6 +37,9 @@ export const defaultRoute = {
       component: () => import('views/GalleryImages/'),
       meta: {
         title: 'Gallery',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
         // role: ['guest']
       }
     },
@@ -41,6 +49,9 @@ export const defaultRoute = {
       component: () => import('@/views/About'),
       meta: {
         title: 'About',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
         // role: ['auth']
       }
     }
@@ -58,7 +69,11 @@ export const authRoute = {
       name: 'Registation',
       component: () => import('views/Registation/'),
       meta: {
-        title: 'Registration'
+        title: 'Registration',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
     },
     {
@@ -66,7 +81,11 @@ export const authRoute = {
       name: 'Login',
       component: () => import('views/Login/'),
       meta: {
-        title: 'Login'
+        title: 'Login',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
     }
   ]
@@ -76,6 +95,9 @@ export const errorRoute = {
   path: '/*',
   component: ErrorLayout,
   redirect: { name: 'Error-Not-Found' },
+  middleware: {
+    ignore: [AuthMiddleware],
+  },
   children: [
     {
       path: 'page-not-found',
