@@ -1,8 +1,8 @@
 <template>
-  <section class="auth-registation">
+  <section class="auth-registration">
     <AuthFormLayout
       :authSubmit="register"
-      class="form__auth_registation"
+      class="form__auth_registration"
     >
       <h1>Регистрация</h1>
       <AuthFormGroup class="mb-2.5">
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import AuthFormLayout from 'layoutAuth/components/AuthFormLayout'
   import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
   import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
@@ -59,7 +60,7 @@
       AuthFormGroup,
       AuthFormFooter
     },
-    name: 'ViewsRegistation',
+    name: 'ViewsRegistration',
     data: () => ({
       user: {
         login: '',
@@ -97,14 +98,23 @@
       }
     },
     computed: {
+      ...mapState({
+        logged: state => state.isLoggedIn
+      }),
       validForm() {
         return this.validLogin === true && this.validPassword === true && this.validPasswordConfirm === true && (this.password === this.passwordConfirm)
       }
     },
+    beforeRouteLeave(to, from, next) {
+      if (this.logged) this.$store.dispatch('generateRoutes')
+
+      if (to.name !== 'Login') next(this.logged)
+      else next()
+    },
     methods: {
       register() {
         if (this.validForm)
-          this.axios.post('/api/registration', { ...this.user }).then(res => {
+          this.axios.post('/api/', { ...this.user }).then(res => {
             if (res.status) {
               this.$store.dispatch('updateStatusLogin', {
                 auth: true,
@@ -120,8 +130,8 @@
 </script>
 
 <style lang="less" scoped>
-  .auth-registation {
-    .form__auth_registation {
+  .auth-registration {
+    .form__auth_registration {
       overflow: auto;
 
       .form__group {

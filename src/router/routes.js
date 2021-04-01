@@ -101,8 +101,8 @@ export const authRoute = {
   children: [
     {
       path: 'registration',
-      name: 'Registation',
-      component: () => import('views/Registation/'),
+      name: 'Registration',
+      component: () => import('views/Registration/'),
       meta: {
         title: 'Registration',
         middleware: {
