@@ -45,7 +45,7 @@
           name="val"
           value="ВОЙТИ" />
         <router-link
-          :to="{ name: 'Registation' }"
+          :to="{ name: 'Registration' }"
           title="Регистрация">
           Регистрация
         </router-link>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   import AuthFormLayout from 'layoutAuth/components/AuthFormLayout'
   import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
   import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
@@ -95,9 +96,16 @@
       }
     },
     computed: {
+      ...mapState({
+        logged: state => state.isLoggedIn
+      }),
       validForm() {
         return this.validLogin === true && this.validPassword === true
       }
+    },
+    beforeRouteLeave(to, from, next) {
+      if (to.name !== 'Registration') next(this.logged)
+      else next()
     },
     methods: {
       login() {
@@ -106,7 +114,7 @@
             if (res.data.status) {
               this.$store.dispatch('updateStatusLogin', res.data.user)
 
-              this.$router.push({ name: 'Gallery-Images' })
+              this.$router.push({ name: 'Home' })
             } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
           }).catch(e => console.log(e))
       }

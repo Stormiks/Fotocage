@@ -1,21 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-const storageLogin = JSON.parse(localStorage.getItem('loggin')) || false
-const storageUserId = JSON.parse(localStorage.getItem('id')) || null
+import { routes } from '@/router/routes'
+import routesHelper from './routes-by-role-helper'
 
 const store = {
   state: {
-    isLoggedIn: storageLogin,
+    isLoggedIn: !!JSON.parse(localStorage.getItem('loggin')),
     images: [],
-    userId: storageUserId
+    userId: JSON.parse(localStorage.getItem('id')) || null,
+    role: localStorage.getItem('role') || 'guest'
   },
   mutations: {
-    setLogin(state, { id, auth }) {
+    setLogin(state, { id, auth, role }) {
       state.isLoggedIn = auth
       state.userId = id
+      state.role = role
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)
+      localStorage.setItem('role', role)
+    },
+    setRoutes(state, routes) {
+      state.routesMenu = routes
     }
   },
   actions: {
@@ -33,10 +38,18 @@ const store = {
       return new Promise((resolve, reject) => {
         commit('setLogin', {
           auth: false,
-          id: null
+          id: null,
+          role: 'guest'
         })
         resolve(!status)
       })
+    }
+  },
+  getters: {
+    routesAccessByUser(state) {
+      const pubRoutes = routes[0].children
+
+      return routesHelper(state.role, pubRoutes)
     }
   },
   modules: {

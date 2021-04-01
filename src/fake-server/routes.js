@@ -31,7 +31,8 @@ export default function () {
       user: {
         id: Number(user.id),
         login: String(user.login),
-        auth: user.id > 0
+        auth: user.id > 0,
+        role: user.role
       }
     }
   })

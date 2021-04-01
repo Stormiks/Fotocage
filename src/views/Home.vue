@@ -1,11 +1,11 @@
 <template>
   <section class="home">
-    <h1>HOME PAGE</h1>
+    <router-view />
   </section>
 </template>
 
 <script>
-export default {
-  name: 'ViewsHome'
-}
+  export default {
+    name: 'ViewsHome'
+  }
 </script>

@@ -14,32 +14,57 @@ export const defaultRoute = {
     {
       path: '',
       name: 'Home',
+      alias: '/gallery',
       redirect: {
-        name: 'Gallery-Images'
+        name: 'Gallery'
       },
       component: () => import('views/Home')
     },
     {
       path: 'upload',
-      name: 'Upload-Images',
-      component: () => import('views/UploadImages/'),
+      name: 'Upload',
+      component: () => import('views/Upload/'),
       meta: {
         title: 'Upload',
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
         // role: ['auth']
       }
     },
     {
       path: 'gallery',
-      name: 'Gallery-Images',
-      component: () => import('views/GalleryImages/'),
+      name: 'Gallery',
+      component: () => import('views/Gallery/'),
       meta: {
         title: 'Gallery',
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          },
+          {
+            role: 'guest',
+            access: false
+          }
+        ]
         // role: ['guest']
       }
     },
@@ -52,6 +77,16 @@ export const defaultRoute = {
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
         // role: ['auth']
       }
     }
@@ -66,8 +101,8 @@ export const authRoute = {
   children: [
     {
       path: 'registration',
-      name: 'Registation',
-      component: () => import('views/Registation/'),
+      name: 'Registration',
+      component: () => import('views/Registration/'),
       meta: {
         title: 'Registration',
         middleware: {
