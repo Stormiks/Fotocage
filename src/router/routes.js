@@ -16,13 +16,13 @@ export const defaultRoute = {
       name: 'Home',
       alias: '/gallery',
       redirect: {
-        name: 'Gallery-Images'
+        name: 'Gallery'
       },
       component: () => import('views/Home')
     },
     {
       path: 'upload',
-      name: 'Upload-Images',
+      name: 'Upload',
       component: () => import('views/UploadImages/'),
       meta: {
         title: 'Upload',
@@ -44,7 +44,7 @@ export const defaultRoute = {
     },
     {
       path: 'gallery',
-      name: 'Gallery-Images',
+      name: 'Gallery',
       component: () => import('views/GalleryImages/'),
       meta: {
         title: 'Gallery',

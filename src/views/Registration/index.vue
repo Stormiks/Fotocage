@@ -106,8 +106,6 @@
       }
     },
     beforeRouteLeave(to, from, next) {
-      if (this.logged) this.$store.dispatch('generateRoutes')
-
       if (to.name !== 'Login') next(this.logged)
       else next()
     },
@@ -121,7 +119,7 @@
                 id: res.data.user.id
               })
 
-              this.$router.push({ name: 'Gallery-Images' })
+              this.$router.push({ name: 'Home' })
             } else { this.$store.dispatch('updateStatusLogin', false) }
           }).catch(e => console.log(e))
       }

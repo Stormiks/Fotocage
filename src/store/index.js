@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { routes } from '@/router/routes'
+import routesHelper from './routes-by-role-helper'
 
 const store = {
   state: {
-    isLoggedIn: JSON.parse(localStorage.getItem('loggin')) || false,
+    isLoggedIn: !!JSON.parse(localStorage.getItem('loggin')),
     images: [],
     userId: JSON.parse(localStorage.getItem('id')) || null,
-    role: localStorage.getItem('role') || 'guest',
-    routesMenu: []
+    role: localStorage.getItem('role') || 'guest'
   },
   mutations: {
     setLogin(state, { id, auth, role }) {
@@ -19,13 +19,12 @@ const store = {
       localStorage.setItem('id', id)
       localStorage.setItem('role', role)
     },
-    setRoutes(state, route) {
-      state.routesMenu.push(route)
+    setRoutes(state, routes) {
+      state.routesMenu = routes
     }
   },
   actions: {
     updateStatusLogin({ commit }, statusAuth) {
-      console.log('getAuthStatusByServer', statusAuth);
       commit('setLogin', statusAuth)
     },
     getAuthStatusByServer({ state, commit }) {
@@ -34,30 +33,6 @@ const store = {
 
         return res.data.auth
       })
-    },
-    generateRoutes({ state, commit }) {
-      const pubRoutes = routes[0].children
-      const userRole = state.role
-
-      const getRoutesByRole = (arr) => {
-        arr.some(r => {
-          if (!Object.prototype.hasOwnProperty.call(r, 'meta') && r.children)
-            getRoutesByRole(r.children)
-
-          if (r.meta) {
-            const permissions = r.meta.permissions
-
-            if (Array.isArray(permissions) && permissions) {
-              permissions.forEach(i => {
-                console.log(userRole)
-                if (i.role === userRole) commit('setRoutes', r)
-              })
-            }
-          }
-        })
-      }
-
-      getRoutesByRole(pubRoutes)
     },
     logout({ commit }, status = false) {
       return new Promise((resolve, reject) => {
@@ -68,6 +43,13 @@ const store = {
         })
         resolve(!status)
       })
+    }
+  },
+  getters: {
+    routesAccessByUser(state) {
+      const pubRoutes = routes[0].children
+
+      return routesHelper(state.role, pubRoutes)
     }
   },
   modules: {

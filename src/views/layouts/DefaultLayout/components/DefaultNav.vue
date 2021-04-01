@@ -8,9 +8,9 @@
       }"
     >
       <DefaultNavLink
-        :title="link.meta.title"
+        :title="link.title"
         :key="`nav-link-${link.name}`"
-        :icon-name="link.name"
+        :icon-name="link.icon"
         :url-name="link.name"
       />
     </DefaultNavItem>
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
   import DefaultNavItem from './DefaultNavItem'
   import DefaultNavLink from './DefaultNavLink'
 
@@ -47,8 +47,10 @@
     },
     computed: {
       ...mapState({
-        logged: state => state.isLoggedIn,
-        routes: state => state.routesMenu
+        logged: state => state.isLoggedIn
+      }),
+      ...mapGetters({
+        routes: 'routesAccessByUser'
       }),
       activeRouterName() {
         return this.$route.name

@@ -104,8 +104,6 @@
       }
     },
     beforeRouteLeave(to, from, next) {
-      if (this.logged) this.$store.dispatch('generateRoutes')
-
       if (to.name !== 'Registration') next(this.logged)
       else next()
     },
@@ -116,7 +114,7 @@
             if (res.data.status) {
               this.$store.dispatch('updateStatusLogin', res.data.user)
 
-              this.$router.push({ name: 'Gallery-Images' })
+              this.$router.push({ name: 'Home' })
             } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
           }).catch(e => console.log(e))
       }

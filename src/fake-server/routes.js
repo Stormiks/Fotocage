@@ -32,7 +32,7 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: 'admin'
+        role: user.role
       }
     }
   })
