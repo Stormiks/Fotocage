@@ -1,42 +1,12 @@
 <template>
-  <div
-    class="nav__list__item nav__link flex p-2"
-  >
-    <router-link
-      v-if="urlName !== ''"
-      class="flex items-center justify-center flex-grow flex-col px-1"
-      :to="{ name: urlName }"
-    >
-      <SvgIcon :name="iconName" />
-      {{ title }}
-    </router-link>
-    <a
-      v-else
-      @click="logout"
-      class="flex items-center justify-center flex-grow flex-col px-1"
-    >
-      <SvgIcon :name="`logout`" />
-      {{ title }}
-    </a>
+  <div class="nav__list__item nav__link flex p-2">
+    <slot></slot>
   </div>
 </template>
 
 <script>
-  import SvgIcon from 'components/SvgIcon'
-
   export default {
-    components: { SvgIcon },
-    name: 'DefaultNavItem',
-    props: {
-      title: String,
-      iconName: String,
-      urlName: String
-    },
-    methods: {
-      logout() {
-        this.$store.dispatch('logout').then(status => this.$router.push({ name: 'Login' }))
-      }
-    }
+    name: 'DefaultNavItem'
   }
 </script>
 
