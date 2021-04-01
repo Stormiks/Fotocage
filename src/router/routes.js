@@ -14,6 +14,7 @@ export const defaultRoute = {
     {
       path: '',
       name: 'Home',
+      alias: '/gallery',
       redirect: {
         name: 'Gallery-Images'
       },
@@ -28,6 +29,16 @@ export const defaultRoute = {
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
         // role: ['auth']
       }
     },
@@ -40,6 +51,20 @@ export const defaultRoute = {
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          },
+          {
+            role: 'guest',
+            access: false
+          }
+        ]
         // role: ['guest']
       }
     },
@@ -52,6 +77,16 @@ export const defaultRoute = {
         middleware: {
           attach: [AuthMiddleware]
         },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
         // role: ['auth']
       }
     }
