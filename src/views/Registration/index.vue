@@ -116,7 +116,9 @@
             if (res.status) {
               this.$store.dispatch('updateStatusLogin', {
                 auth: true,
-                id: res.data.user.id
+                id: res.data.user.id,
+                role: res.data.user.role,
+                login: res.data.user.login
               })
 
               this.$router.push({ name: 'Home' })
