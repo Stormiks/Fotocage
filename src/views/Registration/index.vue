@@ -112,11 +112,13 @@
     methods: {
       register() {
         if (this.validForm)
-          this.axios.post('/api/', { ...this.user }).then(res => {
+          this.axios.post('/api/registration', { ...this.user }).then(res => {
             if (res.status) {
               this.$store.dispatch('updateStatusLogin', {
                 auth: true,
-                id: res.data.user.id
+                id: res.data.user.id,
+                role: res.data.user.role,
+                login: res.data.user.login
               })
 
               this.$router.push({ name: 'Home' })

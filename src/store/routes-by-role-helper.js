@@ -14,7 +14,6 @@ const getRoutesByRole = (role, arr) => {
       if (Array.isArray(permissions) && permissions) {
         permissions.forEach(i => {
           if (i.role === role) {
-            console.log(role)
             tempRoutes.push({
               title: r.meta.title,
               name: r.name,
