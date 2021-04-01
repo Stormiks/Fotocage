@@ -5,8 +5,6 @@ export default function () {
   this.post('/login', (schema, req) => {
     const attrs = JSON.parse(req.requestBody)
 
-    console.log('[SERVER]', attrs)
-
     const user = schema.users.findBy({
       login: attrs.login,
       password: attrs.password
@@ -25,6 +23,8 @@ export default function () {
       )
 
     user.update({ auth: true })
+
+    console.log('[SERVER]: Loggin user - ', String(user.login))
 
     return {
       status: true,
@@ -78,7 +78,8 @@ export default function () {
     const user = schema.users.create({
       login: attrs.login,
       password: attrs.password,
-      auth: false
+      auth: false,
+      role: 'guest'
     })
 
     if (!user)
@@ -95,11 +96,15 @@ export default function () {
 
     user.update({ auth: true })
 
+    console.log('[SERVER]: New user - ', String(user.login))
+
     return {
       status: true,
       user: {
-        id: user.id,
-        auth: user.auth
+        id: Number(user.id),
+        login: String(user.login),
+        auth: user.id > 0,
+        role: user.role
       }
     }
   })

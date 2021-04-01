@@ -112,7 +112,7 @@
     methods: {
       register() {
         if (this.validForm)
-          this.axios.post('/api/', { ...this.user }).then(res => {
+          this.axios.post('/api/registration', { ...this.user }).then(res => {
             if (res.status) {
               this.$store.dispatch('updateStatusLogin', {
                 auth: true,
