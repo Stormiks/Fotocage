@@ -23,7 +23,7 @@ export const defaultRoute = {
     {
       path: 'upload',
       name: 'Upload',
-      component: () => import('views/UploadImages/'),
+      component: () => import('views/Upload/'),
       meta: {
         title: 'Upload',
         middleware: {
@@ -45,7 +45,7 @@ export const defaultRoute = {
     {
       path: 'gallery',
       name: 'Gallery',
-      component: () => import('views/GalleryImages/'),
+      component: () => import('views/Gallery/'),
       meta: {
         title: 'Gallery',
         middleware: {
