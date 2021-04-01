@@ -18,13 +18,13 @@
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
-    "body-scroll-lock": "^3.1.5",
     "core-js": "^3.9.1",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^2.6.12",
     "vue-axios": "^3.2.4",
     "vue-router": "^3.5.1",
+    "vue-router-middleware-plugin": "^3.1.1",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
@@ -55,8 +55,8 @@
     "stylus-loader": "^3.0.2",
     "svgo": "^1.1.0",
     "svgo-loader": "^2.1.0",
-    "vue-cli-plugin-svg-sprite": "~1.0.0",
     "vue-cli-plugin-style-resources-loader": "~0.1.5",
+    "vue-cli-plugin-svg-sprite": "~1.0.0",
     "vue-cli-plugin-tailwind": "~2.0.6",
     "vue-template-compiler": "^2.6.12"
   },

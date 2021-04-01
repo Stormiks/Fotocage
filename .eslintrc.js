@@ -31,6 +31,13 @@ module.exports = {
         asyncArrow: 'always'
       }
     ],
+    // https://eslint.vuejs.org/rules/valid-v-slot.html
+    'vue/valid-v-slot': [
+      'error',
+      {
+        allowModifiers: true
+      }
+    ],
     // https://eslint.vuejs.org/rules/html-indent.html
     'vue/html-indent': ['error', 2, {
       attribute: 1,

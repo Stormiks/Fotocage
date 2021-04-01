@@ -25,13 +25,35 @@ export function makeServer(environment = 'development') {
     environment,
     routes,
     seeds(server) {
-      server.createList('user', 5)
+      server.createList('user', 2, {
+        role: 'photographer'
+      })
+      server.createList('user', 3, {
+        role: 'reader'
+      })
       server.create('user', {
         name: faker.name.middleName(),
         email: faker.internet.email(),
         login: 'Test',
         password: 'test',
-        auth: false
+        auth: false,
+        role: 'admin'
+      })
+      server.create('user', {
+        name: faker.name.middleName(),
+        email: faker.internet.email(),
+        login: 'Test2',
+        password: 'test2',
+        auth: false,
+        role: 'guest'
+      })
+      server.create('user', {
+        name: faker.name.middleName(),
+        email: faker.internet.email(),
+        login: 'Test3',
+        password: 'test3',
+        auth: false,
+        role: 'photographer'
       })
       server.createList('image', 5)
     }

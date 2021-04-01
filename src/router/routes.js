@@ -1,3 +1,6 @@
+import AuthMiddleware from './middleware/auth'
+import GuesMiddleware from './middleware/guest'
+
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
 const ErrorLayout = () => import('views/layouts/ErrorLayout/ErrorLayout')
@@ -11,25 +14,58 @@ export const defaultRoute = {
     {
       path: '',
       name: 'Home',
+      alias: '/gallery',
       redirect: {
-        name: 'Gallery-Images'
+        name: 'Gallery'
       },
       component: () => import('views/Home')
     },
     {
       path: 'upload',
-      name: 'Upload-Images',
-      component: () => import('views/UploadImages/'),
+      name: 'Upload',
+      component: () => import('views/Upload/'),
       meta: {
-        title: 'Upload'
+        title: 'Upload',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
+        // role: ['auth']
       }
     },
     {
       path: 'gallery',
-      name: 'Gallery-Images',
-      component: () => import('views/GalleryImages/'),
+      name: 'Gallery',
+      component: () => import('views/Gallery/'),
       meta: {
-        title: 'Gallery'
+        title: 'Gallery',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          },
+          {
+            role: 'guest',
+            access: false
+          }
+        ]
+        // role: ['guest']
       }
     },
     {
@@ -37,7 +73,21 @@ export const defaultRoute = {
       name: 'About',
       component: () => import('@/views/About'),
       meta: {
-        title: 'About'
+        title: 'About',
+        middleware: {
+          attach: [AuthMiddleware]
+        },
+        permissions: [
+          {
+            role: 'photographer',
+            access: true
+          },
+          {
+            role: 'admin',
+            access: true
+          }
+        ]
+        // role: ['auth']
       }
     }
   ]
@@ -47,13 +97,18 @@ export const authRoute = {
   path: '/auth',
   name: 'Auth',
   component: AuthLayout,
+  redirect: { name: 'Login' },
   children: [
     {
       path: 'registration',
-      name: 'Registation',
-      component: () => import('views/Registation/'),
+      name: 'Registration',
+      component: () => import('views/Registration/'),
       meta: {
-        title: 'Registration'
+        title: 'Registration',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
     },
     {
@@ -61,28 +116,28 @@ export const authRoute = {
       name: 'Login',
       component: () => import('views/Login/'),
       meta: {
-        title: 'Login'
+        title: 'Login',
+        middleware: {
+          attach: [GuesMiddleware],
+          ignore: [AuthMiddleware]
+        },
       }
-    },
-    {
-      path: '',
-      redirect: { name: 'Login' }
     }
   ]
 }
 
 export const errorRoute = {
-  path: '*',
+  path: '/*',
   component: ErrorLayout,
+  redirect: { name: 'Error-Not-Found' },
+  middleware: {
+    ignore: [AuthMiddleware],
+  },
   children: [
     {
       path: 'page-not-found',
       name: 'Error-Not-Found',
       component: () => import('views/Errors/ErrorNotFound.vue')
-    },
-    {
-      path: '',
-      redirect: { name: 'Error-Not-Found' }
     }
   ]
 }
