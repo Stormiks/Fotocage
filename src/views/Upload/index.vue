@@ -80,10 +80,6 @@
         return arr
       }
     },
-    // watch: {
-    //   openModalEditor(newBool) {
-    //   }
-    // },
     methods: {
       onChangeStateModal(e) {
         this.openModalEditor = e
