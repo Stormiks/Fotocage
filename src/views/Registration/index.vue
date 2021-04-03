@@ -108,6 +108,7 @@
   import AuthFormLayout from 'layoutAuth/components/AuthFormLayout'
   import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
   import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
+  import { register } from '@/api/'
 
   export default {
     components: {
@@ -155,19 +156,18 @@
       register(formData) {
         this.$v.form.$touch()
 
-        if (!this.$v.validForm.$error)
-          this.axios.post('/api/registration', { ...formData }).then(res => {
-            if (res.status) {
-              this.$store.dispatch('updateStatusLogin', {
-                auth: true,
-                id: res.data.user.id,
-                role: res.data.user.role,
-                login: res.data.user.login
-              })
+        if (!this.$v.validForm.$error) register(formData, (res) => {
+          if (res.error) return this.$store.dispatch('updateStatusLogin', false)
 
-              this.$router.push({ name: 'Home' })
-            } else { this.$store.dispatch('updateStatusLogin', false) }
-          }).catch(e => console.log(e))
+          this.$store.dispatch('updateStatusLogin', {
+            auth: res.auth,
+            id: res.user.id,
+            role: res.user.role,
+            login: res.user.login
+          })
+
+          this.$router.push({ name: 'Home' })
+        })
       }
     },
     mixins: [validationMixin]
