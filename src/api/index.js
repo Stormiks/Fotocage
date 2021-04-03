@@ -17,6 +17,19 @@ export const downloadImages = (data, cbProgress, done) => {
   })
 }
 
+export const images = (done) => {
+  API.get('/images').then(res => {
+    let images = res.data?.images
+
+    if (!images.length) images = []
+
+    done(images)
+  }).catch(err => {
+    done({ error: true })
+    console.log(err)
+  })
+}
+
 export const login = (formData, done) => {
   API.post('/login', { ...formData }).then(res => {
     if (res.data.status) done({ user: res.data.user })

@@ -47,6 +47,7 @@
   import GalleryImagesCard from './GalleryImagesCard'
   import CardControlGroup from './CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'
+  import { images } from '@/api/'
 
   export default {
     name: 'ViewsGalleryImages',
@@ -66,20 +67,16 @@
       this.loading = true
       this.loadedFiles = false
 
-      this.axios.get('/api/images').then(res => {
-        let images = res.data.images
+      images((res) => {
+        if (res?.error) {
+          this.loading = false
+          this.loadedFiles = false
+          return
+        }
 
-        if (!images.length) images = []
-
-        return images
-      }).then(images => {
-        this.files = images
+        this.files = res
         this.loading = false
         this.loadedFiles = true
-      }).catch(err => {
-        this.loading = false
-        this.loadedFiles = false
-        console.log(err)
       })
     },
     methods: {
