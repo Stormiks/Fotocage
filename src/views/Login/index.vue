@@ -106,6 +106,7 @@
   import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
   import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
   import SvgIcon from 'components/SvgIcon'
+  import { login } from '@/api/'
 
   export default {
     components: {
@@ -148,14 +149,12 @@
       login(formData) {
         this.$v.form.$touch()
 
-        if (!this.$v.validForm.$error)
-          this.axios.post('/api/login', { ...formData }).then(res => {
-            if (res.data.status) {
-              this.$store.dispatch('updateStatusLogin', res.data.user)
+        if (!this.$v.validForm.$error) login(formData, (res) => {
+          if (res.error) return this.$store.dispatch('updateStatusLogin', { auth: false })
 
-              this.$router.push({ name: 'Home' })
-            } else { this.$store.dispatch('updateStatusLogin', { auth: false }) }
-          }).catch(e => console.log(e))
+          this.$store.dispatch('updateStatusLogin', res.user)
+          this.$router.push({ name: 'Home' })
+        })
       }
     },
     mixins: [validationMixin]
