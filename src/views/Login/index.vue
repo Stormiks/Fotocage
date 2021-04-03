@@ -9,7 +9,7 @@
       <AuthFormGroup class="flex flex-col mb-4">
         <div class="form__input_box mb-2.5">
           <div class="relative">
-            <div class="form__input_icon flex items-center px-2 absolute">
+            <div class="form__input_icon flex items-center px-2 absolute top-0 left-0 bottom-0">
               <SvgIcon
                 :name="`login-user`"
               />
@@ -35,12 +35,12 @@
             class="px-1 py-0.5 text-red-600"
             v-else-if="!$v.form.login.minLength && $v.form.login.$dirty"
           >
-            Минимальная длина логина {{ $v.form.login.$params.minLength.min }}
+            Минимальная длина логина {{ $v.form.login.$params.minLength.min }} символов
           </span>
         </div>
         <div class="form__input_box">
           <div class="relative">
-            <div class="form__input_icon flex items-center px-2 absolute">
+            <div class="form__input_icon flex items-center px-2 absolute top-0 left-0 bottom-0">
               <SvgIcon
                 :name="`login-key`"
               />
@@ -49,12 +49,24 @@
             <input
               class="w-full border"
               :class="{ 'is-invalid': $v.form.password.$error }"
+              :style="{ pointerEvents: showPassword ? 'none': 'unset' }"
               v-model.trim="form.password"
               id="password"
               name="pass"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               placeholder="Пароль"
             />
+            <div
+              @click="showPassword = !showPassword"
+              @keyup.enter="showPassword = !showPassword"
+              @touchend="showPassword = !showPassword"
+              tabindex="0"
+              class="form__input_icon flex items-center px-2 absolute top-0 right-0 bottom-0 cursor-pointer"
+            >
+              <SvgIcon
+                :name="`eye-${showPassword ? 'show' : 'hide'}`"
+              />
+            </div>
           </div>
           <span
             class="px-1 py-0.5 text-red-600"
@@ -66,7 +78,7 @@
             class="px-1 py-0.5 text-red-600"
             v-else-if="!$v.form.password.minLength && $v.form.password.$dirty"
           >
-            Минимальная длина пароля {{ $v.form.password.$params.minLength.min }}
+            Минимальная длина пароля {{ $v.form.password.$params.minLength.min }} символов
           </span>
         </div>
       </AuthFormGroup>
@@ -107,7 +119,8 @@
       form: {
         login: '',
         password: ''
-      }
+      },
+      showPassword: false
     }),
     validations: {
       validForm: ['form.login', 'form.password'],
@@ -159,12 +172,6 @@
           height: 42px;
           width: 42px;
         }
-      }
-
-      &_icon {
-        top: 0;
-        left: 0;
-        bottom: 0;
       }
     }
 

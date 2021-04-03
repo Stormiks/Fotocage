@@ -29,7 +29,7 @@
           class="px-1 py-0.5 text-red-600"
           v-else-if="$v.form.login.required && !$v.form.login.minLength && $v.form.login.$dirty"
         >
-          Минимальная длина логина {{ $v.form.login.$params.minLength.min }}
+          Минимальная длина логина {{ $v.form.login.$params.minLength.min }} символов
         </span>
       </AuthFormGroup>
       <AuthFormGroup class="flex flex-col items-end mb-2.5">
@@ -59,7 +59,7 @@
           class="px-1 py-0.5 text-red-600"
           v-else-if="!$v.form.password.minLength && $v.form.password.$dirty"
         >
-          Минимальная длина пароля {{ $v.form.password.$params.minLength.min }}
+          Минимальная длина пароля {{ $v.form.password.$params.minLength.min }} символов
         </span>
       </AuthFormGroup>
       <AuthFormGroup class="flex flex-col items-end mb-2.5">
