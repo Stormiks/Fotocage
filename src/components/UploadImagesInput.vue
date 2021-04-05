@@ -6,15 +6,19 @@
       type="file"
       :id="idInputFile"
       multiple
+      :accept="acceptFormatsFile"
       @change="$emit('change-input', $event)"
     />
     <span
       class="form__upload__image image_title"
     >
-      <template v-if="filesCount === 1">
+      <template v-if="filesCount === 0">
+        <span class="text-gray-400">Выберите файлы для загрузки с вашего компьютера</span>
+      </template>
+      <template v-else-if="filesCount === 1">
         {{ firstFileName }}
       </template>
-      <template v-if="filesCount > 1">
+      <template v-else-if="filesCount > 1">
         <span @click.stop="$emit('visible-list-files')">
           Количество файлов для загрузки: {{ filesCount }}
         </span>
@@ -34,6 +38,10 @@
       idInputFile: {
         type: String,
         default: 'uploadImage'
+      },
+      acceptFormatsFile: {
+        type: String,
+        default: '.jpg, .jpeg'
       },
       firstFileName: {
         type: String,
@@ -98,7 +106,7 @@
   }
 
   .image_title {
-    font-size: 20px;
-    font-family: serif;
+    font-size: 18px;
+    font-family: 'Roboto Regular', 'Helvetica Roman';
   }
 </style>

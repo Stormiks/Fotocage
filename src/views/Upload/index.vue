@@ -12,6 +12,7 @@
             'form__list_show': showListUploadImages
           }"
           :files-count="files.length"
+          :accept-formats-file="acceptFormats.join(', ')"
           :first-file-name="files[0] ? files[0].name : ''"
           @change-input="onChangeInputUploadFile"
           @visible-list-files="onShowListUploadImages"
@@ -38,12 +39,13 @@
       v-slot="{ index, title, size, src }"
     >
       <PreviewImage
-        :name="filesInfo[index].title"
+        :title="filesInfo[index].title"
+        :name="filesInfo[index].name"
         :size="size"
         :src="src"
         :description="filesInfo[index].description"
         :ref="`image-download-${index}`"
-        @preview-remove="onDeleteDownloadFile"
+        @preview-remove="onDeleteDownloadFile($event, index)"
         @update-preview-info="onUpdatePreviewInfo($event, index)"
         :key="`upload-image-${title.length}-${size}`"
       />
@@ -69,6 +71,7 @@
     data: () => ({
       files: [],
       filesInfo: [],
+      acceptFormats: ['.jpg', '.jpeg'],
       showListUploadImages: false,
       openModalEditor: false
     }),
@@ -105,16 +108,23 @@
         })
       },
       addFileToPreview(img) {
+        const patt = new RegExp(`[\.][${this.acceptFormats.join('|')}]+`, 'i')
+        const fileExt = img.name.match(patt)[0]
+
+        if (!this.acceptFormats.includes(fileExt)) return
+
         const reader = new FileReader()
 
         reader.onload = e => {
           const src = e.target.result
+          const extWithName = img.name.substring(0, img.name.lastIndexOf('.'))
 
           img.src = src
           img.download = false
 
           const currentFileInfo = {
-            title: img.name,
+            title: extWithName,
+            name: img.name,
             description: ''
           }
 
@@ -125,11 +135,11 @@
 
         reader.readAsDataURL(img)
       },
-      onDeleteDownloadFile(e) {
+      onDeleteDownloadFile(e, ixd) {
         if (!e.name) return
 
-        const { name } = e
-        this.files = this.files.filter(file => file.name !== name)
+        // const { name } = e
+        this.files.splice(ixd, 1)
       },
       onShowListUploadImages() {
         this.showListUploadImages = !this.showListUploadImages
