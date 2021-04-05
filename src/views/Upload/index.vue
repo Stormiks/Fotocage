@@ -45,7 +45,7 @@
         :src="src"
         :description="filesInfo[index].description"
         :ref="`image-download-${index}`"
-        @preview-remove="onDeleteDownloadFile"
+        @preview-remove="onDeleteDownloadFile($event, index)"
         @update-preview-info="onUpdatePreviewInfo($event, index)"
         :key="`upload-image-${title.length}-${size}`"
       />
@@ -135,11 +135,11 @@
 
         reader.readAsDataURL(img)
       },
-      onDeleteDownloadFile(e) {
+      onDeleteDownloadFile(e, ixd) {
         if (!e.name) return
 
-        const { name } = e
-        this.files = this.files.filter(file => file.name !== name)
+        // const { name } = e
+        this.files.splice(ixd, 1)
       },
       onShowListUploadImages() {
         this.showListUploadImages = !this.showListUploadImages
