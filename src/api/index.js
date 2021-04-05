@@ -32,20 +32,26 @@ export const images = (done) => {
 
 export const login = (formData, done) => {
   API.post('/login', { ...formData }).then(res => {
-    if (res.data.status) done({ user: res.data.user })
+    if (res.data.status) done({
+      id: res.data.user.id,
+      auth: res.data.user.auth,
+      role: res.data.user.role,
+      login: res.data.user.login,
+      avatar: res.data.user.avatar
+    })
     else done({ error: true })
   }).catch(e => console.log(e))
 }
 
 export const register = (formData, done) => {
   API.post('/registration', { ...formData }).then(res => {
-    if (res.data.status) {
-      done({
-        auth: true,
-        id: res.data.user.id,
-        role: res.data.user.role,
-        login: res.data.user.login
-      })
-    } else done({ error: true })
+    if (res.data.status) done({
+      id: res.data.user.id,
+      auth: res.data.user.auth,
+      role: res.data.user.role,
+      login: res.data.user.login,
+      avatar: res.data.user.avatar
+    })
+    else done({ error: true })
   }).catch(e => console.log(e))
 }

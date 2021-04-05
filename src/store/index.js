@@ -8,13 +8,15 @@ const store = {
     isLoggedIn: !!JSON.parse(localStorage.getItem('loggin')),
     images: [],
     userId: JSON.parse(localStorage.getItem('id')) || null,
-    role: localStorage.getItem('role') || 'guest'
+    role: localStorage.getItem('role') || 'guest',
+    avatar: null
   },
   mutations: {
-    setLogin(state, { id, auth, role }) {
+    setLogin(state, { id, auth, role, avatar }) {
       state.isLoggedIn = auth
       state.userId = id
       state.role = role
+      state.avatar = avatar
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)
       localStorage.setItem('role', role)
@@ -39,7 +41,8 @@ const store = {
         commit('setLogin', {
           auth: false,
           id: null,
-          role: 'guest'
+          role: 'guest',
+          avatar: null
         })
         resolve(!status)
       })

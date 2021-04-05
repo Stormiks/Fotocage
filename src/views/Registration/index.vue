@@ -156,15 +156,10 @@
       register(formData) {
         this.$v.form.$touch()
 
-        if (!this.$v.validForm.$error) register(formData, (res) => {
-          if (res.error) return this.$store.dispatch('updateStatusLogin', false)
+        if (!this.$v.validForm.$error) register(formData, (user) => {
+          if (user.error) return this.$store.dispatch('updateStatusLogin', false)
 
-          this.$store.dispatch('updateStatusLogin', {
-            auth: res.auth,
-            id: res.id,
-            role: res.role,
-            login: res.login
-          })
+          this.$store.dispatch('updateStatusLogin', user)
 
           this.$router.push({ name: 'Home' })
         })

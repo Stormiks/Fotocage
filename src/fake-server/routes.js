@@ -32,7 +32,8 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        avatar: user.avatar
       }
     }
   })
@@ -69,7 +70,8 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        avatar: user.avatar
       }
     }
   })

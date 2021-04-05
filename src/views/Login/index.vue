@@ -149,10 +149,10 @@
       login(formData) {
         this.$v.form.$touch()
 
-        if (!this.$v.validForm.$error) login(formData, (res) => {
-          if (res.error) return this.$store.dispatch('updateStatusLogin', { auth: false })
+        if (!this.$v.validForm.$error) login(formData, (user) => {
+          if (user.error) return this.$store.dispatch('updateStatusLogin', { auth: false })
 
-          this.$store.dispatch('updateStatusLogin', res.user)
+          this.$store.dispatch('updateStatusLogin', user)
           this.$router.push({ name: 'Home' })
         })
       }

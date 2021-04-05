@@ -1,19 +1,24 @@
 <template>
-  <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+  <div class="inset-y-0 right-0 flex items-center pr-2 static sm:inset-auto sm:ml-6 sm:pr-0">
     <div class="ml-3 relative">
       <div>
         <button
           type="button"
-          class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-          id="user-menu"
+          class="profile__avatar bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
           @click="onShowUserMenu"
-          aria-expanded="false"
+          :aria-expanded="showUserMenu"
           aria-haspopup="true"
         >
           <img
-            class="h-8 w-8 rounded-full"
-            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
+            v-if="avatar"
+            class=" h-12 w-12 rounded-full"
+            :src="avatar"
+            :alt="`User`"
+          />
+          <SvgIcon
+            class=" h-12 w-12 rounded-full"
+            v-else
+            :name="'user-avatar'"
           />
         </button>
       </div>
@@ -56,11 +61,21 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+  import SvgIcon from 'components/SvgIcon'
   export default {
     name: 'DefaultNavbarProfile',
     data: () => ({
       showUserMenu: false
     }),
+    components: {
+      SvgIcon
+    },
+    computed: {
+      ...mapState({
+        avatar: state => state.avatar
+      })
+    },
     methods: {
       onShowUserMenu() {
         this.showUserMenu = !this.showUserMenu
