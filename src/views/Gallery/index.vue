@@ -43,9 +43,9 @@
 </template>
 
 <script>
-  import VueLoadingIndicator from './vue-loading-indocator'
-  import GalleryImagesCard from './GalleryImagesCard'
-  import CardControlGroup from './CardControlGroup'
+  import VueLoadingIndicator from 'components/vue-loading-indocator'
+  import GalleryImagesCard from 'components/GalleryImagesCard'
+  import CardControlGroup from 'components/CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'
   import { images } from '@/api/'
 

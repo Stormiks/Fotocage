@@ -105,9 +105,9 @@
   import { validationMixin } from 'vuelidate'
   import { required, minLength, sameAs } from 'vuelidate/lib/validators'
   import { mapState } from 'vuex'
-  import AuthFormLayout from 'layoutAuth/components/AuthFormLayout'
-  import AuthFormGroup from 'layoutAuth/components/AuthFormGroup'
-  import AuthFormFooter from 'layoutAuth/components/AuthFormFooter'
+  import AuthFormLayout from 'components/Auth/AuthFormLayout'
+  import AuthFormGroup from 'components/Auth/AuthFormGroup'
+  import AuthFormFooter from 'components/Auth/AuthFormFooter'
   import { register } from '@/api/'
 
   export default {
