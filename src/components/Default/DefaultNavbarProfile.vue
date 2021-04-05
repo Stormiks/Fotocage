@@ -21,41 +21,24 @@
             :name="'user-avatar'"
           />
         </button>
-      </div>
 
-      <transition
-        mode="in-out"
-        enter-active-class="transition ease-out duration-200"
-        enter-from-class="transform opacity-0 scale-95"
-        enter-to-class="transform opacity-100 scale-100"
-        leave-active-class="transition ease-in duration-100"
-        leave-from-class="transform opacity-100 scale-100"
-        leave-to-class="transform opacity-0 scale-95"
-        appear
-      >
-        <div
-          class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          aria-orientation="vertical"
-          aria-labelledby="user-menu"
-          v-show="showUserMenu"
+        <DefaultDropdownMenu
+          :is-open="showUserMenu"
         >
-          <router-link
-            to="#"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem"
-          >
-            Мой профиль
-          </router-link>
-          <router-link
-            to="#"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            role="menuitem"
-          >
-            Настройки профиля
-          </router-link>
-        </div>
-      </transition>
+          <div class="dropdown__group border-gray-300">
+            <span class="block px-3 py-1.5">User</span>
+          </div>
+          <div class="dropdown__group">
+            <router-link
+              v-for="link in menu"
+              :key="link.name"
+              :to="link.url"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+              role="menuitem"
+            >{{ link.title }}</router-link>
+          </div>
+        </DefaultDropdownMenu>
+      </div>
     </div>
   </div>
 </template>
@@ -63,12 +46,25 @@
 <script>
   import { mapState } from 'vuex'
   import SvgIcon from 'components/SvgIcon'
+  import DefaultDropdownMenu from './DefaultDropdownMenu'
+
   export default {
     name: 'DefaultNavbarProfile',
     data: () => ({
-      showUserMenu: false
+      showUserMenu: false,
+      menu: [
+        {
+          title: 'Мой профиль',
+          url: '#'
+        },
+        {
+          title: 'Настройки профиля',
+          url: '#'
+        }
+      ]
     }),
     components: {
+      DefaultDropdownMenu,
       SvgIcon
     },
     computed: {
@@ -85,4 +81,14 @@
 </script>
 
 <style lang="less" scoped>
+  .profile__avatar {
+    border: 3px solid #cc6100;
+  }
+
+  .dropdown__group {
+    &:not(:last-child) {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+    }
+  }
 </style>
