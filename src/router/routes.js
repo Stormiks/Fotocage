@@ -26,6 +26,7 @@ export const defaultRoute = {
       component: () => import('views/Upload/'),
       meta: {
         title: 'Upload',
+        visibleAccess: true,
         middleware: {
           attach: [AuthMiddleware]
         },
@@ -48,6 +49,7 @@ export const defaultRoute = {
       component: () => import('views/Gallery/'),
       meta: {
         title: 'Gallery',
+        visibleAccess: true,
         middleware: {
           attach: [AuthMiddleware]
         },
@@ -74,6 +76,7 @@ export const defaultRoute = {
       component: () => import('@/views/About'),
       meta: {
         title: 'About',
+        visibleAccess: process.env.NODE_ENV !== 'production',
         middleware: {
           attach: [AuthMiddleware]
         },
