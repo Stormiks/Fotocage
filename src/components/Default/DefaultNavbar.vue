@@ -6,8 +6,10 @@
       </h1>
     </div>
 
-    <div class="header__right h-full">
-      <slot name="navigations"></slot>
+    <div class="header__right flex h-full">
+      <slot name="navigations" />
+
+      <slot name="navbar-profile"/>
     </div>
   </header>
 </template>

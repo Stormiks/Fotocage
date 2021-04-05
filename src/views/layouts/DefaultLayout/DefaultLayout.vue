@@ -1,7 +1,12 @@
 <template>
   <div class="layout layout-default">
-    <DefaultNavbar v-slot:navigations>
-      <DefaultNav />
+    <DefaultNavbar>
+      <template v-slot:navigations>
+        <DefaultNav />
+      </template>
+      <template v-slot:navbar-profile>
+        <DefaultNavbarProfile />
+      </template>
     </DefaultNavbar>
 
     <main class="main">
@@ -16,11 +21,13 @@
   import DefaultNavbar from 'components/Default/DefaultNavbar'
   import DefaultNav from 'components/Default/DefaultNav'
   import DefaultLayoutFooter from 'components/Default/DefaultLayoutFooter'
+  import DefaultNavbarProfile from 'components/Default/DefaultNavbarProfile'
 
   export default {
     components: {
       DefaultNavbar,
       DefaultNav,
+      DefaultNavbarProfile,
       DefaultLayoutFooter
     },
     name: 'DefaultLayout',
