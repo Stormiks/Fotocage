@@ -52,10 +52,10 @@
 </template>
 
 <script>
-  import UploadImagesInput from './UploadImagesInput'
-  import PreviewListFile from './PreviewListFile'
-  import PreviewImage from './PreviewImage'
-  import UploadListImages from './UploadListImages'
+  import UploadImagesInput from 'components/UploadImagesInput'
+  import PreviewListFile from 'components/PreviewListFile'
+  import PreviewImage from 'components/PreviewImage'
+  import UploadListImages from 'components/UploadListImages'
   import { downloadImages } from '@/api/'
 
   export default {
