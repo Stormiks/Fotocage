@@ -13,9 +13,9 @@
 </template>
 
 <script>
-  import DefaultNavbar from './components/DefaultNavbar'
-  import DefaultNav from './components/DefaultNav'
-  import DefaultLayoutFooter from './components/DefaultLayoutFooter'
+  import DefaultNavbar from 'components/Default/DefaultNavbar'
+  import DefaultNav from 'components/Default/DefaultNav'
+  import DefaultLayoutFooter from 'components/Default/DefaultLayoutFooter'
 
   export default {
     components: {

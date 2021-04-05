@@ -52,10 +52,11 @@
 </template>
 
 <script>
-  import UploadImagesInput from './UploadImagesInput'
-  import PreviewListFile from './PreviewListFile'
-  import PreviewImage from './PreviewImage'
-  import UploadListImages from './UploadListImages'
+  import UploadImagesInput from 'components/UploadImagesInput'
+  import PreviewListFile from 'components/PreviewListFile'
+  import PreviewImage from 'components/PreviewImage'
+  import UploadListImages from 'components/UploadListImages'
+  import { downloadImages } from '@/api/'
 
   export default {
     name: 'ViewsUploadImages',
@@ -80,10 +81,6 @@
         return arr
       }
     },
-    // watch: {
-    //   openModalEditor(newBool) {
-    //   }
-    // },
     methods: {
       onChangeStateModal(e) {
         this.openModalEditor = e
@@ -153,20 +150,13 @@
               description: this.filesInfo[index].description
             }
 
-            this.axios.put('/api/upload/image', data, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              },
-              onUploadProgress: (progressEvent) => {
-                const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            downloadImages(data, ({ loaded, total }) => {
+              const percentCompleted = Math.round((loaded * 100) / total)
 
-                this.changeProgressDownloadFile(index, percentCompleted)
-              }
-            }).then(res => {
+              this.changeProgressDownloadFile(index, percentCompleted)
+            }, (res) => {
               this.changeProgressDownloadFile(index, 100)
               this.changeDownloadStatus(index, res.data.status)
-            }).catch(err => {
-              console.log('ERROR', err)
             })
           }
         })
