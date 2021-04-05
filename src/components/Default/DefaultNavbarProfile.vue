@@ -11,12 +11,12 @@
         >
           <img
             v-if="avatar"
-            class=" h-12 w-12 rounded-full"
+            class="h-12 w-12 rounded-full"
             :src="avatar"
-            :alt="`User`"
+            :alt="login"
           />
           <SvgIcon
-            class=" h-12 w-12 rounded-full"
+            class="h-12 w-12 rounded-full"
             v-else
             :name="'user-avatar'"
           />
@@ -25,10 +25,13 @@
         <DefaultDropdownMenu
           :is-open="showUserMenu"
         >
-          <div class="dropdown__group border-gray-300">
-            <span class="block px-3 py-1.5">User</span>
-          </div>
           <div class="dropdown__group">
+            <span class="block px-3 py-1.5">{{ login }}</span>
+          </div>
+          <div
+            v-if="menu.length"
+            class="dropdown__group"
+          >
             <router-link
               v-for="link in menu"
               :key="link.name"
@@ -53,14 +56,14 @@
     data: () => ({
       showUserMenu: false,
       menu: [
-        {
-          title: 'Мой профиль',
-          url: '#'
-        },
-        {
-          title: 'Настройки профиля',
-          url: '#'
-        }
+        // {
+        //   title: 'Мой профиль',
+        //   url: '#'
+        // },
+        // {
+        //   title: 'Настройки профиля',
+        //   url: '#'
+        // }
       ]
     }),
     components: {
@@ -69,7 +72,8 @@
     },
     computed: {
       ...mapState({
-        avatar: state => state.avatar
+        avatar: state => state.avatar,
+        login: state => state.login
       })
     },
     methods: {
@@ -83,12 +87,18 @@
 <style lang="less" scoped>
   .profile__avatar {
     border: 3px solid #cc6100;
+    transition: all .2s ease-in 0s;
+
+    &[aria-expanded="true"] {
+      box-shadow: 0 2px 6px 0px rgba(#000, 46%);
+    }
   }
 
   .dropdown__group {
-    &:not(:last-child) {
-      border-bottom-style: solid;
-      border-bottom-width: 1px;
+    &:not(:first-child) {
+      border-top-color: #d1d5db;
+      border-top-style: solid;
+      border-top-width: 1px;
     }
   }
 </style>

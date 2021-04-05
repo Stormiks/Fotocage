@@ -9,13 +9,15 @@ const store = {
     images: [],
     userId: JSON.parse(localStorage.getItem('id')) || null,
     role: localStorage.getItem('role') || 'guest',
+    login: null,
     avatar: null
   },
   mutations: {
-    setLogin(state, { id, auth, role, avatar }) {
+    setLogin(state, { id, auth, role, login, avatar }) {
       state.isLoggedIn = auth
       state.userId = id
       state.role = role
+      state.login = login
       state.avatar = avatar
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)
@@ -42,6 +44,7 @@ const store = {
           auth: false,
           id: null,
           role: 'guest',
+          login: null,
           avatar: null
         })
         resolve(!status)
