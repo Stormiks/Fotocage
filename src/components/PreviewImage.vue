@@ -43,24 +43,22 @@
         <span
           contenteditable="false"
           data-editable-field="title"
+          data-placeholder="Кликните, чтобы отредактировать"
           @click.stop="changeStateContenteditable($event, 'true')"
           @blur="updateContent"
-        >
-          {{ titleEdit }}
-        </span>
+        >{{ titleEdit }}</span>
       </div>
 
       <div class="flex align-center">
         <strong class="mr-1">Описание:</strong>
         <span
+          class="preview__image__desc"
           contenteditable="false"
           data-editable-field="description"
-          data-placeholder="Описание отсутствует, вы можете его добавить прямо сейчас"
+          data-placeholder="Кликните, чтобы отредактировать"
           @click.stop="changeStateContenteditable($event, 'true')"
           @blur="updateContent"
-        >
-          {{ descriptionEdit }}
-        </span>
+        >{{ descriptionEdit }}</span>
       </div>
     </div>
   </div>
@@ -78,6 +76,10 @@
         }
       },
       description: {
+        type: String,
+        default: ''
+      },
+      title: {
         type: String,
         default: ''
       },
@@ -151,13 +153,14 @@
 
 <style lang="less" scoped>
   span {
-    &[contentEditable=false] {
+    &[contentEditable="false"] {
       &[data-placeholder]:empty::before {
         content: attr(data-placeholder);
         color: rgba(#616060, 80%)
       }
     }
-    &[contentEditable=true] {
+
+    &[contentEditable="true"] {
       padding: .15rem;
 
       &[data-placeholder]:empty::before {
