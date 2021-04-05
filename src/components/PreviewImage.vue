@@ -20,7 +20,7 @@
         />
         <figcaption class="preview__image__info preview_info mt-0.5">
           <p>
-            <span :title="name">{{ name }}</span>
+            <span :title="title">{{ name }}</span>
           </p>
 
           <div
@@ -105,7 +105,7 @@
         },
         immediate: true
       },
-      name: {
+      title: {
         handler: function (newText) {
           // eslint-disable-next-line no-unused-expressions
           this.name !== '' ? this.titleEdit = newText : ''

@@ -6,6 +6,7 @@
       type="file"
       :id="idInputFile"
       multiple
+      :accept="acceptFormatsFile"
       @change="$emit('change-input', $event)"
     />
     <span
@@ -34,6 +35,10 @@
       idInputFile: {
         type: String,
         default: 'uploadImage'
+      },
+      acceptFormatsFile: {
+        type: String,
+        default: '.jpg, .jpeg'
       },
       firstFileName: {
         type: String,

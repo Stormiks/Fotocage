@@ -37,41 +37,6 @@ export default function () {
     }
   })
 
-  this.get('/auth/:userId/status', (schema, req) => {
-    const user = schema.users.find(req.params.userId)
-
-    if (!user)
-      return {
-        id: null,
-        auth: false
-      }
-
-    return {
-      id: user.id,
-      auth: user.auth
-    }
-  })
-
-  this.put('/upload/image', (schema, req) => {
-    const attrs = JSON.parse(req.requestBody)
-
-    console.log('[SERVER UPLOAD]: ', attrs)
-
-    schema.images.create({
-      src: attrs.src,
-      title: attrs.title,
-      description: attrs.description
-    })
-
-    return { status: true }
-  })
-
-  this.get('/images', (schema, req) => {
-    const images = schema.images.all()
-
-    return images
-  })
-
   this.post('/registration', (schema, req) => {
     const attrs = JSON.parse(req.requestBody)
 
@@ -107,6 +72,42 @@ export default function () {
         role: user.role
       }
     }
+  })
+
+  this.get('/auth/:userId/status', (schema, req) => {
+    const user = schema.users.find(req.params.userId)
+
+    if (!user)
+      return {
+        id: null,
+        auth: false
+      }
+
+    return {
+      id: user.id,
+      auth: user.auth
+    }
+  })
+
+  this.put('/upload/image', (schema, req) => {
+    const attrs = JSON.parse(req.requestBody)
+
+    console.log('[SERVER UPLOAD]: ', attrs)
+
+    schema.images.create({
+      src: attrs.src,
+      title: attrs.title,
+      filename: attrs.name,
+      description: attrs.description
+    })
+
+    return { status: true }
+  })
+
+  this.get('/images', (schema, req) => {
+    const images = schema.images.all()
+
+    return images
   })
 
   this.get('/list/users', (schema, req) => {
