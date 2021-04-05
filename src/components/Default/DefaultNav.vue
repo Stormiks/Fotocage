@@ -1,36 +1,40 @@
 <template>
   <nav class="nav__list flex flex-row">
-    <DefaultNavItem
-      v-for="(link, ixd) in routes"
-      :key="`nav-link-${ixd}`"
-      :class="{
-        'active': link.name === activeRouterName
-      }"
-    >
-      <DefaultNavLink
-        :title="link.title"
-        :key="`nav-link-${link.name}`"
-        :icon-name="link.icon"
-        :url-name="link.name"
-      />
-    </DefaultNavItem>
-
-    <DefaultNavItem>
-      <DefaultNavLink
-        v-if="!logged"
-        :key="`nav-link-Login`"
-        :url-name="'Login'"
-        :icon-name="'Logout'"
-        :title="'Войти'"
-      />
-      <DefaultNavLink
-        v-if="logged"
-        :key="`nav-link-Logout`"
-        :icon-name="'Logout'"
-        :title="'Выйти'"
-        @click.native.prevent="logout"
-      />
-    </DefaultNavItem>
+    <ul class="inline-flex">
+      <li v-for="(link, ixd) in routes">
+        <DefaultNavItem
+          :key="`nav-link-${ixd}`"
+          :class="{
+            'active': link.name === activeRouterName
+          }"
+        >
+          <DefaultNavLink
+            :title="link.title"
+            :key="`nav-link-${link.name}`"
+            :icon-name="link.icon"
+            :url-name="link.name"
+          />
+        </DefaultNavItem>
+      </li>
+      <li>
+        <DefaultNavItem>
+          <DefaultNavLink
+            v-if="!logged"
+            :key="`nav-link-Login`"
+            :url-name="'Login'"
+            :icon-name="'Logout'"
+            :title="'Войти'"
+          />
+          <DefaultNavLink
+            v-if="logged"
+            :key="`nav-link-Logout`"
+            :icon-name="'Logout'"
+            :title="'Выйти'"
+            @click.native.prevent="logout"
+          />
+        </DefaultNavItem>
+      </li>
+    </ul>
   </nav>
 </template>
 
