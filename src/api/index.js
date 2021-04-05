@@ -39,7 +39,7 @@ export const login = (formData, done) => {
 
 export const register = (formData, done) => {
   API.post('/registration', { ...formData }).then(res => {
-    if (res.status) {
+    if (res.data.status) {
       done({
         auth: true,
         id: res.data.user.id,

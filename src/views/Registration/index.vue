@@ -161,9 +161,9 @@
 
           this.$store.dispatch('updateStatusLogin', {
             auth: res.auth,
-            id: res.user.id,
-            role: res.user.role,
-            login: res.user.login
+            id: res.id,
+            role: res.role,
+            login: res.login
           })
 
           this.$router.push({ name: 'Home' })
