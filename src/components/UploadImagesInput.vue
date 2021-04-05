@@ -4,7 +4,7 @@
   >
     <input
       type="file"
-      id="uploadImage"
+      :id="idInputFile"
       multiple
       @change="$emit('change-input', $event)"
     />

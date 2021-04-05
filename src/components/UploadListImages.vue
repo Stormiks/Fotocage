@@ -9,7 +9,7 @@
         :key="`upload-image-title-${ixd}`"
         class="list__images__item images__title py-0.5"
       >
-        <slot v-bind:text="name"></slot>
+        <slot :text="name"></slot>
       </li>
     </ul>
   </div>
@@ -28,7 +28,6 @@
 </script>
 
 <style lang="less" scoped>
-
   .form__upload__list {
     position: absolute;
     top: 100%;

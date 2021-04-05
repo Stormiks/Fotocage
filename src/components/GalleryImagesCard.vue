@@ -59,7 +59,7 @@
   import Vue from 'vue'
   import clampy from '@clampy-js/vue-clampy'
   import GalleryImagesSpinner from './GalleryImagesSpinner'
-  import LazyLoadDirective from './lazy-load-directive.js'
+  import LazyLoadDirective from 'assets/directives/lazy-load-directive'
 
   Vue.use(clampy)
 

@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent="authSubmit"
+    @submit.prevent="submit"
     class="form form__auth"
   >
     <slot></slot>
@@ -11,9 +11,14 @@
   export default {
     name: 'AuthFormLayout',
     props: {
-      authSubmit: {
-        type: Function,
-        default: () => {}
+      errorForm: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      submit() {
+        if (this.errorForm) this.$emit('auth-submit')
       }
     }
   }
