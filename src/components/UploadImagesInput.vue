@@ -2,7 +2,7 @@
   <div
     class="input_box flex flex-wrap md:flex-nowrap items-center justify-between w-full relative rounded-md px-2 py-1"
     :class="{
-      'mb-10': filesCount === 0
+      'mb-10 sm:mb-0': filesCount === 0
     }"
   >
     <input
@@ -14,7 +14,7 @@
     />
     <span class="form__upload__image image_title">
       <template v-if="filesCount === 0">
-        <span class="text-gray-400 absolute w-full top-full">Выберите файлы для загрузки с вашего компьютера</span>
+        <span class="text-gray-400 absolute sm:static w-full top-full">Выберите файлы для загрузки с вашего компьютера</span>
       </template>
       <template v-else-if="filesCount === 1">
         {{ firstFileName }}

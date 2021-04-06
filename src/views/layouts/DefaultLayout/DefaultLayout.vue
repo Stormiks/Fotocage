@@ -18,12 +18,12 @@
   import DefaultLayoutFooter from 'components/Default/DefaultLayoutFooter'
 
   export default {
+    name: 'DefaultLayout',
     components: {
       DefaultNavbar,
       DefaultNav,
       DefaultLayoutFooter
-    },
-    name: 'DefaultLayout',
+    }
   }
 </script>
 
