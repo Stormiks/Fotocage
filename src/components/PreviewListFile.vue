@@ -1,5 +1,5 @@
 <template>
-  <div class="preview p-2">
+  <div class="preview py-2 sm:px-2">
     <ul
       v-if="listFiles.length"
       class="w-full"
