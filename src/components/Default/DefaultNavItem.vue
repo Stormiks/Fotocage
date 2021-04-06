@@ -1,5 +1,5 @@
 <template>
-  <div class="nav__list__item nav__link flex p-2">
+  <div class="nav__list__item nav__link flex px-2 py-5">
     <slot></slot>
   </div>
 </template>

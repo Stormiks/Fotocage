@@ -22,7 +22,10 @@ export default function () {
         }
       )
 
-    user.update({ auth: true })
+    user.update({
+      auth: true,
+      timeStampSession: Date.now()
+    })
 
     console.log('[SERVER]: Loggin user - ', String(user.login))
 
@@ -32,44 +35,10 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        timeStampSession: Date.now()
       }
     }
-  })
-
-  this.get('/auth/:userId/status', (schema, req) => {
-    const user = schema.users.find(req.params.userId)
-
-    if (!user)
-      return {
-        id: null,
-        auth: false
-      }
-
-    return {
-      id: user.id,
-      auth: user.auth
-    }
-  })
-
-  this.put('/upload/image', (schema, req) => {
-    const attrs = JSON.parse(req.requestBody)
-
-    console.log('[SERVER UPLOAD]: ', attrs)
-
-    schema.images.create({
-      src: attrs.src,
-      title: attrs.title,
-      description: attrs.description
-    })
-
-    return { status: true }
-  })
-
-  this.get('/images', (schema, req) => {
-    const images = schema.images.all()
-
-    return images
   })
 
   this.post('/registration', (schema, req) => {
@@ -79,7 +48,8 @@ export default function () {
       login: attrs.login,
       password: attrs.password,
       auth: false,
-      role: 'guest'
+      role: 'guest',
+      timeStampSession: Date.now()
     })
 
     if (!user)
@@ -104,9 +74,67 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        timeStampSession: Date.now()
       }
     }
+  })
+
+  this.get('/auth/:userId/status', (schema, req) => {
+    const user = schema.users.find(req.params.userId)
+
+    const currentDateSession = Date.now()
+    const maxLiveMinutesOfSession = 15 * 60000
+    const lastDateSession = user.timeStampSession
+    const diffMinutesSession = currentDateSession - lastDateSession
+    const isSession = () => !!lastDateSession
+    const isUser = () => !!user
+
+    if (!isUser() || !(diffMinutesSession > maxLiveMinutesOfSession || isSession()))
+      return {
+        session: false,
+        user: {
+          id: null,
+          auth: false
+        }
+      }
+
+    user.update({
+      auth: true,
+      timeStampSession: currentDateSession
+    })
+
+    return {
+      session: true,
+      user: {
+        id: Number(user.id),
+        login: String(user.login),
+        auth: user.id > 0,
+        role: user.role,
+        timeStampSession: currentDateSession
+      }
+    }
+  })
+
+  this.put('/upload/image', (schema, req) => {
+    const attrs = JSON.parse(req.requestBody)
+
+    console.log('[SERVER UPLOAD]: ', attrs)
+
+    schema.images.create({
+      src: attrs.src,
+      title: attrs.title,
+      filename: attrs.name,
+      description: attrs.description
+    })
+
+    return { status: true }
+  })
+
+  this.get('/images', (schema, req) => {
+    const images = schema.images.all()
+
+    return images
   })
 
   this.get('/list/users', (schema, req) => {

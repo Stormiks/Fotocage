@@ -1,5 +1,5 @@
 <template>
-  <div class="preview_box flex">
+  <div class="preview_box flex flex-wrap sm:flex-nowrap justify-center px-3 py-2 sm:p-0 ">
     <div class="preview__image">
       <button
         v-if="!download"
@@ -20,7 +20,7 @@
         />
         <figcaption class="preview__image__info preview_info mt-0.5">
           <p>
-            <span :title="name">{{ name }}</span>
+            <span :title="title">{{ name }}</span>
           </p>
 
           <div
@@ -38,29 +38,27 @@
     </div>
 
     <div class="preview__image__data image__data flex-grow ml-2 py-1">
-      <div class="flex">
-        <strong class="mr-1">Полное имя:</strong>
+      <div class="flex flex-wrap">
+        <strong class="mr-1 whitespace-nowrap">Полное имя:</strong>
         <span
           contenteditable="false"
           data-editable-field="title"
+          data-placeholder="Кликните, чтобы отредактировать"
           @click.stop="changeStateContenteditable($event, 'true')"
           @blur="updateContent"
-        >
-          {{ titleEdit }}
-        </span>
+        >{{ titleEdit }}</span>
       </div>
 
       <div class="flex align-center">
-        <strong class="mr-1">Описание:</strong>
+        <strong class="mr-1 whitespace-nowrap">Описание:</strong>
         <span
+          class="preview__image__desc"
           contenteditable="false"
           data-editable-field="description"
-          data-placeholder="Описание отсутствует, вы можете его добавить прямо сейчас"
+          data-placeholder="Кликните, чтобы отредактировать"
           @click.stop="changeStateContenteditable($event, 'true')"
           @blur="updateContent"
-        >
-          {{ descriptionEdit }}
-        </span>
+        >{{ descriptionEdit }}</span>
       </div>
     </div>
   </div>
@@ -78,6 +76,10 @@
         }
       },
       description: {
+        type: String,
+        default: ''
+      },
+      title: {
         type: String,
         default: ''
       },
@@ -103,7 +105,7 @@
         },
         immediate: true
       },
-      name: {
+      title: {
         handler: function (newText) {
           // eslint-disable-next-line no-unused-expressions
           this.name !== '' ? this.titleEdit = newText : ''
@@ -151,13 +153,14 @@
 
 <style lang="less" scoped>
   span {
-    &[contentEditable=false] {
+    &[contentEditable="false"] {
       &[data-placeholder]:empty::before {
         content: attr(data-placeholder);
         color: rgba(#616060, 80%)
       }
     }
-    &[contentEditable=true] {
+
+    &[contentEditable="true"] {
       padding: .15rem;
 
       &[data-placeholder]:empty::before {
@@ -191,7 +194,6 @@
   .preview {
     &_box {
       box-shadow: 0 0 5px 1px rgba(#000, 40%);
-      max-height: 216px;
       overflow: hidden;
     }
 
@@ -324,5 +326,9 @@
 
   .image__data {
     padding: .3rem;
+
+    > div:not(:first-child) {
+      margin-top: .5rem;
+    }
   }
 </style>

@@ -20,7 +20,6 @@
 
 <style lang="less" scoped>
   header {
-    height: 92px;
     background: linear-gradient(to top, #e0e0e0, @color-white);
     border-bottom: 1px solid #b1acac;
 

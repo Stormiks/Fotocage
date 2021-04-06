@@ -1,22 +1,27 @@
 <template>
   <div
-    class="input_box w-full px-2 py-1"
+    class="input_box flex flex-wrap md:flex-nowrap items-center justify-between w-full relative rounded-md px-2 py-1"
+    :class="{
+      'mb-10 sm:mb-0': filesCount === 0
+    }"
   >
     <input
       type="file"
       :id="idInputFile"
       multiple
+      :accept="acceptFormatsFile"
       @change="$emit('change-input', $event)"
     />
-    <span
-      class="form__upload__image image_title"
-    >
-      <template v-if="filesCount === 1">
+    <span class="form__upload__image image_title">
+      <template v-if="filesCount === 0">
+        <span class="text-gray-400 absolute sm:static w-full top-full">Выберите файлы для загрузки с вашего компьютера</span>
+      </template>
+      <template v-else-if="filesCount === 1">
         {{ firstFileName }}
       </template>
-      <template v-if="filesCount > 1">
+      <template v-else-if="filesCount > 1">
         <span @click.stop="$emit('visible-list-files')">
-          Количество файлов для загрузки: {{ filesCount }}
+          Файлов для загрузки: {{ filesCount }}шт
         </span>
       </template>
     </span>
@@ -34,6 +39,10 @@
       idInputFile: {
         type: String,
         default: 'uploadImage'
+      },
+      acceptFormatsFile: {
+        type: String,
+        default: '.jpg, .jpeg'
       },
       firstFileName: {
         type: String,
@@ -70,11 +79,7 @@
   }
 
   .input_box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     box-shadow: inset 0 2px 5px 0 #e2dada;
-    border-radius: 5px;
     border: 1px solid #cacaca;
     transition: all .33s;
 
@@ -98,7 +103,7 @@
   }
 
   .image_title {
-    font-size: 20px;
-    font-family: serif;
+    font-size: 18px;
+    font-family: 'Roboto Regular', 'Helvetica Roman';
   }
 </style>

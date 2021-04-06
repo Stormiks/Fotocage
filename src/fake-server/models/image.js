@@ -14,6 +14,9 @@ export const imageFactory = {
     src() {
       return faker.image.image()
     },
+    filename() {
+      return faker.name.title() + '.jpg'
+    },
     title() {
       return faker.name.title()
     },

@@ -1,7 +1,7 @@
 <template>
   <form
     @submit.prevent="submit"
-    class="form form__auth"
+    class="form form__auth p-8 relative z-0 rounded"
   >
     <slot></slot>
   </form>
@@ -26,12 +26,8 @@
 
 <style lang="less" scoped>
   .form__auth {
-    position: relative;
     background-color: @color-white;
     background: linear-gradient(to top, @color-white, #eee);
-    padding: 30px;
-    z-index: 0;
-    border-radius: 3px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2),
                 0 1px 1px rgba(0, 0, 0, .2),
                 0 3px 0 @color-white,
