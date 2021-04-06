@@ -69,6 +69,7 @@
             :class="{
               'is-invalid': !$v.form.passwordConfirm.sameAsPassword && $v.form.passwordConfirm.$dirty
             }"
+            :disabled="$v.form.password.$invalid"
             @blur="$v.validPasswords.$touch()"
             v-model.trim="form.passwordConfirm"
             type="password"
