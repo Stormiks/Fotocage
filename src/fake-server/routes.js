@@ -90,7 +90,7 @@ export default function () {
     const isSession = () => !!lastDateSession
     const isUser = () => !!user
 
-    if (!isUser() || (diffMinutesSession > maxLiveMinutesOfSession && isSession()))
+    if (!isUser() || !(diffMinutesSession > maxLiveMinutesOfSession || isSession()))
       return {
         session: false,
         user: {
