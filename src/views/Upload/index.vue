@@ -1,6 +1,6 @@
 <template>
   <section class="upload-images">
-    <div class="form__upload mx-auto p-2">
+    <div class="form__upload flex flex-col md:flex-row  md:w-11/12 lgs:w-3/4 mx-auto p-2">
       <div
         class="form__upload__input"
         :class="{
@@ -27,7 +27,7 @@
         </UploadListImages>
       </div>
       <button
-        class="btn primary px-5 py-1 ml-3"
+        class="btn primary px-5 py-1 mt-4 md:mt-0 md:ml-3"
         :disabled="!files.length"
         @click.stop="onUpload"
         type="button"
@@ -182,9 +182,6 @@
     }
 
     &__upload {
-      display: flex;
-      max-width: 75%;
-
       &__input {
         flex-grow: 1;
 

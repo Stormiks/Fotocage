@@ -1,6 +1,9 @@
 <template>
   <div
-    class="input_box w-full px-2 py-1"
+    class="input_box flex flex-wrap md:flex-nowrap items-center justify-between w-full relative rounded-md px-2 py-1"
+    :class="{
+      'mb-10': filesCount === 0
+    }"
   >
     <input
       type="file"
@@ -9,11 +12,9 @@
       :accept="acceptFormatsFile"
       @change="$emit('change-input', $event)"
     />
-    <span
-      class="form__upload__image image_title"
-    >
+    <span class="form__upload__image image_title">
       <template v-if="filesCount === 0">
-        <span class="text-gray-400">Выберите файлы для загрузки с вашего компьютера</span>
+        <span class="text-gray-400 absolute w-full top-full">Выберите файлы для загрузки с вашего компьютера</span>
       </template>
       <template v-else-if="filesCount === 1">
         {{ firstFileName }}
@@ -78,11 +79,7 @@
   }
 
   .input_box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     box-shadow: inset 0 2px 5px 0 #e2dada;
-    border-radius: 5px;
     border: 1px solid #cacaca;
     transition: all .33s;
 
