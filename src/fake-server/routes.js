@@ -99,6 +99,11 @@ export default function () {
         }
       }
 
+    user.update({
+      auth: true,
+      timeStampSession: currentDateSession
+    })
+
     return {
       session: true,
       user: {
@@ -106,7 +111,7 @@ export default function () {
         login: String(user.login),
         auth: user.id > 0,
         role: user.role,
-        timeStampSession: lastDateSession
+        timeStampSession: currentDateSession
       }
     }
   })
