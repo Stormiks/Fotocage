@@ -22,7 +22,10 @@ export default function () {
         }
       )
 
-    user.update({ auth: true })
+    user.update({
+      auth: true,
+      timeStampSession: Date.now()
+    })
 
     console.log('[SERVER]: Loggin user - ', String(user.login))
 
@@ -32,7 +35,8 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        timeStampSession: Date.now()
       }
     }
   })
@@ -44,7 +48,8 @@ export default function () {
       login: attrs.login,
       password: attrs.password,
       auth: false,
-      role: 'guest'
+      role: 'guest',
+      timeStampSession: Date.now()
     })
 
     if (!user)
@@ -69,7 +74,8 @@ export default function () {
         id: Number(user.id),
         login: String(user.login),
         auth: user.id > 0,
-        role: user.role
+        role: user.role,
+        timeStampSession: Date.now()
       }
     }
   })
@@ -77,15 +83,36 @@ export default function () {
   this.get('/auth/:userId/status', (schema, req) => {
     const user = schema.users.find(req.params.userId)
 
-    if (!user)
+    const currentDateSession = Date.now()
+    const maxLiveMinutesOfSession = 15 * 60000
+    const lastDateSession = user.timeStampSession
+    const diffMinutesSession = currentDateSession - lastDateSession
+    const isSession = () => !!lastDateSession
+    const isUser = () => !!user
+
+    if (!isUser() || !(diffMinutesSession > maxLiveMinutesOfSession || isSession()))
       return {
-        id: null,
-        auth: false
+        session: false,
+        user: {
+          id: null,
+          auth: false
+        }
       }
 
+    user.update({
+      auth: true,
+      timeStampSession: currentDateSession
+    })
+
     return {
-      id: user.id,
-      auth: user.auth
+      session: true,
+      user: {
+        id: Number(user.id),
+        login: String(user.login),
+        auth: user.id > 0,
+        role: user.role,
+        timeStampSession: currentDateSession
+      }
     }
   })
 

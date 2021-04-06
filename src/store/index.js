@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { routes } from '@/router/routes'
+import { statusSession } from '@/api/'
 import routesHelper from './routes-by-role-helper'
 
 const store = {
@@ -8,16 +9,19 @@ const store = {
     isLoggedIn: !!JSON.parse(localStorage.getItem('loggin')),
     images: [],
     userId: JSON.parse(localStorage.getItem('id')) || null,
-    role: localStorage.getItem('role') || 'guest'
+    role: localStorage.getItem('role') || 'guest',
+    timeStampSession: localStorage.getItem('timeStampSession') || null
   },
   mutations: {
-    setLogin(state, { id, auth, role }) {
+    setLogin(state, { id, auth, role, timeStampSession }) {
       state.isLoggedIn = auth
       state.userId = id
       state.role = role
+      state.timeStampSession = timeStampSession
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)
       localStorage.setItem('role', role)
+      localStorage.setItem('timeStampSession', timeStampSession)
     },
     setRoutes(state, routes) {
       state.routesMenu = routes
@@ -27,11 +31,16 @@ const store = {
     updateStatusLogin({ commit }, statusAuth) {
       commit('setLogin', statusAuth)
     },
-    getAuthStatusByServer({ state, commit }) {
-      return Vue.axios.get(`/api/auth/${state.userId}/status`).then(res => {
-        commit('setLogin', res.data)
+    refreshSession({ state, commit, dispatch }) {
+      return new Promise((resolve, reject) => {
+        statusSession({
+          id: state.userId
+        }, (user) => {
+          if (!user) dispatch('logout')
+          else commit('setLogin', user)
 
-        return res.data.auth
+          resolve(!!user)
+        })
       })
     },
     logout({ commit }, status = false) {
@@ -39,7 +48,8 @@ const store = {
         commit('setLogin', {
           auth: false,
           id: null,
-          role: 'guest'
+          role: 'guest',
+          timeStampSession: null
         })
         resolve(!status)
       })

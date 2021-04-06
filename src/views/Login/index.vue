@@ -18,6 +18,7 @@
               class="w-full border"
               :class="{ 'is-invalid': $v.form.login.$error }"
               v-model.trim="form.login"
+              @blur="$v.form.login.$touch"
               id="username"
               name="name"
               type="text"
@@ -51,6 +52,7 @@
               :class="{ 'is-invalid': $v.form.password.$error }"
               :style="{ pointerEvents: showPassword ? 'none': 'unset' }"
               v-model.trim="form.password"
+              @blur="$v.form.password.$touch"
               id="password"
               name="pass"
               :type="showPassword ? 'text' : 'password'"
@@ -83,11 +85,10 @@
         </div>
       </AuthFormGroup>
       <AuthFormFooter>
-        <input
+        <button
           :disabled="$v.validForm.$invalid"
           type="submit"
-          name="val"
-          value="ВОЙТИ" />
+        >Войти</button>
         <router-link
           :to="{ name: 'Registration' }"
           title="Регистрация">
