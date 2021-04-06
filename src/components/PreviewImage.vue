@@ -1,5 +1,5 @@
 <template>
-  <div class="preview_box flex">
+  <div class="preview_box flex flex-wrap sm:flex-nowrap justify-center px-3 py-2 sm:p-0 ">
     <div class="preview__image">
       <button
         v-if="!download"
@@ -38,8 +38,8 @@
     </div>
 
     <div class="preview__image__data image__data flex-grow ml-2 py-1">
-      <div class="flex">
-        <strong class="mr-1">Полное имя:</strong>
+      <div class="flex flex-wrap">
+        <strong class="mr-1 whitespace-nowrap">Полное имя:</strong>
         <span
           contenteditable="false"
           data-editable-field="title"
@@ -50,7 +50,7 @@
       </div>
 
       <div class="flex align-center">
-        <strong class="mr-1">Описание:</strong>
+        <strong class="mr-1 whitespace-nowrap">Описание:</strong>
         <span
           class="preview__image__desc"
           contenteditable="false"
@@ -194,7 +194,6 @@
   .preview {
     &_box {
       box-shadow: 0 0 5px 1px rgba(#000, 40%);
-      max-height: 216px;
       overflow: hidden;
     }
 
@@ -327,5 +326,9 @@
 
   .image__data {
     padding: .3rem;
+
+    > div:not(:first-child) {
+      margin-top: .5rem;
+    }
   }
 </style>

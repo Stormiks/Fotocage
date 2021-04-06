@@ -21,7 +21,7 @@
       </template>
       <template v-else-if="filesCount > 1">
         <span @click.stop="$emit('visible-list-files')">
-          Количество файлов для загрузки: {{ filesCount }}
+          Файлов для загрузки: {{ filesCount }}шт
         </span>
       </template>
     </span>
