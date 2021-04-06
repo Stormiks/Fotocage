@@ -85,11 +85,10 @@
         </div>
       </AuthFormGroup>
       <AuthFormFooter>
-        <input
+        <button
           :disabled="$v.validForm.$invalid"
           type="submit"
-          name="val"
-          value="ВОЙТИ" />
+        >Войти</button>
         <router-link
           :to="{ name: 'Registration' }"
           title="Регистрация">

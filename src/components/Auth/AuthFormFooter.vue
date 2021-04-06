@@ -1,5 +1,5 @@
 <template>
-  <div class="form__footer">
+  <div class="form__footer mt-3">
     <slot></slot>
   </div>
 </template>
@@ -15,24 +15,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 36px;
     width: 100%;
-    margin: 10px 0 0 0;
 
-    input[type="submit"] {
+    input[type="submit"],
+    button[type="submit"] {
       background-color: #ffb94b;
       background-image: linear-gradient(to bottom, #fddb6f, #ffb94b);
       border-radius: 3px;
       text-shadow: 0 1px 0 rgba(@color-white, 50%);
+      text-transform: uppercase;
       box-shadow: 0 0 1px rgba(#000, 30%), 0 1px 0 rgba(@color-white, 30%) inset;
       border-width: 1px;
       border-style: solid;
       border-color: #d69e31 #e3a037 #d5982d #e3a037;
-      height: 35px;
-      padding: 0;
-      width: 120px;
+      padding: 0 .75rem;
       cursor: pointer;
-      font: bold 15px 'Helvetica';
+      font: bold 15px/2.2 'Helvetica';
       color: #8f5a0a;
       transition: all .23s ease-in-out 0s;
 
@@ -45,7 +43,8 @@
       &:hover,
       &:focus {
         background-color: #fddb6f;
-        background-image: linear-gradient(to top, #ffb94b, #fddb6f);
+        border: none;
+        box-shadow: 0 1px 2px 1px rgba(#000, 20%) inset, 0 0 5px 2px rgba(#000, 15%) inset;
       }
 
       &:focus {
