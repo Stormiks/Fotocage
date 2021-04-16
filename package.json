@@ -10,6 +10,24 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "keywords": [
+    "fotocage",
+    "personal",
+    "photo",
+    "gallery",
+    "miragejs",
+    "vue",
+    "vue-router",
+    "vuex",
+    "fake",
+    "fake-server",
+    "spa",
+    "webpack",
+    "vue/cli",
+    "vuelidate",
+    "tailwindcss",
+    "axios"
+  ],
   "dependencies": {
     "@clampy-js/vue-clampy": "^1.0.6",
     "@editorjs/editorjs": "^2.19.3",
