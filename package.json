@@ -1,9 +1,13 @@
 {
   "name": "fotocage",
   "version": "0.1.0",
-  "author": "Skylinker <skylinkertu33@gmail.com> (https://stormiks.github.io)",
-  "private": true,
-  "homepage": "https://peaceful-headland-16081.herokuapp.com/",
+  "author": {
+    "name": "Skylinker",
+    "email": "skylinkertu33@gmail.com",
+    "url": "https://stormiks.github.io/"
+  },
+  "private": false,
+  "homepage": "https://stormiks.github.io/Fotocage/",
   "scripts": {
     "start": "vue-cli-service serve",
     "dev:serve": "vue-cli-service serve",
