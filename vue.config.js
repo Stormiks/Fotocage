@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   assetsDir: 'assets',
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production' ? 'Fotocage' : '/',
   outputDir: 'dist',
   lintOnSave: process.env.NODE_ENV !== 'production',
   // runtimeCompiler: true,
