@@ -6,9 +6,9 @@ import routesHelper from './routes-by-role-helper'
 
 const store = {
   state: {
-    isLoggedIn: !!JSON.parse(localStorage.getItem('loggin')),
+    isLoggedIn: localStorage.getItem('loggin') !== 'undefined' ? !!JSON.parse(localStorage.getItem('loggin')) : false,
     images: [],
-    userId: JSON.parse(localStorage.getItem('id')) || null,
+    userId: localStorage.getItem('id') !== 'undefined' ? JSON.parse(localStorage.getItem('id')) || null : null,
     role: localStorage.getItem('role') || 'guest',
     timeStampSession: localStorage.getItem('timeStampSession') || null
   },

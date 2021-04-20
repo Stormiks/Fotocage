@@ -33,8 +33,11 @@ export const images = (done) => {
 export const login = (formData, done) => {
   API.post('/login', { ...formData }).then(res => {
     if (res.data.status) done({ user: res.data.user })
-    else done({ error: true })
-  }).catch(e => console.log(e))
+    else done(false)
+  }).catch(e => {
+    console.error(e)
+    done(false)
+  })
 }
 
 export const register = (formData, done) => {
@@ -58,5 +61,8 @@ export const statusSession = (user, done) => {
       timeStampSession: res.data.user.timeStampSession
     })
     else done(res.data.session)
-  }).catch(e => console.log(e))
+  }).catch(e => {
+    console.error(e)
+    done(false)
+  })
 }

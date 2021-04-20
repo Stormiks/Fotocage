@@ -6,6 +6,10 @@
       class="form__auth_login"
     >
       <h1>Чтобы добавлять свои фотографии, войдите!</h1>
+      <p
+        v-if="isServerError"
+        style="color: red;"
+      >Неверная пара - логин/пароль</p>
       <AuthFormGroup class="flex flex-col mb-4">
         <div class="form__input_box mb-2.5">
           <div class="relative">
@@ -88,7 +92,9 @@
         <button
           :disabled="$v.validForm.$invalid"
           type="submit"
-        >Войти</button>
+        >
+          Войти
+        </button>
         <router-link
           :to="{ name: 'Registration' }"
           title="Регистрация">
@@ -122,7 +128,8 @@
         login: '',
         password: ''
       },
-      showPassword: false
+      showPassword: false,
+      isServerError: false
     }),
     validations: {
       validForm: ['form.login', 'form.password'],
@@ -151,8 +158,14 @@
         this.$v.form.$touch()
 
         if (!this.$v.validForm.$error) login(formData, (res) => {
-          if (res.error) return this.$store.dispatch('updateStatusLogin', { auth: false })
+          if (!res && typeof res === 'boolean') {
+            this.isServerError = true
+            this.$store.dispatch('updateStatusLogin', { auth: false })
 
+            return
+          }
+
+          this.isServerError = false
           this.$store.dispatch('updateStatusLogin', res.user)
           this.$router.push({ name: 'Home' })
         })

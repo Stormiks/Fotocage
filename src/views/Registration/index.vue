@@ -6,6 +6,10 @@
       class="form__auth_registration"
     >
       <h1>Регистрация</h1>
+      <p
+        v-if="isServerError"
+        style="color: red;"
+      >Проверьте правильность введенных даныых</p>
       <AuthFormGroup class="flex flex-col items-end mb-2.5">
         <div class="w-full flex justify-between">
           <label for="login">Введите логин: </label>
@@ -122,7 +126,8 @@
         login: '',
         password: '',
         passwordConfirm: ''
-      }
+      },
+      isServerError: false
     }),
     validations: {
       validForm: ['form.login', 'form.password', 'form.passwordConfirm'],
@@ -157,7 +162,14 @@
         this.$v.form.$touch()
 
         if (!this.$v.validForm.$error) register(formData, (res) => {
-          if (res.error) return this.$store.dispatch('updateStatusLogin', false)
+          if (!res) {
+            this.isServerError = true
+            this.$store.dispatch('updateStatusLogin', false)
+
+            return
+          }
+
+          this.isServerError = false
 
           this.$store.dispatch('updateStatusLogin', {
             auth: res.auth,
