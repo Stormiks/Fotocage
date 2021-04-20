@@ -187,9 +187,7 @@
         }
 
         &:focus {
-          background-color: @color-white;
           border-color: #e8c291;
-          outline: none;
           box-shadow: 0 0 0 1px #e8c291 inset;
         }
       }

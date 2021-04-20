@@ -22,7 +22,7 @@
         background-color: @color-white;
         border-color: #e8c291;
         outline: none;
-        box-shadow: 0 0 0 1px #e8c291 inset;
+        box-shadow: 0 0 0 1px #e8c291 inset, 0 0 5px 1px darken(#e8c291, 50%);
       }
     }
   }
