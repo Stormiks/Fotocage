@@ -1,5 +1,8 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg">
+  <svg
+    class="h-7 w-7"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <use
       :xlink:href="iconPath"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -27,10 +30,3 @@
     }
   }
 </script>
-
-<style lang="less" scoped>
-  svg {
-    height: 26px;
-    width: 26px;
-  }
-</style>

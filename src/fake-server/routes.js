@@ -36,7 +36,8 @@ export default function () {
         login: String(user.login),
         auth: user.id > 0,
         role: user.role,
-        timeStampSession: Date.now()
+        timeStampSession: Date.now(),
+        avatar: user.avatar
       }
     }
   })
@@ -75,7 +76,8 @@ export default function () {
         login: String(user.login),
         auth: user.id > 0,
         role: user.role,
-        timeStampSession: Date.now()
+        timeStampSession: Date.now(),
+        avatar: user.avatar
       }
     }
   })

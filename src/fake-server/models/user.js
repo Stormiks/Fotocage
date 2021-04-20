@@ -23,6 +23,9 @@ export const userFactory = {
     password() {
       return faker.internet.password()
     },
+    avatar() {
+      return faker.image.imageUrl(128, 128, 'people')
+    },
     auth() {
       return false
     }

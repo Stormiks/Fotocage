@@ -170,14 +170,7 @@
           }
 
           this.isServerError = false
-
-          this.$store.dispatch('updateStatusLogin', {
-            auth: res.auth,
-            id: res.id,
-            role: res.role,
-            login: res.login
-          })
-
+          this.$store.dispatch('updateStatusLogin', res.user)
           this.$router.push({ name: 'Home' })
         })
       }

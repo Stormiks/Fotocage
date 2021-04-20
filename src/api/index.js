@@ -42,12 +42,7 @@ export const login = (formData, done) => {
 
 export const register = (formData, done) => {
   API.post('/registration', { ...formData }).then(res => {
-    if (res.data.status) done({
-      id: res.data.user.id,
-      auth: res.data.user.auth,
-      role: res.data.user.role,
-      timeStampSession: res.data.user.timeStampSession
-    })
+    if (res.data.status) done({ user: res.data.user })
     else done({ error: true })
   }).catch(e => console.log(e))
 }

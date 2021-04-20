@@ -10,14 +10,18 @@ const store = {
     images: [],
     userId: localStorage.getItem('id') !== 'undefined' ? JSON.parse(localStorage.getItem('id')) || null : null,
     role: localStorage.getItem('role') || 'guest',
-    timeStampSession: localStorage.getItem('timeStampSession') || null
+    timeStampSession: localStorage.getItem('timeStampSession') || null,
+    login: null,
+    avatar: null
   },
   mutations: {
-    setLogin(state, { id, auth, role, timeStampSession }) {
+    setLogin(state, { id, auth, role, timeStampSession, login, avatar }) {
       state.isLoggedIn = auth
       state.userId = id
       state.role = role
       state.timeStampSession = timeStampSession
+      state.login = login
+      state.avatar = avatar
       localStorage.setItem('loggin', auth)
       localStorage.setItem('id', id)
       localStorage.setItem('role', role)
@@ -49,7 +53,9 @@ const store = {
           auth: false,
           id: null,
           role: 'guest',
-          timeStampSession: null
+          timeStampSession: null,
+          login: null,
+          avatar: null
         })
         resolve(!status)
       })

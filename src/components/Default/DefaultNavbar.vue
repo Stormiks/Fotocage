@@ -6,8 +6,10 @@
       </h1>
     </div>
 
-    <div class="header__right h-full">
-      <slot name="navigations"></slot>
+    <div class="header__right flex h-full">
+      <slot name="navigations" />
+
+      <slot name="navbar-profile"/>
     </div>
   </header>
 </template>
@@ -22,7 +24,6 @@
   header {
     background: linear-gradient(to top, #e0e0e0, @color-white);
     border-bottom: 1px solid #b1acac;
-
   }
 
   .header__left {
@@ -38,5 +39,4 @@
       color: #ff7700;
     }
   }
-
 </style>
