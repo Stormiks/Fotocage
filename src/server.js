@@ -1,6 +1,6 @@
 import {
-  createServer,
-  Serializer
+  createServer
+  // Serializer
 } from 'miragejs'
 
 import routes from './fake-server/routes'
@@ -10,7 +10,7 @@ import faker from 'faker'
 import { userModel, userFactory } from './fake-server/models/user'
 import { imageModel, imageFactory } from './fake-server/models/image'
 
-const ApplicationSerializer = Serializer.extend()
+// const ApplicationSerializer = Serializer.extend()
 
 export function makeServer(environment = 'development') {
   const server = createServer({

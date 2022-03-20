@@ -111,7 +111,7 @@ export const authRoute = {
         middleware: {
           attach: [GuesMiddleware],
           ignore: [AuthMiddleware]
-        },
+        }
       }
     },
     {
@@ -123,7 +123,7 @@ export const authRoute = {
         middleware: {
           attach: [GuesMiddleware],
           ignore: [AuthMiddleware]
-        },
+        }
       }
     }
   ]
@@ -134,7 +134,7 @@ export const errorRoute = {
   component: ErrorLayout,
   redirect: { name: 'Error-Not-Found' },
   middleware: {
-    ignore: [AuthMiddleware],
+    ignore: [AuthMiddleware]
   },
   children: [
     {

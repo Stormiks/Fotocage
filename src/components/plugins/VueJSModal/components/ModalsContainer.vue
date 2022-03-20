@@ -17,51 +17,50 @@
   </div>
 </template>
 <script>
-import { generateId } from '../utils'
+  import { generateId } from '../utils'
 
-const PREFIX = 'dynamic_modal_'
+  const PREFIX = 'dynamic_modal_'
 
-export default {
-  data() {
-    return {
-      modals: []
-    }
-  },
-  created() {
-    /**
-     * Register ModalContainer so that it was availiable inside the plugin
-     */
-    this.$root.__modalContainer = this
-  },
-  mounted() {
-    this.$modal.subscription.$on('hide-all', () => {
-      this.modals = []
-    })
-  },
-  methods: {
-    add(component, componentAttrs = {}, modalAttrs = {}, modalListeners = {}) {
-      const id = generateId()
-      const name = modalAttrs.name || PREFIX + id
-
-      this.modals.push({
-        id,
-        modalAttrs: { ...modalAttrs, name },
-        modalListeners,
-        component,
-        componentAttrs
-      })
-
-      this.$nextTick(() => {
-        this.$modal.show(name)
+  export default {
+    data() {
+      return {
+        modals: []
+      }
+    },
+    created() {
+      /**
+       * Register ModalContainer so that it was availiable inside the plugin
+       */
+      this.$root.__modalContainer = this
+    },
+    mounted() {
+      this.$modal.subscription.$on('hide-all', () => {
+        this.modals = []
       })
     },
-    remove(id) {
-      const index = this.modals.findIndex(v => v.id === id)
+    methods: {
+      add(component, componentAttrs = {}, modalAttrs = {}, modalListeners = {}) {
+        const id = generateId()
+        const name = modalAttrs.name || PREFIX + id
 
-      if (index !== -1) {
-        this.modals.splice(index, 1)
+        this.modals.push({
+          id,
+          modalAttrs: { ...modalAttrs, name },
+          modalListeners,
+          component,
+          componentAttrs
+        })
+
+        this.$nextTick(() => {
+          this.$modal.show(name)
+        })
+      },
+      remove(id) {
+        const index = this.modals.findIndex(v => v.id === id)
+
+        if (index !== -1)
+          this.modals.splice(index, 1)
       }
     }
   }
-}
 </script>

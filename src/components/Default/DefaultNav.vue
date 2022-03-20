@@ -1,6 +1,7 @@
 <template>
   <nav class="nav__list flex flex-row">
     <ul class="inline-flex">
+      <!-- eslint-disable-next-line vue/require-v-for-key -->
       <li v-for="(link, ixd) in routes">
         <DefaultNavItem
           :key="`nav-link-${ixd}`"

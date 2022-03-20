@@ -25,9 +25,8 @@ export const blurActiveElement = () => {
     document.activeElement &&
     document.activeElement.tagName !== 'BODY' &&
     document.activeElement.blur
-  ) {
+  )
     document.activeElement.blur()
-  }
 }
 // Different browsers handle innerWidth/clientWidth differently,
 // this function tries to return the smallest width (assuming that it excludes
@@ -36,9 +35,8 @@ export const windowWidthWithoutScrollbar = () => {
   const { innerWidth } = window
   const { clientWidth } = document.documentElement
 
-  if (innerWidth && clientWidth) {
+  if (innerWidth && clientWidth)
     return Math.min(innerWidth, clientWidth)
-  }
 
   return clientWidth || innerWidth
 }

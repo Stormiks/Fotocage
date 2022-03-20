@@ -4,14 +4,13 @@ import PluginCore from './PluginCore'
 
 const Plugin = {
   install(Vue, options = {}) {
-    if (Vue.prototype.$modal) {
+    if (Vue.prototype.$modal)
       return
-    }
 
     const plugin = new PluginCore(Vue, options)
 
     Object.defineProperty(Vue.prototype, '$modal', {
-      get: function() {
+      get: function () {
         /**
          * The "this" scope is the scope of the component that calls this.$modal
          */
@@ -22,9 +21,8 @@ const Plugin = {
         if (caller instanceof Vue) {
           const root = caller.$root
 
-          if (!plugin.context.root) {
+          if (!plugin.context.root)
             plugin.setDynamicModalContainer(root)
-          }
         }
 
         return plugin
@@ -39,9 +37,8 @@ const Plugin = {
     /**
      * Registration of <Dialog/> component
      */
-    if (options.dialog) {
+    if (options.dialog)
       Vue.component('VDialog', Dialog)
-    }
   }
 }
 

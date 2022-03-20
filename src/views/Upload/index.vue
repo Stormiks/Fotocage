@@ -108,6 +108,7 @@
         })
       },
       addFileToPreview(img) {
+        // eslint-disable-next-line no-useless-escape
         const patt = new RegExp(`[\.][${this.acceptFormats.join('|')}]+`, 'i')
         const fileExt = img.name.match(patt)[0]
 
