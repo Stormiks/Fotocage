@@ -1,14 +1,29 @@
 <template>
   <footer>
     <div class="footer__info">
-      <p class="copy">&copy; 2020 Сайт сделан <a href="http://stormiks.github.io">Skylinker</a></p>
+      <p
+        class="copy">&copy; {{ currentYear }} Сайт сделан
+        <a
+          href="http://stormiks.github.io"
+          target="_blank"
+        >
+          Skylinker
+        </a>
+      </p>
     </div>
   </footer>
 </template>
 
 <script>
+  import dayjs from 'dayjs'
+
   export default {
     name: 'DefaultLayoutFooter',
+    computed: {
+      currentYear() {
+        return dayjs().format('YYYY')
+      }
+    }
   }
 </script>
 
