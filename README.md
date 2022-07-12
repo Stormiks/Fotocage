@@ -1,5 +1,7 @@
 # Fotocage
 
+[![pipeline status](https://gitlab.com/skylinker/fotocage/badges/public/pipeline.svg)](https://gitlab.com/skylinker/fotocage/-/commits/public)
+
 Текущая версия: <a href="https://skylinker.gitlab.io/fotocage/" title="Fotocage v2">GitLab - "Fotocage SPA"</a>
 
 ## Развёртывание проекта
