@@ -14,13 +14,13 @@ import store from '@/store'
 
 import { makeServer } from './server'
 
-import VueJSModal from 'plugins/VueJSModal/'
+// import VueJSModal from 'plugins/VueJSModal/'
 
 /**
  * Use plugins in VueJS
  */
 Vue.use(RouterMiddleware, router)
-Vue.use(VueJSModal)
+// Vue.use(VueJSModal)
 Vue.use(VueAxios, axios)
 
 // if (process.env.NODE_ENV === 'development') makeServer('development')
