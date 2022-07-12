@@ -1,0 +1,20 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+.build:
+  before_script: rm -rf node_modules && yarn install --frozen-lockfile
+  image: node:14
+  script:
+    - rm -rf dist && rm -rf public
+    - mkdir dist && mkdir public
+    - yarn build
+    - mv dist/* public
+
+pages:
+  extends: .build
+  artifacts:
+    paths:
+      - public
+  only:
+    - public
