@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker'
 
 import { userModel, userFactory } from './fake-server/models/user'
 import { imageModel, imageFactory } from './fake-server/models/image'
+import { categoryModel, categoryFactory } from './fake-server/models/category'
 
 // const ApplicationSerializer = Serializer.extend()
 
@@ -16,11 +17,13 @@ export function makeServer(environment = 'development') {
   const server = createServer({
     models: {
       user: userModel.user,
-      image: imageModel.image
+      image: imageModel.image,
+      category: categoryModel.category
     },
     factories: {
       user: userFactory.user,
-      image: imageFactory.image
+      image: imageFactory.image,
+      category: categoryFactory.category
     },
     environment,
     routes,
@@ -56,6 +59,9 @@ export function makeServer(environment = 'development') {
         role: 'photographer'
       })
       server.createList('image', 25)
+      server.createList('category', {
+        name: faker.database.column()
+      })
     }
   })
 

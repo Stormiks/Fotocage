@@ -47,7 +47,7 @@
   import GalleryImagesCard from 'components/GalleryImagesCard'
   import CardControlGroup from 'components/CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'
-  import { images } from '@/api/'
+  import { images, categories } from '@/api/index.js'
 
   export default {
     name: 'ViewsGalleryImages',
@@ -78,6 +78,19 @@
         this.loading = false
         this.loadedFiles = true
       })
+
+      categories((res) => {
+        console.log(res)
+      })
+    },
+    computed: {
+      sortByCategory() {
+        return this.files.map((value, index, array) => {
+          console.log(value)
+
+          return array
+        })
+      }
     },
     methods: {
       handleSetIndex(index) {

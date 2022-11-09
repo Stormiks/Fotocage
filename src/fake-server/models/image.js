@@ -1,6 +1,7 @@
 import {
   Factory,
-  Model
+  Model,
+  belongsTo
 } from 'miragejs'
 
 import { faker } from '@faker-js/faker'
@@ -16,6 +17,9 @@ export const imageFactory = {
     },
     filename() {
       return faker.name.jobTitle() + '.jpg'
+    },
+    category() {
+      return String(this.src).replace('http://placeimg.com/640/480/', '')
     },
     title() {
       return faker.name.jobTitle()
