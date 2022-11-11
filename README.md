@@ -1,6 +1,5 @@
 # Fotocage
 
-[![pipeline status](https://gitlab.com/skylinker/fotocage/badges/public/pipeline.svg)](https://gitlab.com/skylinker/fotocage/-/commits/public)
 ## Requirement
 
 - Node.JS: ~14.20.x
@@ -37,4 +36,4 @@ yarn lint
 ## Backend - API/DB
 
 - [MirageJS](http://miragejs.com)
-- [Faker.JS](https://github.com/marak/Faker.js/)
+- [Faker.JS](https://github.com/faker-js/faker)
