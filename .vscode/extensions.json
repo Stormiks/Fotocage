@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "christian-kohler.path-intellisense",
+    "editorconfig.editorconfig",
+    "octref.vetur",
+    "christian-kohler.npm-intellisense"
+  ]
+}
