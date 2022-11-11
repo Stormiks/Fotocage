@@ -20,21 +20,19 @@ const types = [
 ]
 
 const getType = value => {
-  if (value === 'auto') {
+  if (value === 'auto')
     return {
       type: value,
       value: 0
     }
-  }
 
   const type = types.find(type => type.regexp.test(value))
 
-  if (type) {
+  if (type)
     return {
       type: type.name,
       value: parseFloat(value)
     }
-  }
 
   return {
     type: '',
@@ -55,7 +53,7 @@ export const parseNumber = value => {
 
 export const validateNumber = value => {
   if (typeof value === 'string') {
-    let num = parseNumber(value)
+    const num = parseNumber(value)
 
     return (num.type === '%' || num.type === 'px') && num.value > 0
   }

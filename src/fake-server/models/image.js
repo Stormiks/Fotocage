@@ -3,7 +3,7 @@ import {
   Model
 } from 'miragejs'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 export const imageModel = {
   image: Model
@@ -15,10 +15,10 @@ export const imageFactory = {
       return faker.image.image()
     },
     filename() {
-      return faker.name.title() + '.jpg'
+      return faker.name.jobTitle() + '.jpg'
     },
     title() {
-      return faker.name.title()
+      return faker.name.jobTitle()
     },
     description() {
       return faker.lorem.words()

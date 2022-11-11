@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import VueLoadingIndicator from 'components/vue-loading-indocator'
+  import VueLoadingIndicator from 'components/vue-loading-indicator'
   import GalleryImagesCard from 'components/GalleryImagesCard'
   import CardControlGroup from 'components/CardControlGroup'
   import CoolLightBox from 'plugins/CoolLightBox/'

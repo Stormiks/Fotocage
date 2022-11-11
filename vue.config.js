@@ -9,17 +9,17 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'Photocage'
+      title: 'Fotocage'
     }
   },
   assetsDir: 'assets',
-  publicPath: process.env.NODE_ENV === 'production' ? '/Fotocage/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/fotocage/' : '/',
   outputDir: 'dist',
   lintOnSave: process.env.NODE_ENV !== 'production',
   // runtimeCompiler: true,
   productionSourceMap: process.env.NODE_ENV !== 'production',
   css: {
-    extract: process.env.NODE_ENV == 'production',
+    extract: process.env.NODE_ENV === 'production',
     sourceMap: true
   },
   chainWebpack: config => {

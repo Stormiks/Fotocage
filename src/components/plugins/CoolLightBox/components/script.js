@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 
 import LazyLoadDirective from '../directives/LazyLoad'
 import AutoplayObserver from '../directives/AutoplayObserver'

@@ -3,7 +3,7 @@ import {
   Model
 } from 'miragejs'
 
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 export const userModel = {
   user: Model
@@ -31,8 +31,3 @@ export const userFactory = {
     }
   })
 }
-
-// export default {
-//   userModel,
-//   userFactory
-// }

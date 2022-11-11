@@ -56,6 +56,7 @@ export default {
       observer.observe(el)
     }
     if (window.IntersectionObserver) createObserver()
+    // eslint-disable-next-line no-undef
     else loadImage()
   }
 }

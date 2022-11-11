@@ -25,7 +25,7 @@ const queryFocusableElements = element => {
 }
 
 const isFocused = element => {
-  return element == document.activeElement
+  return element === document.activeElement
 }
 
 const isNothingFocused = () => {
@@ -53,9 +53,8 @@ class FocusTrap {
   }
 
   onKeyDown(event) {
-    if (!isTabPressed(event)) {
+    if (!isTabPressed(event))
       return
-    }
 
     // SHIFT + TAB
     if (event.shiftKey && isFocused(this.firstElement())) {
@@ -67,8 +66,7 @@ class FocusTrap {
     // TAB
     if (isNothingFocused() || isFocused(this.lastElement())) {
       this.firstElement().focus()
-      event.preventDefault()
-      return
+      return event.preventDefault()
     }
   }
 
@@ -77,18 +75,16 @@ class FocusTrap {
   }
 
   enable(root) {
-    if (!root) {
+    if (!root)
       return
-    }
 
     this.root = root
     this.elements = queryFocusableElements(this.root)
 
     const firstElement = this.firstElement()
 
-    if (firstElement) {
+    if (firstElement)
       firstElement.focus()
-    }
 
     this.root.addEventListener('keydown', this.onKeyDown)
   }

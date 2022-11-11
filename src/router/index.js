@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { before, resolve, after } from './hooks'
+import { before, after } from './hooks'
 import { routes } from './routes'
 
 Vue.use(VueRouter)
