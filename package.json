@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Skylinker <skylinkertu33@gmail.com> (https://stormiks.github.io)",
   "private": true,
-  "homepage": "https://skylinker.gitlab.io/fotocage/",
+  "homepage": "https://stormiks.github.io/fotocage/",
   "scripts": {
     "serve": "cross-env vue-cli-service serve",
     "build": "cross-env vue-cli-service build",
@@ -64,8 +64,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://skylinker.gitlab.io/fotocage/",
-    "directory": "Skylinker/fotocage"
+    "url": "https://stormiks.github.io/fotocage/",
+    "directory": "Stormiks/fotocage"
   },
   "engines": {
     "node": ">=14.*",
