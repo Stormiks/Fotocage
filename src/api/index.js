@@ -1,20 +1,28 @@
 import axios from 'axios'
 
+const ENV = process.env
+
 export const API = axios.create({
   baseURL: '/api'
 })
 
 export const downloadImages = (data, cbProgress, done) => {
-  API.put('/upload/image', data, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
+  let configHeadersAPI = {
     onUploadProgress: cbProgress
-  }).then(res => {
-    done(res)
-  }).catch(err => {
-    console.log('ERROR', err)
-  })
+  }
+
+  if ('VUE_APP_ENV_FAKE_SERVER' in ENV)
+    configHeadersAPI = Object.assign(configHeadersAPI, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+  API.put('/upload/image', data, configHeadersAPI)
+    .then(res => done(res))
+    .catch(err => {
+      console.trace('[ERROR]: ', err)
+    })
 }
 
 export const images = (done) => {
@@ -26,7 +34,7 @@ export const images = (done) => {
     done(images)
   }).catch(err => {
     done({ error: true })
-    console.log(err)
+    console.trace('[ERROR]: ', err)
   })
 }
 
@@ -34,7 +42,7 @@ export const login = (formData, done) => {
   API.post('/login', { ...formData }).then(res => {
     if (res.data.status) done({ user: res.data.user })
     else done({ error: true })
-  }).catch(e => console.log(e))
+  }).catch(err => console.trace('[ERROR]: ', err))
 }
 
 export const register = (formData, done) => {
@@ -46,7 +54,7 @@ export const register = (formData, done) => {
       timeStampSession: res.data.user.timeStampSession
     })
     else done({ error: true })
-  }).catch(e => console.log(e))
+  }).catch(err => console.trace('[ERROR]: ', err))
 }
 
 export const statusSession = (user, done) => {
@@ -58,5 +66,5 @@ export const statusSession = (user, done) => {
       timeStampSession: res.data.user.timeStampSession
     })
     else done(res.data.session)
-  }).catch(e => console.log(e))
+  }).catch(err => console.trace('[ERROR]: ', err))
 }
