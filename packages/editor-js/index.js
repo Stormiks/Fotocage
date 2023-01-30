@@ -1,4 +1,4 @@
-const EditorComponent = () => import('./Editor.vue')
+const EditorComponent = () => import('pkg/editor-js/Editor.vue')
 
 export function install(Vue) {
   if (install.installed) return
@@ -7,21 +7,19 @@ export function install(Vue) {
 }
 
 const plugin = {
-  install,
+  install
 }
 
 export const Editor = EditorComponent
 
 let GlobalVue = null
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined')
   GlobalVue = window.Vue
-} else if (typeof global !== 'undefined') {
+else if (typeof global !== 'undefined')
   GlobalVue = global.Vue
-}
 
-if (GlobalVue) {
+if (GlobalVue)
   GlobalVue.use(plugin)
-}
 
 export default plugin

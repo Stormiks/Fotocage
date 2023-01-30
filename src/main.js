@@ -8,7 +8,7 @@ import App from '@/App.vue'
 import VueAxios from 'vue-axios'
 import axios from 'axios'
 
-import RouterMiddleware from 'vue-router-middleware-plugin'
+import RouterMiddleware from 'pkg/vue-router-middleware/'
 import router from '@/router'
 import store from '@/store'
 

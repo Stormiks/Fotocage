@@ -108,7 +108,7 @@ module.exports = {
 
   extends: ['plugin:vue/essential', '@vue/standard'],
   ignorePatterns: ['**/node_modules/**/*',
-    'src/components/plugins/**/*.js',
+    'packages/**/*.js',
     'src/assets/**/*.js'
   ]
 }

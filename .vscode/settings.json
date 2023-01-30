@@ -29,6 +29,7 @@
     "assets": "${workspaceRoot}/src/assets",
     "router": "${workspaceRoot}/src/router",
     "components": "${workspaceRoot}/src/components",
-    "plugins": "${workspaceRoot}/src/components/plugins"
+    "plugins": "${workspaceRoot}/src/components/plugins",
+    "pkg": "${workspaceRoot}/packages"
   }
 }

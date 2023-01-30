@@ -10402,11 +10402,6 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-router-middleware-plugin@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/vue-router-middleware-plugin/-/vue-router-middleware-plugin-3.1.1.tgz#ce7f0fbdf3bf44833c603f4bba99fb7c7f8439e1"
-  integrity sha512-XrY1KsOgWONZV4oI0MnyfoglidLUYUsbgVvGaE4qEjHiBNpq0HvHuSGuX6maBoci509e7oy/vimQwqn+sNp6Vw==
-
 vue-router@3.5.4:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.5.4.tgz#c453c0b36bc75554de066fefc3f2a9c3212aca70"

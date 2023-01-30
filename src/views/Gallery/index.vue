@@ -46,7 +46,7 @@
   import VueLoadingIndicator from 'components/vue-loading-indicator'
   import GalleryImagesCard from 'components/GalleryImagesCard'
   import CardControlGroup from 'components/CardControlGroup'
-  import CoolLightBox from 'plugins/CoolLightBox/'
+  import CoolLightBox from 'pkg/cool-light-box'
   import { images } from '@/api/'
 
   export default {
