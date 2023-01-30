@@ -27,7 +27,7 @@ yarn lint
 
 ## Frontend - client
 
-- [Tailwindcss](https://tailwindcss.com)
+- [TailwindCSS](https://tailwindcss.com)
 - [Axios](https://github.com/axios/axios)
 - [Vue-axios](https://github.com/imcvampire/vue-axios)
 - [Vue-router](https://github.com/vuejs/vue-router)
@@ -35,5 +35,6 @@ yarn lint
 
 ## Backend - API/DB
 
-- [MirageJS](http://miragejs.com)
-- [Faker.JS](https://github.com/faker-js/faker)
+- Fake database [MirageJS](http://miragejs.com)
+- Random data [Faker.JS](https://github.com/faker-js/faker)
+- Free placeholder images (API) [LoremFlickr](https://loremflickr.com/)

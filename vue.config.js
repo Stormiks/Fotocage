@@ -32,6 +32,7 @@ module.exports = {
     devtool: 'source-map',
     resolve: {
       alias: {
+        '~': path.resolve('./'),
         '@': path.resolve('src'),
         'views': path.resolve('src/views'),
         'layoutAuth': path.resolve('src/views/layouts/AuthLayout'),
