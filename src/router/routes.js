@@ -1,5 +1,5 @@
 import AuthMiddleware from './middleware/auth'
-import GuesMiddleware from './middleware/guest'
+import GuestMiddleware from './middleware/guest'
 
 const DefaultLayout = () => import('views/layouts/DefaultLayout/DefaultLayout')
 const AuthLayout = () => import('views/layouts/AuthLayout/AuthLayout')
@@ -109,7 +109,7 @@ export const authRoute = {
       meta: {
         title: 'Registration',
         middleware: {
-          attach: [GuesMiddleware],
+          attach: [GuestMiddleware],
           ignore: [AuthMiddleware]
         }
       }
@@ -121,7 +121,7 @@ export const authRoute = {
       meta: {
         title: 'Login',
         middleware: {
-          attach: [GuesMiddleware],
+          attach: [GuestMiddleware],
           ignore: [AuthMiddleware]
         }
       }
