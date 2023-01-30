@@ -2,7 +2,7 @@
 
 ## Requirement
 
-- Node.JS: ~14.20.x
+- Node.JS: ^14.x.y
 
 ## Terminal commands
 ```
