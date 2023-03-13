@@ -1,10 +1,11 @@
 import store from '@/store'
 
-const isLoggedIn = () => !!store.state.isLoggedIn
+const { user: moduleUser } = store.state
+const isLoggedIn = () => !!moduleUser.isLoggedIn
 
 const authMiddleware = async ({ redirect }) => {
   if (isLoggedIn())
-    await store.dispatch('refreshSession').then((status) => {
+    await store.dispatch('user/refreshSession').then((status) => {
       if (!status) redirect({ name: 'Login' })
       else redirect()
     })

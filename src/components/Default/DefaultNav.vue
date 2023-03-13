@@ -63,7 +63,7 @@
     },
     methods: {
       logout() {
-        this.$store.dispatch('logout').then(status => this.$router.push({ name: 'Login' }))
+        this.$store.dispatch('user/logout').then(status => this.$router.push({ name: 'Login' }))
       }
     }
   }
