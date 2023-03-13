@@ -5,8 +5,8 @@
   "private": true,
   "homepage": "https://stormiks.github.io/fotocage/",
   "scripts": {
-    "serve": "cross-env vue-cli-service serve",
-    "build": "cross-env vue-cli-service build",
+    "serve": "cross-env NODE_ENV=development vue-cli-service serve",
+    "build": "cross-env NODE_ENV=production vue-cli-service build",
     "build:server:fake": "cross-env VUE_APP_ENV_FAKE_SERVER=1 vue-cli-service build",
     "lint": "cross-env vue-cli-service lint"
   },
