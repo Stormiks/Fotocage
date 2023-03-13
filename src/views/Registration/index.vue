@@ -145,7 +145,7 @@
     },
     computed: {
       ...mapState({
-        logged: state => state.isLoggedIn
+        logged: state => state.user.isLoggedIn
       })
     },
     beforeRouteLeave(to, from, next) {
@@ -157,9 +157,9 @@
         this.$v.form.$touch()
 
         if (!this.$v.validForm.$error) register(formData, (res) => {
-          if (res.error) return this.$store.dispatch('updateStatusLogin', false)
+          if (res.error) return this.$store.dispatch('user/updateStatusLogin', false)
 
-          this.$store.dispatch('updateStatusLogin', {
+          this.$store.dispatch('user/updateStatusLogin', {
             auth: res.auth,
             id: res.id,
             role: res.role,
