@@ -52,7 +52,7 @@
     },
     computed: {
       ...mapState({
-        logged: state => state.isLoggedIn
+        logged: state => state.user.isLoggedIn
       }),
       ...mapGetters({
         routes: 'routesAccessByUser'
